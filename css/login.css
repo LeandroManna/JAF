@@ -1,0 +1,23 @@
+body {
+    background: #005AA7;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #FFFDE4, #005AA7);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #FFFDE4, #005AA7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: auto 1fr auto;
+}
+.centrado {
+    text-align: center;
+    vertical-align: middle;
+}
+.container {
+    background-color: transparent;
+}
+#text-musculacion{
+    color: #ff00cc;
+}
+.p-footer {
+    margin-bottom: 0;
+}

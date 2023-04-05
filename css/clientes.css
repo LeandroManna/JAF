@@ -1,0 +1,45 @@
+body {
+    background: #ff00cc;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #333399, #ff00cc);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #333399, #ff00cc); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: auto 1fr auto;
+}
+.centrado {
+    text-align: center;
+    vertical-align: middle;
+}
+.container {
+    background-color: transparent;
+}
+#text-musculacion{
+    color: #ff00cc;
+}
+.p-footer {
+    margin-bottom: 0;
+}
+
+
+/*Calendario*/
+.calendario {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.label-calendario {
+    margin-bottom: 1em;
+    text-align: center;
+}
+.input-calendario {
+    width: 50%;
+    text-align: center;
+}
+
+.centrar-iframe {
+    text-align: center;
+}
+.iframe-clientes {
+    width: 100%;
+}
