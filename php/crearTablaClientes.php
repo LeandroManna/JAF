@@ -22,7 +22,8 @@ $buscar = isset($_GET['buscar']) ? $_GET['buscar'] : '';
 $offset = ($paginaActual - 1) * $filasPorPagina;
 
 // Obtener las filas de la página actual que coinciden con la cadena de búsqueda
-$sql = "SELECT * FROM (SELECT id, apellido, nombre, dni, 'clientes' as tipo FROM clientes UNION ALL SELECT id, apellido, nombre, dni, 'body_pump' as tipo FROM body_pump) as clientes WHERE id LIKE '%$buscar%' OR apellido LIKE '%$buscar%' OR nombre LIKE '%$buscar%' OR dni LIKE '%$buscar%' LIMIT $filasPorPagina OFFSET $offset";
+$sql = "SELECT * FROM (SELECT id, apellido, nombre, dni, 'Musculación' as tipo FROM clientes UNION ALL SELECT id, apellido, nombre, dni, 'bodyPump' as tipo FROM body_pump) as clientes WHERE id LIKE '%$buscar%' OR apellido LIKE '%$buscar%' OR nombre LIKE '%$buscar%' OR dni LIKE '%$buscar%' LIMIT $filasPorPagina OFFSET $offset";
+
 $resultado = mysqli_query($conn, $sql);
 
 // Verificar si hay resultados

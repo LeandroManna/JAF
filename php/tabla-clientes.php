@@ -14,6 +14,12 @@
             <label for="id" class="form-label">N° de Socio</label>
             <input type="number" class="form-control" name="id" id="id" placeholder="N° de Socio" readonly disabled>
         </div>
+
+        <div class="mb-1 col-md-6">
+            <label for="disciplina" class="form-label">Disciplina</label>
+            <input type="text" class="form-control" name="disciplina" id="inputDisciplina" value="<?php echo "" . $fila['tipo'] . "."; ?>" readonly disabled>
+        </div>
+
         <div class="mb-1 col-md-6">
             <label for="dni" class="form-label">DNI:</label>
             <input type="number" class="form-control" name="dni" id="dni" placeholder="Ej. 12345678" readonly disabled>

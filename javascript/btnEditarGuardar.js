@@ -28,6 +28,7 @@ btnEditar.forEach(btn => {
         inputFechaNacimiento.value = cliente.fecha_nacimiento;
         inputCelular.value = cliente.celular;
         inputDetalle.value = cliente.detalle;
+        
       }
     }
     xhr.send();

@@ -82,7 +82,6 @@
                     include ("../php/tabla-clientes.php");
                   ?>
                 </div>
-                
               </div>
               <!-- Formulario para agregar clientes en la pestaña AGREGAR -->
               <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -92,7 +91,6 @@
                     include ("../php/agregar-cliente.php");
                   ?>
                 </div>
-                
                 <!-- <div class="mt-3" id="mensaje-exito"></div> -->
               </div>
               <!-- Formulario de tipos de entrenamiento en pestaña ENTRENAMIENTOS -->
@@ -203,7 +201,6 @@
     <!-- EL SIGUIENTE SCRIPT CARGA LOS DATOS DE LA TABLA
           ACTIVARMUSCULOS EN LOS RESPECTIVOS TEXTAREA -->
     <script>
-      
       const brazos = '<?php echo nl2br(implode('\n', $brazos)); ?>';
       if (document.getElementById('brazo')) {
           document.getElementById('brazo').value += brazos;

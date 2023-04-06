@@ -9,6 +9,7 @@ if (isset($_GET['id'])) {
 
     // Obtener los datos del cliente correspondiente al ID de ambas tablas
     $sql = "SELECT * FROM (SELECT id, nombre, apellido, dni, detalle, fecha_nacimiento, celular FROM clientes UNION ALL SELECT id, nombre, apellido, dni, detalle, fecha_nacimiento, celular FROM body_pump) AS todos WHERE id = $id";
+    
     $resultado = mysqli_query($conn, $sql);
     $cliente = mysqli_fetch_assoc($resultado);
 
