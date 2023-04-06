@@ -17,16 +17,16 @@
           <div class="container-fluid">
             <a class="navbar-brand" href="../index.html">
               <img src="../asets/Img/logo.png" alt="" width="50" height="50">
-              <a class="navbar-brand" href="" id="text-musculacion">Musculacion</a>
+              <a class="navbar-brand" href="" id="text-musculacion">Iniciar Sesion</a>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav ms-auto">
-                <a class="nav-link" aria-current="page" href="../index.html">Inicio</a>
-                <a class="nav-link" href="#">Nosotros</a>
-                <a class="nav-link active" href="login.php">Login</a>
+                <a class="nav-link" href="../index.html">Inicio</a>
+                <a class="nav-link" href="sobreNosotros.html">Nosotros</a>
+                <a class="nav-link active" aria-current="page" href="login.php">Login</a>
               </div>
             </div>
           </div>

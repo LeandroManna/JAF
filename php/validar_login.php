@@ -49,7 +49,7 @@ if (isset($_POST['submit'])){
         $_SESSION['nombre'] = $nombre_bPump;
         $_SESSION['detalle'] = $detalle_bPump;
         // Si los datos son válidos, redirigir a la página "clientes.php"
-        header("Location: clientes.php");
+        header("Location: bodyPump.php");
         exit;
     } 
     if ($num_rows2 > 0) {
