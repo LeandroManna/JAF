@@ -48,7 +48,7 @@
         <div class="container my-3">
             <div class="row">
                 <!-- Div del calendario -->
-                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 py-1 calendario d-none">
+                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 py-1 calendario ">
                     <label for="calendario" class="label-calendario">Elegi la fecha para ver tu entrenamiento...</label>
                     <?php
                       // Establecer la zona horaria de Argentina
@@ -74,7 +74,7 @@
                 include ("../php/activarMusculos.php");
             ?>
 
-            <div class="row justify-content-center">
+            <div class="row justify-content-center d-none">
                 <div class="col-sm-12 col-md-5 col-lg-5 col-xl-5 py-1">
                     <div class="accordion" id="accordionExample">
 
