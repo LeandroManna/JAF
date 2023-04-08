@@ -2,6 +2,7 @@
     include "conexion.php";
     // Agregar el código para insertar el nuevo cliente en la base de datos
     if (isset($_POST['submit'])) {
+        $disciplina = $_POST['disciplina'];
         $id = $_POST['id'];
         $nombre = $_POST['nombre'];
         $apellido = $_POST['apellido'];
@@ -9,16 +10,16 @@
         $fecha_nacimiento = $_POST['fecha_nacimiento'];
         $celular = $_POST['celular'];
         $detalle = $_POST['detalle'];
-        $tabla = $_POST['tabla'];
+        
         
         // Verificar si el cliente ya existe en la base de datos
-        $query = mysqli_query($conn, "SELECT * FROM $tabla WHERE dni='$dni'");
+        $query = mysqli_query($conn, "SELECT * FROM clientes WHERE id='$id'");
         $result = mysqli_fetch_array($query);
         
         if (!$result) {
             // Insertar el nuevo cliente en la base de datos
-            $query = mysqli_query($conn, "INSERT INTO $tabla (id, nombre, apellido, dni, fecha_nacimiento, celular, detalle) 
-            VALUES ('$id','$nombre', '$apellido', '$dni', '$fecha_nacimiento', '$celular', '$detalle')");
+            $query = mysqli_query($conn, "INSERT INTO clientes (id, nombre, apellido, dni, fecha_nacimiento, celular, detalle, disciplina) 
+            VALUES ('$id','$nombre', '$apellido', '$dni', '$fecha_nacimiento', '$celular', '$detalle', '$disciplina')");
             
             // Ejecutar la consulta
             $resultado = mysqli_query($conn, $query);
@@ -42,17 +43,25 @@
 
 <form id="form-clientes" method="POST" class="row">
     <div class="mb-3 col-md-4">
-        <label for="tabla" class="form-label">Disciplina *</label>
-        <select class="form-select" name="tabla" id="tabla">
+        <label for="disciplina" class="form-label">Disciplina *</label>
+        <select class="form-select" name="disciplina" id="disciplina" required>
             <option selected disabled value="">Seleccione...</option>
-            <option value="clientes">Musculacion</option>
-            <option value="body_pump">Body Pump</option>
+            <option value="Musculacion">Musculacion</option>
+            <option value="Body_Pump">Body Pump</option>
+            <option value="body_Combat">Body Combat</option>
+            <option value="Funcional">Funcional</option>
+            <option value="Hit">Hit</option>
+            <option value="Especifico">Especifico</option>
+            <option value="Everlast_Boxing">Everlast Boxing</option>
+            <option value="Mini_Voley">Mini Voley</option>
+            <option value="Taekwondo">Taekwondo</option>
+            <option value="Futbol_Infantil">Futbol Infantil</option>
         </select>
     </div>
 
     <div class="mb-3 col-md-4">
         <label for="id" class="form-label">N° de Socio: *</label>
-        <input type="number" class="form-control bg-color" name="id" id="id" placeholder="N° de Socio" required>
+        <input type="number" class="form-control bg-color" name="id" id="id" placeholder="N° de Socio" >
     </div>
     <div class="mb-3 col-md-4">
         <label for="dni" class="form-label">DNI: *</label>
@@ -69,15 +78,6 @@
     <div class="mb-3 col-md-4">
         <label for="nombre" class="form-label">Nombre *</label>
         <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" >
-    </div>
-    <div class="mb-3 col-md-4">
-      <label for="validationCustom04" class="form-label">Tipos de Entrenamiento *</label>
-      <select class="form-select" id="validationCustom04">
-        <option selected disabled value="">Seleccione...</option>
-        <option id="eBasico" value="eBasico">Entrenamiento basico</option>
-        <option id="eIntermedio" value="eIntermedio">Entrenamiento intermedio</option>
-        <option id="eAvanzado" value="eAvanzado">Entrenamiento avanzado</option>
-      </select>
     </div>
     <div class="mb-3 col-md-4">
         <label for="celular" class="form-label">Celular *</label>

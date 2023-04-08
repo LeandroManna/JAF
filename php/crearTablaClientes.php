@@ -5,7 +5,7 @@ include "conexion.php";
 $filasPorPagina = 5;
 
 // Obtener el número total de filas
-$sqlTotalFilas = "SELECT COUNT(*) as totalFilas FROM (SELECT id, apellido, nombre, dni FROM clientes UNION ALL SELECT id, apellido, nombre, dni FROM body_pump) as clientes";
+$sqlTotalFilas = "SELECT COUNT(*) as totalFilas FROM clientes";
 $resultadoTotalFilas = mysqli_query($conn, $sqlTotalFilas);
 $totalFilas = mysqli_fetch_assoc($resultadoTotalFilas)['totalFilas'];
 
@@ -22,9 +22,10 @@ $buscar = isset($_GET['buscar']) ? $_GET['buscar'] : '';
 $offset = ($paginaActual - 1) * $filasPorPagina;
 
 // Obtener las filas de la página actual que coinciden con la cadena de búsqueda
-$sql = "SELECT * FROM (SELECT id, apellido, nombre, dni, 'Musculación' as tipo FROM clientes UNION ALL SELECT id, apellido, nombre, dni, 'bodyPump' as tipo FROM body_pump) as clientes WHERE id LIKE '%$buscar%' OR apellido LIKE '%$buscar%' OR nombre LIKE '%$buscar%' OR dni LIKE '%$buscar%' LIMIT $filasPorPagina OFFSET $offset";
+$sql = "SELECT * FROM clientes WHERE id LIKE '%$buscar%' OR apellido LIKE '%$buscar%' OR nombre LIKE '%$buscar%' OR dni LIKE '%$buscar%' OR disciplina LIKE '%$buscar%' LIMIT $filasPorPagina OFFSET $offset";
 
 $resultado = mysqli_query($conn, $sql);
+
 
 // Verificar si hay resultados
 if (mysqli_num_rows($resultado) > 0) {
@@ -51,8 +52,8 @@ if (mysqli_num_rows($resultado) > 0) {
     // Recorrer los resultados y agregar cada fila a la tabla HTML
     while($fila = mysqli_fetch_assoc($resultado)) {
                 
-          echo "<tr data-id='" . $fila['tipo'] . "-" . $fila['id'] . "'>
-                <td>" . ucfirst($fila['tipo']) . "</td>
+          echo "<tr data-id='" . $fila['id'] . "-" . $fila['id'] . "'>
+                <td>" . ucfirst($fila['disciplina']) . "</td>
                 <td>" . $fila['id'] . "</td>
                 <td>" . $fila['apellido'] . "</td>
                 <td>

@@ -7,6 +7,7 @@ $apellido = $_POST['apellido'];
 $dni = $_POST['dni'];
 $fecha_nacimiento = $_POST['fecha_nacimiento'];
 $celular = $_POST['celular'];
+
 $detalle = $_POST['detalle'];
 
 // Actualizar los datos del cliente en la base de datos

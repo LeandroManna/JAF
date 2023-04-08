@@ -1,6 +1,3 @@
-<?php
-    include "../php/buscarCliente.php";
-?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -43,6 +40,14 @@
         <div class="container my-3">
             <h5 class="text-center mb-5">Pagina de Pagos</h5>
             <!-- Datos del cliente buscado -->
+            <form action='' method='GET' name="buscar">
+              <div class='input-group mb-3'>
+                <input type='text' name='buscar' class='form-control form-control-sm' placeholder='Buscar' aria-label='Buscar' aria-describedby='basic-addon2' value=''>
+                <div class='input-group-append'>
+                  <button class='btn btn-outline-secondary' name='buscar-btn' type='submit'><i class='fa fa-search'></i></button>
+                </div>
+              </div>
+            </form>
             <form action="" method="post">
                 <div class="row justify-content-center my-3">
                     <div class="col-12 col-md-2 mb-2">

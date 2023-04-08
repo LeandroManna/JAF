@@ -7,6 +7,7 @@ const inputDni = document.querySelector('#dni');
 const inputFechaNacimiento = document.querySelector('#fecha_nacimiento');
 const inputCelular = document.querySelector('#celular');
 const inputDetalle = document.querySelector('#detalle');
+const inputDisciplina = document.querySelector('#disciplina');
 const btnGuardar = document.querySelector('#editarCliente');
 
 btnEditar.forEach(btn => {
@@ -27,8 +28,8 @@ btnEditar.forEach(btn => {
         inputDni.value = cliente.dni;
         inputFechaNacimiento.value = cliente.fecha_nacimiento;
         inputCelular.value = cliente.celular;
+        inputDisciplina.value = cliente.disciplina;
         inputDetalle.value = cliente.detalle;
-        
       }
     }
     xhr.send();

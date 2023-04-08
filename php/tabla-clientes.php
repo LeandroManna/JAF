@@ -14,36 +14,41 @@
             <label for="id" class="form-label">N° de Socio</label>
             <input type="number" class="form-control" name="id" id="id" placeholder="N° de Socio" readonly disabled>
         </div>
-
         <div class="mb-1 col-md-6">
-            <label for="disciplina" class="form-label">Disciplina</label>
-            <input type="text" class="form-control" name="disciplina" id="inputDisciplina" value="<?php echo "" . $fila['tipo'] . "."; ?>" readonly disabled>
+            <label for="disciplina" class="form-label">Disciplina:</label>
+            <input type="text" class="form-control" name="disciplina" id="disciplina" placeholder="Disciplina..." readonly disabled>
         </div>
-
         <div class="mb-1 col-md-6">
             <label for="dni" class="form-label">DNI:</label>
-            <input type="number" class="form-control" name="dni" id="dni" placeholder="Ej. 12345678" readonly disabled>
+            <input type="number" class="form-control" name="dni" id="dni" placeholder="Ej. 12345678">
         </div>
         <div class="mb-1 col-md-6">
             <label for="apellido" class="form-label">Apellido:</label>
-            <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido" readonly disabled>
+            <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido">
         </div>
         <div class="mb-1 col-md-6">
             <label for="nombre" class="form-label">Nombre:</label>
-            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" readonly disabled >
+            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" >
         </div>
         <div class="mb-1 col-md-6">
             <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento:</label>
             <input type="date" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" >
         </div>
         <div class="mb-1 col-md-6">
-          <label for="validationCustom04" class="form-label">Tipos de Entrenamiento</label>
-          <select class="form-select" id="validationCustom04">
+          <label for="changeDisciplina" class="form-label">Cambiar disciplina:</label>
+          <select class="form-select" name="changeDisciplina" id="changeDisciplina">
             <option selected disabled value="">Seleccione...</option>
-            <option id="eBasico" value="eBasico">Entrenamiento basico</option>
-            <option id="eIntermedio" value="eIntermedio">Entrenamiento intermedio</option>
-            <option id="eAvanzado" value="eAvanzado">Entrenamiento avanzado</option>
-          </select>
+            <option value="Musculacion">Musculacion</option>
+            <option value="Body_Pump">Body Pump</option>
+            <option value="body_Combat">Body Combat</option>
+            <option value="Funcional">Funcional</option>
+            <option value="Hit">Hit</option>
+            <option value="Especifico">Especifico</option>
+            <option value="Everlast_Boxing">Everlast Boxing</option>
+            <option value="Mini_Voley">Mini Voley</option>
+            <option value="Taekwondo">Taekwondo</option>
+            <option value="Futbol_Infantil">Futbol Infantil</option>
+        </select>
         </div>
         <div class="mb-1 col-md-6">
             <label for="celular" class="form-label">Celular:</label>

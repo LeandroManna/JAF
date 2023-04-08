@@ -14,10 +14,10 @@ if (isset($_POST['submit'])){
     mysqli_stmt_execute($stmt);
     $clientes = mysqli_stmt_get_result($stmt);
 
-    $stmt1 = mysqli_prepare($conn, "SELECT * FROM body_pump WHERE id = ?");
+    /* $stmt1 = mysqli_prepare($conn, "SELECT * FROM body_pump WHERE id = ?");
     mysqli_stmt_bind_param($stmt1, "s", $username);
     mysqli_stmt_execute($stmt1);
-    $bodyPumps = mysqli_stmt_get_result($stmt1);
+    $bodyPumps = mysqli_stmt_get_result($stmt1); */
 
     $stmt2 = mysqli_prepare($conn, "SELECT * FROM administradores WHERE dni = ?");
     mysqli_stmt_bind_param($stmt2, "s", $username);
@@ -25,7 +25,7 @@ if (isset($_POST['submit'])){
     $administradores = mysqli_stmt_get_result($stmt2);
 
     $num_rows = mysqli_num_rows($clientes);
-    $num_rows1 = mysqli_num_rows($bodyPumps);
+    /* $num_rows1 = mysqli_num_rows($bodyPumps); */
     $num_rows2 = mysqli_num_rows($administradores);
 
     if ($num_rows > 0) {
@@ -40,7 +40,7 @@ if (isset($_POST['submit'])){
         header("Location: clientes.php");
         exit;
     } 
-    if ($num_rows1 > 0) {
+    /* if ($num_rows1 > 0) {
         // Obtener el nombre del cliente
         $bodyPump = mysqli_fetch_assoc($bodyPumps);
         $nombre_bPump = $bodyPump['nombre'];
@@ -51,7 +51,7 @@ if (isset($_POST['submit'])){
         // Si los datos son válidos, redirigir a la página "clientes.php"
         header("Location: bodyPump.php");
         exit;
-    } 
+    }  */
     if ($num_rows2 > 0) {
         // Obtener el nombre del Administrador
         $administrador = mysqli_fetch_assoc($administradores);
