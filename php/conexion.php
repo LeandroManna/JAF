@@ -2,7 +2,7 @@
 
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "Alanturing.1912";
 $dbname = "gimnasio";
 
 // Crear la conexión
