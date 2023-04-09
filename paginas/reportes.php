@@ -45,7 +45,7 @@
                 <div class="form-group">
                   <label for="disciplina">Disciplina:</label>
                   <select class="form-control" id="disciplina">
-                    <option value="">-- Todas las disciplinas --</option>
+                    <option value="todas">-- Todas las disciplinas --</option>
                     <option value="Musculacion">Musculacion</option>
                     <option value="Body_Pump">Body Pump</option>
                     <option value="body_Combat">Body Combat</option>
@@ -58,16 +58,8 @@
                     <option value="Futbol_Infantil">Futbol Infantil</option>
                   </select>
                 </div>
-                <div class="form-group">
-                  <label for="nombre">Nombre:</label>
-                  <input type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre">
-                </div>
-                <div class="form-group">
-                  <label for="apellido">Apellido:</label>
-                  <input type="text" class="form-control" id="apellido" placeholder="Ingrese el apellido">
-                </div>
                 <div class="d-flex justify-content-center my-3">
-                    <button type="submit" class="btn btn-primary ">Buscar</button>
+                    <button type="submit" class="btn btn-primary" id="buscarBtn">Buscar</button>
                 </div>
               </form>
             </div>
@@ -106,48 +98,54 @@
 
     <script src="../javascript/cerrarSesion.js"></script>
 
+    
+
     <script>
-    $(document).ready(function(){
-      cargarClientes();
+$("#buscarBtn").click(function(e){
+  e.preventDefault();
+  cargarClientesFiltrados();
+});
 
-      $("form").submit(function(e){
-        e.preventDefault();
-        cargarClientes();
+function cargarClientesFiltrados() {
+  var disciplina = $("#disciplina").val();
+  var nombre = $("#nombre").val();
+  var apellido = $("#apellido").val();
+  
+  $.ajax({
+    url: "../php/obtenerClientesTot.php",
+    type: "POST",
+    data: { disciplina: disciplina, nombre: nombre, apellido: apellido },
+    dataType: "json",
+    success: function(data) {
+      // Limpiar la tabla de clientes
+      $("#tablaClientes").empty(); 
+      
+      // Filtrar los clientes según la disciplina seleccionada
+      if (disciplina !== "todas") {
+        data = data.filter(function(cliente) {
+          return cliente.disciplina === disciplina;
+        });
+      }
+      
+      // Agregar los clientes filtrados a la tabla
+      data.forEach(function(cliente) {
+        $("#tablaClientes").append(`
+          <tr>
+            <td>${cliente.id}</td>
+            <td>${cliente.disciplina}</td>
+            <td>${cliente.nombre}</td>
+            <td>${cliente.apellido}</td>
+            <td>${cliente.fecha_nacimiento}</td>
+          </tr>
+        `);
       });
-    });
-
-    function cargarClientes(){
-      var disciplina = $("#disciplina").val();
-      var nombre = $("#nombre").val();
-      var apellido = $("#apellido").val();
-
-      $.ajax({
-        url: "../php/obtenerClientesTot.php",
-        type: "GET",
-        data: { disciplina: disciplina, nombre: nombre, apellido: apellido },
-        dataType: "json", // especificar que se espera recibir datos en formato JSON
-        success: function(data){
-          var tabla = "";
-          if(data.length > 0){
-            for(var i=0; i<data.length; i++){
-              tabla += "<tr>";
-              tabla += "<td>" + data[i].id + "</td>";
-              tabla += "<td>" + data[i].disciplina + "</td>";
-              tabla += "<td>" + data[i].nombre + "</td>";
-              tabla += "<td>" + data[i].apellido + "</td>";
-              tabla += "<td>" + data[i].fecha_nacimiento + "</td>";
-              tabla += "</tr>";
-            }
-          } else {
-            tabla += "<tr><td colspan='5'>No se encontraron resultados.</td></tr>";
-          }
-          $("#tablaClientes").html(tabla);
-        },
-        error: function(){
-          alert("Error al obtener los clientes.");
-        }
-      });
+    },
+    error: function(error) {
+      console.log(error);
     }
+  });
+}
+
   </script>
 
 </body>
