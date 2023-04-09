@@ -1,5 +1,6 @@
 const btnEditar = document.querySelectorAll('#editar');
 const formularioCliente = document.querySelector('#miDiv');
+const divTabla = document.querySelector('#tabla');
 const clienteId = document.querySelector('#id');
 const inputNombre = document.querySelector('#nombre');
 const inputApellido = document.querySelector('#apellido');
@@ -21,7 +22,9 @@ btnEditar.forEach(btn => {
       if (this.status === 200) {
         const cliente = JSON.parse(this.responseText);
         // Mostrar el formulario y autocompletar los datos del cliente
+        divTabla.classList.add('d-none');
         formularioCliente.classList.remove('d-none');
+        
         clienteId.value = cliente.id;
         inputNombre.value = cliente.nombre;
         inputApellido.value = cliente.apellido;
@@ -52,6 +55,7 @@ btnGuardar.addEventListener('click', () => {
     if (this.status === 200) {
       // Ocultar el formulario y recargar la página
       formularioCliente.classList.add('d-none');
+      divTabla.classList.remove('d-none');
       window.location.reload();
     }
   }

@@ -28,7 +28,7 @@
                 <div class="navbar-nav ms-auto">
                   <a class="nav-link " aria-current="page" href="admin-clientes.php">Clientes</a>
                   <a class="nav-link active" aria-current="page" href="pagos.php">Pagos</a>
-                  <a class="nav-link" aria-current="page" href="#">Reportes</a>
+                  <a class="nav-link" aria-current="page" href="reportes.php">Reportes</a>
                   <a class="nav-link" aria-current="page" href="#" onclick="cerrarSesion()">Cerrar sesion</a>
                 </div>
               </div>
