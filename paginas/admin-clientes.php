@@ -34,10 +34,10 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Reportes
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="#">Administradores</a></li>
-                      <li><a class="dropdown-item" href="reportes.php">Clientes</a></li>
-                      <li><a class="dropdown-item" href="#">Pagos</a></li>
+                    <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                      <li><a class="nav-link" href="reporteAdmin.html">Administradores</a></li>
+                      <li><a class="nav-link" href="reporteClientes.php">Clientes</a></li>
+                      <li><a class="nav-link" href="#">Pagos</a></li>
                     </ul>
                   </li>
 
