@@ -10,17 +10,14 @@
     <!-- Incluir los archivos CSS de Bootstrap 5 -->
     <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="../css/admin.css">
-    <script src="https://kit.fontawesome.com/85a9ee331b.js" crossorigin="anonymous"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.js" integrity="sha512-sk0cNQsixYVuaLJRG0a/KRJo9KBkwTDqr+/V94YrifZ6qi8+OO3iJEoHi0LvcTVv1HaBbbIvpx+MCjOuLVnwKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+    <script src="../javascript/Fontawesome.js" crossorigin="anonymous"></script>
 
     
-    <!-- links para exportar a excel -->
-    <script src="https://unpkg.com/xlsx@0.16.9/dist/xlsx.full.min.js"></script>
-    <script src="https://unpkg.com/file-saverjs@latest/FileSaver.min.js"></script>
-    <script src="https://unpkg.com/tableexport@latest/dist/js/tableexport.min.js"></script>
+
+    <!-- Librerias para exportar a excel -->
+    <script src="../javascript/xlsx.full.min.js"></script>
+    <script src="../javascript/FileSaver.min.js"></script>
+    <script src="../javascript/tableexport.min.js"></script>
 
 </head>
 
@@ -72,7 +69,6 @@
                 <div class="d-flex justify-content-center my-3">
                     <button type="submit" class="btn btn-primary col-md-4" id="buscarBtn">Buscar</button>
                     <button type="button" class="btn btn-success col-md-4 mx-2" id="exportarExcelBtn">Exportar a Excel</button>
-                    <button type="button" class="btn btn-success col-md-4" id="exportarPdfBtn">Exportar a PDF</button>
                 </div>
               </form>
             </div>
@@ -128,63 +124,6 @@
         e.preventDefault();
         cargarClientesFiltrados();
       });
-
-
-      /* Exportar tabla a PDF */
-      function exportarTablaAPdf() {
-        // Obtener la tabla y el botón de exportar
-        var tabla = document.getElementById('tabla');
-        var btnExportarPdf = document.getElementById('exportarPdfBtn');
-      
-        // Agregar evento click al botón
-        btnExportarPdf.addEventListener("click", function() {
-          // Capturar la tabla con html2canvas
-          html2canvas(tabla, {
-            height: tabla.offsetHeight,
-            width: tabla.offsetWidth
-          }).then(function(canvas) {
-            // Generar el PDF a partir del canvas
-            var imgData = canvas.toDataURL("image/png");
-            var aspectRatio = canvas.width / canvas.height;
-            var pdfWidth = 504; // 5 pulgadas
-            var pdfHeight = pdfWidth / aspectRatio;
-            var doc = new jsPDF('p', 'pt');
-            var xPosition = (pdfWidth - canvas.width * pdfHeight / canvas.height) / 2;
-            doc.internal.pageSize = {width: pdfWidth, height: pdfHeight};
-            doc.addImage(imgData, 'PNG', xPosition, 0, canvas.width * pdfHeight / canvas.height, pdfHeight);
-          
-            // Agregar páginas adicionales si es necesario
-            var currentPage = 1;
-            var imgHeightLeft = canvas.height - pdfHeight;
-            while (imgHeightLeft > 0) {
-              doc.addPage();
-              var pageHeight = pdfHeight - 10;
-              doc.addImage(imgData, 'PNG', xPosition, -currentPage * pageHeight, canvas.width * pdfHeight / canvas.height, pdfHeight);
-              imgHeightLeft -= pageHeight;
-              currentPage++;
-            }
-          
-            var text = "";
-            var fontSize = 12;
-            var yPos = 50;
-            var textWidth = doc.getStringUnitWidth(text) * fontSize / doc.internal.scaleFactor;
-            var textOffset = (pdfWidth - textWidth) / 2;
-            doc.setFontSize(fontSize);
-            doc.text(textOffset, yPos, text);
-            doc.save("reporte.pdf");
-          });
-        });
-      }
-      
-      // Llamar a la función de exportar tabla a PDF al cargar la página
-      window.onload = function() {
-        exportarTablaAPdf();
-      };
-
-
-
-
-
 
       /* Mostrar los clientes filtrados en la tabala */
       function cargarClientesFiltrados() {
@@ -249,6 +188,68 @@
             preferenciasDocumento.sheetname);
       });
 
+
+      <?php
+        /*
+        // Estas son dos librerias pora poder exportar a un pdf
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script> -->
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.js" integrity="sha512-sk0cNQsixYVuaLJRG0a/KRJo9KBkwTDqr+/V94YrifZ6qi8+OO3iJEoHi0LvcTVv1HaBbbIvpx+MCjOuLVnwKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        
+      
+        //Exportar tabla a PDF
+        function exportarTablaAPdf() {
+          // Obtener la tabla y el botón de exportar
+          var tabla = document.getElementById('tabla');
+          var btnExportarPdf = document.getElementById('exportarPdfBtn');
+        
+          // Agregar evento click al botón
+          btnExportarPdf.addEventListener("click", function() {
+            // Capturar la tabla con html2canvas
+            html2canvas(tabla, {
+              height: tabla.offsetHeight,
+              width: tabla.offsetWidth
+            }).then(function(canvas) {
+              // Generar el PDF a partir del canvas
+              var imgData = canvas.toDataURL("image/png");
+              var aspectRatio = canvas.width / canvas.height;
+              var pdfWidth = 504; // 5 pulgadas
+              var pdfHeight = pdfWidth / aspectRatio;
+              var doc = new jsPDF('p', 'pt');
+              var xPosition = (pdfWidth - canvas.width * pdfHeight / canvas.height) / 2;
+              doc.internal.pageSize = {width: pdfWidth, height: pdfHeight};
+              doc.addImage(imgData, 'PNG', xPosition, 0, canvas.width * pdfHeight / canvas.height, pdfHeight);
+            
+              // Agregar páginas adicionales si es necesario
+              var currentPage = 1;
+              var imgHeightLeft = canvas.height - pdfHeight;
+              while (imgHeightLeft > 0) {
+                doc.addPage();
+                var pageHeight = pdfHeight - 10;
+                doc.addImage(imgData, 'PNG', xPosition, -currentPage * pageHeight, canvas.width * pdfHeight / canvas.height, pdfHeight);
+                imgHeightLeft -= pageHeight;
+                currentPage++;
+              }
+            
+              var text = "";
+              var fontSize = 12;
+              var yPos = 50;
+              var textWidth = doc.getStringUnitWidth(text) * fontSize / doc.internal.scaleFactor;
+              var textOffset = (pdfWidth - textWidth) / 2;
+              doc.setFontSize(fontSize);
+              doc.text(textOffset, yPos, text);
+              doc.save("reporte.pdf");
+            });
+          });
+        }
+        // Llamar a la función de exportar tabla a PDF al cargar la página
+        window.onload = function() {
+          exportarTablaAPdf();
+        }; 
+        */
+      ?>
+
+      
     </script>
 
 </body>
