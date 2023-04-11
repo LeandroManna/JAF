@@ -11,14 +11,10 @@
     <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="../css/admin.css">
     <script src="../javascript/Fontawesome.js" crossorigin="anonymous"></script>
-
-    
-
     <!-- Librerias para exportar a excel -->
     <script src="../javascript/xlsx.full.min.js"></script>
     <script src="../javascript/FileSaver.min.js"></script>
     <script src="../javascript/tableexport.min.js"></script>
-
 </head>
 
 <body>
@@ -36,7 +32,18 @@
                 <div class="navbar-nav ms-auto">
                   <a class="nav-link " aria-current="page" href="admin-clientes.php">Clientes</a>
                   <a class="nav-link " aria-current="page" href="pagos.php">Pagos</a>
-                  <a class="nav-link active" aria-current="page" href="reportes.php">Reportes</a>
+
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Reportes
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="#">Administradores</a></li>
+                      <li><a class="dropdown-item" href="reportes.php">Clientes</a></li>
+                      <li><a class="dropdown-item" href="#">Pagos</a></li>
+                    </ul>
+                  </li>
+
                   <a class="nav-link" aria-current="page" href="#" onclick="cerrarSesion()">Cerrar sesion</a>
                 </div>
               </div>
@@ -46,7 +53,7 @@
     
     <main>
         <div class="container my-3">
-          <h2 class="text-center">Reportes</h2>
+          <h2 class="text-center">Reportes de clientes</h2>
           <div class="row my-3 justify-content-center">
             <div class="row col-md-6">
               <form class="row">
@@ -77,7 +84,6 @@
           <!-- Tabla de reportes -->
           <div class="d-flex justify-content-center">
             <div class="col-md-9" id="tabla">
-              <h2 class="text-center">Reporte de clientes</h2>
               <table class="table table-striped">
                 <thead>
                   <tr>
@@ -111,9 +117,6 @@
     
     <script src="../javascript/bootstrap.bundle.min.js"></script>
     <script src="../javascript/jquery-3.6.4.min.js"></script>
-
-    
-
     <script src="../javascript/cerrarSesion.js"></script>
 
     
@@ -170,7 +173,6 @@
         $tabla = document.querySelector("#tabla");
 
       $btnExportar.addEventListener("click", function() {
-        
           let tableExport = new TableExport($tabla, {
               exportButtons: false, // Sin botones
               filename: "JAF-Reporte", //Nombre del archivo de Excel
@@ -248,8 +250,6 @@
         }; 
         */
       ?>
-
-      
     </script>
 
 </body>

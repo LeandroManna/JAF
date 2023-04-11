@@ -28,7 +28,18 @@
                 <div class="navbar-nav ms-auto">
                   <a class="nav-link " aria-current="page" href="admin-clientes.php">Clientes</a>
                   <a class="nav-link active" aria-current="page" href="pagos.php">Pagos</a>
-                  <a class="nav-link" aria-current="page" href="reportes.php">Reportes</a>
+
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Reportes
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="#">Administradores</a></li>
+                      <li><a class="dropdown-item" href="reportes.php">Clientes</a></li>
+                      <li><a class="dropdown-item" href="#">Pagos</a></li>
+                    </ul>
+                  </li>
+                  
                   <a class="nav-link" aria-current="page" href="#" onclick="cerrarSesion()">Cerrar sesion</a>
                 </div>
               </div>
