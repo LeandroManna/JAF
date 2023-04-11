@@ -2,12 +2,12 @@
 include "conexion.php";
 
 // Consulta para obtener todos los socios de la tabla clientes
-$sql = "SELECT id, disciplina, nombre, apellido, fecha_nacimiento FROM clientes";
+$sql = "SELECT id, disciplina, nombre, apellido, fecha_nacimiento, celular FROM clientes";
 
 // Si se envió algún filtro por GET, agregar la cláusula WHERE a la consulta
 if (isset($_GET['filtro'])) {
     $filtro = $_GET['filtro'];
-    $sql .= " WHERE disciplina LIKE '%$filtro%' OR nombre LIKE '%$filtro%' OR apellido LIKE '%$filtro%'";
+    $sql .= " WHERE disciplina LIKE '%$filtro%'";
 }
 
 $resultado = mysqli_query($conn, $sql);

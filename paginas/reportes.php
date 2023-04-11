@@ -11,6 +11,17 @@
     <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="../css/admin.css">
     <script src="https://kit.fontawesome.com/85a9ee331b.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.js" integrity="sha512-sk0cNQsixYVuaLJRG0a/KRJo9KBkwTDqr+/V94YrifZ6qi8+OO3iJEoHi0LvcTVv1HaBbbIvpx+MCjOuLVnwKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    
+    <!-- links para exportar a excel -->
+    <script src="https://unpkg.com/xlsx@0.16.9/dist/xlsx.full.min.js"></script>
+    <script src="https://unpkg.com/file-saverjs@latest/FileSaver.min.js"></script>
+    <script src="https://unpkg.com/tableexport@latest/dist/js/tableexport.min.js"></script>
+
 </head>
 
 <body>
@@ -38,10 +49,10 @@
     
     <main>
         <div class="container my-3">
-          <h2 class="text-center">Reporte de clientes</h2>
+          <h2 class="text-center">Reportes</h2>
           <div class="row my-3 justify-content-center">
-            <div class="col-md-6">
-              <form>
+            <div class="row col-md-6">
+              <form class="row">
                 <div class="form-group">
                   <label for="disciplina">Disciplina:</label>
                   <select class="form-control" id="disciplina">
@@ -59,25 +70,34 @@
                   </select>
                 </div>
                 <div class="d-flex justify-content-center my-3">
-                    <button type="submit" class="btn btn-primary" id="buscarBtn">Buscar</button>
+                    <button type="submit" class="btn btn-primary col-md-4" id="buscarBtn">Buscar</button>
+                    <button type="button" class="btn btn-success col-md-4 mx-2" id="exportarExcelBtn">Exportar a Excel</button>
+                    <button type="button" class="btn btn-success col-md-4" id="exportarPdfBtn">Exportar a PDF</button>
                 </div>
               </form>
             </div>
           </div>
 
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Disciplina</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Fecha de nacimiento</th>
-              </tr>
-            </thead>
-            <tbody id="tablaClientes">
-            </tbody>
-          </table>
+          <!-- Tabla de reportes -->
+          <div class="d-flex justify-content-center">
+            <div class="col-md-9" id="tabla">
+              <h2 class="text-center">Reporte de clientes</h2>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Disciplina</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Fecha de nacimiento</th>
+                    <th>Celular</th>
+                  </tr>
+                </thead>
+                <tbody id="tablaClientes">
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
     </main>
 
@@ -96,57 +116,140 @@
     <script src="../javascript/bootstrap.bundle.min.js"></script>
     <script src="../javascript/jquery-3.6.4.min.js"></script>
 
+    
+
     <script src="../javascript/cerrarSesion.js"></script>
 
     
 
     <script>
-$("#buscarBtn").click(function(e){
-  e.preventDefault();
-  cargarClientesFiltrados();
-});
+      /* Dar funcion al boton de busqueda */
+      $("#buscarBtn").click(function(e){
+        e.preventDefault();
+        cargarClientesFiltrados();
+      });
 
-function cargarClientesFiltrados() {
-  var disciplina = $("#disciplina").val();
-  var nombre = $("#nombre").val();
-  var apellido = $("#apellido").val();
-  
-  $.ajax({
-    url: "../php/obtenerClientesTot.php",
-    type: "POST",
-    data: { disciplina: disciplina, nombre: nombre, apellido: apellido },
-    dataType: "json",
-    success: function(data) {
-      // Limpiar la tabla de clientes
-      $("#tablaClientes").empty(); 
+
+      /* Exportar tabla a PDF */
+      function exportarTablaAPdf() {
+        // Obtener la tabla y el botón de exportar
+        var tabla = document.getElementById('tabla');
+        var btnExportarPdf = document.getElementById('exportarPdfBtn');
       
-      // Filtrar los clientes según la disciplina seleccionada
-      if (disciplina !== "todas") {
-        data = data.filter(function(cliente) {
-          return cliente.disciplina === disciplina;
+        // Agregar evento click al botón
+        btnExportarPdf.addEventListener("click", function() {
+          // Capturar la tabla con html2canvas
+          html2canvas(tabla, {
+            height: tabla.offsetHeight,
+            width: tabla.offsetWidth
+          }).then(function(canvas) {
+            // Generar el PDF a partir del canvas
+            var imgData = canvas.toDataURL("image/png");
+            var aspectRatio = canvas.width / canvas.height;
+            var pdfWidth = 504; // 5 pulgadas
+            var pdfHeight = pdfWidth / aspectRatio;
+            var doc = new jsPDF('p', 'pt');
+            var xPosition = (pdfWidth - canvas.width * pdfHeight / canvas.height) / 2;
+            doc.internal.pageSize = {width: pdfWidth, height: pdfHeight};
+            doc.addImage(imgData, 'PNG', xPosition, 0, canvas.width * pdfHeight / canvas.height, pdfHeight);
+          
+            // Agregar páginas adicionales si es necesario
+            var currentPage = 1;
+            var imgHeightLeft = canvas.height - pdfHeight;
+            while (imgHeightLeft > 0) {
+              doc.addPage();
+              var pageHeight = pdfHeight - 10;
+              doc.addImage(imgData, 'PNG', xPosition, -currentPage * pageHeight, canvas.width * pdfHeight / canvas.height, pdfHeight);
+              imgHeightLeft -= pageHeight;
+              currentPage++;
+            }
+          
+            var text = "";
+            var fontSize = 12;
+            var yPos = 50;
+            var textWidth = doc.getStringUnitWidth(text) * fontSize / doc.internal.scaleFactor;
+            var textOffset = (pdfWidth - textWidth) / 2;
+            doc.setFontSize(fontSize);
+            doc.text(textOffset, yPos, text);
+            doc.save("reporte.pdf");
+          });
         });
       }
       
-      // Agregar los clientes filtrados a la tabla
-      data.forEach(function(cliente) {
-        $("#tablaClientes").append(`
-          <tr>
-            <td>${cliente.id}</td>
-            <td>${cliente.disciplina}</td>
-            <td>${cliente.nombre}</td>
-            <td>${cliente.apellido}</td>
-            <td>${cliente.fecha_nacimiento}</td>
-          </tr>
-        `);
-      });
-    },
-    error: function(error) {
-      console.log(error);
-    }
-  });
-}
+      // Llamar a la función de exportar tabla a PDF al cargar la página
+      window.onload = function() {
+        exportarTablaAPdf();
+      };
 
-  </script>
+
+
+
+
+
+      /* Mostrar los clientes filtrados en la tabala */
+      function cargarClientesFiltrados() {
+        var disciplina = $("#disciplina").val();
+
+        $.ajax({
+          url: "../php/obtenerClientesTot.php",
+          type: "POST",
+          data: { disciplina: disciplina},
+          dataType: "json",
+          success: function(data) {
+            // Limpiar la tabla de clientes
+            $("#tablaClientes").empty(); 
+
+            // Filtrar los clientes según la disciplina seleccionada
+            if (disciplina !== "todas") {
+              data = data.filter(function(cliente) {
+                return cliente.disciplina === disciplina;
+              });
+            }
+
+            // Agregar los clientes filtrados a la tabla
+            data.forEach(function(cliente) {
+              $("#tablaClientes").append(`
+                <tr>
+                  <td>${cliente.id}</td>
+                  <td>${cliente.disciplina}</td>
+                  <td>${cliente.nombre}</td>
+                  <td>${cliente.apellido}</td>
+                  <td>${cliente.fecha_nacimiento}</td>
+                  <td>${cliente.celular}</td>
+                </tr>
+              `);
+            });
+          },
+          error: function(error) {
+            console.log(error);
+          }
+        });
+      }
+
+      /* Exportar tabla a Excel */
+      const $btnExportar = document.querySelector("#exportarExcelBtn"),
+        $tabla = document.querySelector("#tabla");
+
+      $btnExportar.addEventListener("click", function() {
+        
+          let tableExport = new TableExport($tabla, {
+              exportButtons: false, // Sin botones
+              filename: "JAF-Reporte", //Nombre del archivo de Excel
+              sheetname: "Reporte", //Título de la hoja
+          });
+          let datos = tableExport.getExportData();
+          let preferenciasDocumento = datos.tabla.xlsx;
+          tableExport.export2file(
+            preferenciasDocumento.data, 
+            preferenciasDocumento.mimeType, 
+            preferenciasDocumento.filename, 
+            preferenciasDocumento.fileExtension, 
+            preferenciasDocumento.merges, 
+            preferenciasDocumento.RTL, 
+            preferenciasDocumento.sheetname);
+      });
+
+    </script>
 
 </body>
 </html>
