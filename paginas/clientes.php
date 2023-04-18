@@ -62,13 +62,17 @@
                 <!-- Bienvenida -->
                 <div class="col-sm-12 py-1" style="text-align: center;">
                     <!-- Bienvenida al cliente con su nombre almacenado en la variable de sesión -->
-                    <h5 class="text-center">Bienvenido(a), 
-                    <?php echo "" . $_SESSION['nombre'] . "!!!";?>
-                    </h5>
+                    <h3 class="text-center text-light">Bienvenido(a)
+                    <?php echo "" . $_SESSION['nombre'] . "";?> a Juan Aguirre Fitness
+                    </h3>
                 </div>
             </div>
 
             <hr style="border: 1px solid #000000;">
+
+            <h6 class="text-center text-dark">
+                <?php echo "" . $_SESSION['detalle'] . "";?>
+            </h6>
 
             <?php
                 include ("../php/activarMusculos.php");
@@ -88,14 +92,12 @@
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <strong>Activar brazos.</strong> 
-                                    <p>
-                                        <?php echo "" . $_SESSION['detalle'] . "";?>
-                                    </p>
+                                    
                                     <textarea class="form-control border-0" id="brazo" name="brazo" rows="8" readonly disabled oncopy="return false;"></textarea>
                                     <div>
                                         <p><strong>Video ejmplo de los ejercicios</strong></p>
                                         <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
-                                            <source src="../asets/Videos/Gym-Fitness-Video.mp4" type="video/mp4" />
+                                            <source src="../asets/Videos/video1.mp4" type="video/mp4" />
                                         </video>
                                     </div>
                                 </div>
@@ -116,7 +118,7 @@
                                     <div>
                                         <p><strong>Video ejmplo de los ejercicios</strong></p>
                                         <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
-                                            <source src="../asets/Videos/Gym-Fitness-Women.mp4" type="video/mp4" />
+                                            <source src="../asets/Videos/video2.mp4" type="video/mp4" />
                                         </video>
                                     </div>
                                 </div>
@@ -137,7 +139,7 @@
                                 <div>
                                     <p><strong>Video ejmplo de los ejercicios</strong></p>
                                     <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
-                                        <source src="../asets/Videos/MarcAnthony-NadaDeNada.mp4" type="video/mp4" />
+                                        <source src="../asets/Videos/video3.mp4" type="video/mp4" />
                                     </video>
                                 </div>
                             </div>
