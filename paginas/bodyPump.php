@@ -47,22 +47,10 @@
     <main>
         <div class="container my-3">
             <div class="row">
-                <!-- Div del calendario -->
-                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 py-1 calendario ">
-                    <label for="calendario" class="label-calendario">Elegi la fecha para ver tu entrenamiento...</label>
-                    <?php
-                      // Establecer la zona horaria de Argentina
-                      date_default_timezone_set('America/Argentina/Buenos_Aires');
-                      
-                      // Obtener la fecha actual de Argentina
-                      $fecha = date('Y-m-d');
-                    ?>
-                    <input type="date" name="calendario" id="calendario" class="input-calendario" value="<?php echo $fecha; ?>">
-                </div>
                 <!-- Bienvenida -->
                 <div class="col-sm-12 py-1" style="text-align: center;">
                     <!-- Bienvenida al cliente con su nombre almacenado en la variable de sesión -->
-                    <h5 class="text-center">Bienvenido(a), 
+                    <h5 class="text-center text-info">Bienvenido(a), 
                     <?php echo "" . $_SESSION['nombre'] . "!!!";?>
                     </h5>
                 </div>
@@ -70,110 +58,12 @@
 
             <hr style="border: 1px solid #000000;">
 
-            <?php
-                include ("../php/activarMusculos.php");
-            ?>
-
-            <div class="row justify-content-center d-none">
-                <div class="col-sm-12 col-md-5 col-lg-5 col-xl-5 py-1">
-                    <div class="accordion" id="accordionExample">
-
-                        <!-- ACTIVAR BRAZOS -->
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Activar Brazos
-                                </button>
-                            </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <strong>Activar brazos.</strong> 
-                                    <p>
-                                        <?php echo "" . $_SESSION['detalle'] . "";?>
-                                    </p>
-                                    <textarea class="form-control border-0" id="brazo" name="brazo" rows="8" readonly disabled oncopy="return false;"></textarea>
-                                    <div>
-                                        <p><strong>Video ejmplo de los ejercicios</strong></p>
-                                        <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
-                                            <source src="../asets/Videos/Gym-Fitness-Video.mp4" type="video/mp4" />
-                                        </video>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- ACTIVAR PECHO -->
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Activar Pecho
-                                </button>
-                            </h2>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <strong>Activar pecho.</strong> 
-                                    <textarea class="form-control border-0" id="pecho" name="pecho" rows="8" readonly disabled oncopy="return false;"></textarea>
-                                    <div>
-                                        <p><strong>Video ejmplo de los ejercicios</strong></p>
-                                        <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
-                                            <source src="../asets/Videos/Gym-Fitness-Women.mp4" type="video/mp4" />
-                                        </video>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- ACTIVAR ABDOMEN -->
-                        <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            Activar abdomen
-                            </button>
-                        </h2>
-                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <strong>Activar abdomen.</strong> 
-                                <textarea class="form-control border-0" id="abdominal" name="abdominal" rows="8" readonly disabled oncopy="return false;"></textarea>
-                                <div>
-                                    <p><strong>Video ejmplo de los ejercicios</strong></p>
-                                    <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
-                                        <source src="../asets/Videos/MarcAnthony-NadaDeNada.mp4" type="video/mp4" />
-                                    </video>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-
-                        <!-- ACTIVAR PIERNAS -->
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingFour">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                Activar Piernas
-                                </button>
-                            </h2>
-                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <strong>Activar piernas.</strong> 
-                                    <textarea class="form-control border-0" id="pierna" name="pierna" rows="8" readonly disabled oncopy="return false;"></textarea>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingFive">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                Ejercicio #5
-                                </button>
-                            </h2>
-                            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <strong>Quinto ejercicio.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr style="border: 1px solid #000000;">
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center text-light">
+                    <h2>Lo sentimos, esta página está en construcción</h2>
+                    <p>Estamos trabajando arduamente para crear una experiencia en línea increíble para nuestros socios. Lamentablemente, todavía no hemos terminado de construir esta página. Pero no se preocupe, ¡estamos trabajando en ella!</p>
+                    <p>Le recomendamos que visite nuestro sitio web nuevamente en unas semanas para ver si la página ha sido actualizada. Si tiene alguna pregunta, no dude en ponerse en contacto con nuestro equipo de soporte.</p>
+                    <p>¡Gracias por su comprensión y paciencia!</p>
                 </div>
             </div>
         </div>
@@ -192,25 +82,6 @@
 
     <script src="../javascript/bootstrap.bundle.min.js"></script>
     <script src="../javascript/cerrarSesion.js"></script>
-
-    <script>
-        var brazos = '<?php echo nl2br(implode('\n', $brazos)); ?>';
-if (document.getElementById('brazo')) {
-    document.getElementById('brazo').value += brazos;
-}
-var pechos = '<?php echo nl2br(implode('\n', $pechos)); ?>';
-if (document.getElementById('pecho')) {
-    document.getElementById('pecho').value += pechos;
-}
-var abdominales = '<?php echo nl2br(implode('\n', $abdominales)); ?>';
-if (document.getElementById('abdominal')) {
-    document.getElementById('abdominal').value += abdominales;
-}
-var piernas = '<?php echo nl2br(implode('\n', $piernas)); ?>';
-if (document.getElementById('pierna')) {
-    document.getElementById('pierna').value += piernas;
-}
-    </script>
 
 </body>
 

@@ -87,7 +87,6 @@
             <div class="tab-content" id="myTabContent">
               <!-- Tabla de Clientes en pestaña CLIENTES -->
               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <h2 class="text-center card-subtitle py-3">Listado de Clientes</h2>
                 <div class="row d-flex justify-content-center">
                   <?php
                     include ("../php/tabla-clientes.php");

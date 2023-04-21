@@ -1,4 +1,5 @@
 <div class=" justify-content-center col-sm-12 col-lg-8 col-xl-8" id="tabla">
+    <h2 class="text-center card-subtitle py-3">Listado de Clientes</h2>
     <?php
       include "crearTablaClientes.php";
     ?>
@@ -7,7 +8,7 @@
 
 <!-- Formulario que aparece precargado con datos del cliente seleccionado en la tabla -->
 <div class="d-none col-sm-12" id="miDiv">
-    <!-- <h2 class="text-center card-subtitle mt-2 text-info py-3">Editar clientes</h2> -->
+    <h2 class="text-center card-subtitle py-3">Editar clientes</h2>
     <form method="post" name="editClient" id="formulario" class="row">
         <div class="mb-1 col-md-2">
             <label for="id" class="form-label">N° de Socio</label>

@@ -20,16 +20,15 @@
             // Insertar el nuevo cliente en la base de datos
             $query = mysqli_query($conn, "INSERT INTO clientes (id, nombre, apellido, dni, fecha_nacimiento, celular, detalle, disciplina) 
             VALUES ('$id','$nombre', '$apellido', '$dni', '$fecha_nacimiento', '$celular', '$detalle', '$disciplina')");
-            
+
             // Ejecutar la consulta
             $resultado = mysqli_query($conn, $query);
-        
+
+            echo "<script>alert('¡Socio agregado correctamente!');</script>";
+
             // Mostrar un mensaje de éxito si la consulta fue exitosa
             if ($resultado) {
-                echo "<script>
-                        document.getElementById('form-clientes').reset();
-                        document.getElementById('mensaje-exito').innerHTML = 'Nuevo cliente agregado correctamente';
-                      </script>";
+                echo "<script>document.getElementById('form-clientes').reset();document.getElementById('mensaje-exito').innerHTML = 'Nuevo cliente agregado correctamente';</script>";
             }
         } else {
             // Mostrar un mensaje de error si el cliente ya existe en la base de datos
@@ -37,6 +36,7 @@
                     document.getElementById('mensaje-error').innerHTML = 'El cliente con el DNI $dni ya existe en la base de datos';
                   </script>";
         }
+        
     }
 ?>
 
