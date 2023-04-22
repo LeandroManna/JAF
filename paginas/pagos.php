@@ -172,6 +172,8 @@
     
     <script src="../javascript/bootstrap.bundle.min.js"></script>
     <script src="../javascript/jquery-3.6.4.min.js"></script>
+    <script src="https://kit.fontawesome.com/85a9ee331b.js" crossorigin="anonymous"></script>
+
 
     <script src="../javascript/cerrarSesion.js"></script>
 

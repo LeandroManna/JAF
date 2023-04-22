@@ -9,9 +9,6 @@
     <!-- Incluir los archivos CSS de Bootstrap 5 -->
     <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="../css/admin.css">
-    <script src="https://kit.fontawesome.com/85a9ee331b.js" crossorigin="anonymous"></script>
-
-    <script src="../javascript/cerrarSesion.js"></script>
 </head>
 
 <body>
@@ -105,7 +102,7 @@
               </div>
               <!-- Formulario de tipos de entrenamiento en pestaña ENTRENAMIENTOS -->
               <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                <h2 class="text-center card-subtitle text-dark py-3">Tipos de entrenamiento</h2>
+                <h2 class="text-center card-subtitle text-dark py-3">Activacion para Musculacion</h2>
                 <div class="">
                   <form class="row justify-content-center" method="post">
                     <!-- Menu desplegable de tipos de entrenamiento -->
@@ -234,7 +231,9 @@
     
     <script src="../javascript/bootstrap.bundle.min.js"></script>
     <script src="../javascript/jquery-3.6.4.min.js"></script>
-    
+    <script src="https://kit.fontawesome.com/85a9ee331b.js" crossorigin="anonymous"></script>
+
+    <script src="../javascript/cerrarSesion.js"></script>
     <script src="../javascript/mostrarCampo.js"></script>
 
     <!-- EL SIGUIENTE SCRIPT CARGA LOS DATOS DE LA TABLA

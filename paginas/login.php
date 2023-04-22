@@ -105,8 +105,9 @@
 
     <!-- Incluir los archivos JavaScript de Bootstrap 5 -->
     <script src="../javascript/bootstrap.bundle.min.js"></script>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/85a9ee331b.js" crossorigin="anonymous"></script>
+
 
     <!-- EL SIGUIENTE SCRIPT COLOCA EL AÑO DE FORMA AUTOMATICA EN EL COPY DEL FOOTER -->
     <script>

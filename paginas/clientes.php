@@ -223,6 +223,8 @@
 
     <script src="../javascript/bootstrap.bundle.min.js"></script>
     <script src="../javascript/cerrarSesion.js"></script>
+    <script src="https://kit.fontawesome.com/85a9ee331b.js" crossorigin="anonymous"></script>
+
 
     <script>
         var brazos = '<?php echo nl2br(implode('\n', $brazos)); ?>';
