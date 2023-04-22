@@ -63,13 +63,42 @@
       </div>
     </main>
 
-    <footer class="bg-dark text-light p-3 centrado ">
-      <div class="row">
-        <div class="col-md-6">
-          <p class="p-footer">Información de contacto</p>
+    <footer class="bg-dark text-light p-3 centrado">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <hr>
+            <h5>Contacto</h5>
+            <hr>
+            <p><a href="https://goo.gl/maps/Hq8do2AZd5iJhNqe6" class="text-decoration-none text-light" target="_blank"><i class="fas fa-map-marker-alt"></i> Avda. Dr. Ricardo Balbin 1896, <br> B° Bajo La Viña</a></p>
+            <p><a href="http://wa.me/543884751385" class="text-decoration-none text-light" target="_blank"><i class="fab fa-whatsapp"></i> 388 475-1385</a> </p>
+            <p><a href="mailto: juanaguirrefitnes@gmail.com" class="text-decoration-none text-light" target="_blank"><i class="far fa-envelope"></i> juanaguirrefitnes@gmail.com</a></p>
+          </div>
+          <div class="col-md-4">
+            <hr>
+            <h5 class="">Redes sociales</h5>
+            <hr>
+            <ul class="list-unstyled d-grid justify-content-center">
+              <li><a href="https://www.facebook.com/juanaguirrefitness" class="text-decoration-none d-flex align-items-center text-muted" target="_blank"><i class="fab fa-facebook mx-2"></i>Juan Aguirre Fitness</a></li>
+              <li><a href="https://www.instagram.com/juanaguirrefitnes/" class="text-decoration-none d-flex align-items-center text-muted my-3" target="_blank"><i class="fab fa-instagram mx-2"></i>juanaguirrefitnes</a></li>
+              <li><a href="https://www.youtube.com/@juanaguirrefitness2127" class="text-decoration-none d-flex align-items-center text-muted" target="_blank"><i class="fab fa-youtube mx-2"></i>Juan Aguirre Fitness</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <hr>
+            <h5>Horarios</h5>
+            <hr>
+            <p>Lunes a Viernes:</p>
+            <p>7:00 - 12:00 | 14:00 - 22:00</p>
+            <p>Sábado: 9:00 - 12:00</p>
+            <p>Domingo: Cerrado</p>
+          </div>
         </div>
-        <div class="col-md-6">
-          <span class="text-muted">&copy; 2023 - Manna Leandro. Todos los derechos reservados.</span>
+        <hr>
+        <div class="row mt-3">
+          <div class="col-md-12 text-center">
+            <span class="text-muted">&copy; <strong><span id="currentYear"></span></strong> - Manna Leandro. Todos los derechos reservados.</span>
+          </div>
         </div>
       </div>
     </footer>
@@ -78,6 +107,12 @@
     <script src="../javascript/bootstrap.bundle.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- EL SIGUIENTE SCRIPT COLOCA EL AÑO DE FORMA AUTOMATICA EN EL COPY DEL FOOTER -->
+    <script>
+      var currentYear = new Date().getFullYear();
+      document.getElementById("currentYear").innerHTML = currentYear;
+    </script>
 
     
   
