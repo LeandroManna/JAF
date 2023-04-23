@@ -120,7 +120,5 @@
       document.getElementById("currentYear").innerHTML = currentYear;
     </script>
 
-</body>
-
-
+  </body>
 </html>

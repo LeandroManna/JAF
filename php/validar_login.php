@@ -37,7 +37,9 @@ if (isset($_POST['submit'])){
         if ($disciplina_cliente == "Musculacion") {
             header("Location: clientes.php");
         } elseif ($disciplina_cliente == "Especifico") {
-            header("Location: bodyPump.php");
+            header("Location: especifico.php");
+        } elseif ($disciplina_cliente == "Mini_Voley") {
+            header("Location: mini-voley.php");
         } else {
             echo "Disciplina desconocida";
         }

@@ -41,33 +41,35 @@
         <div class="mb-1 col-md-3">
           <label for="changeDisciplina" class="form-label">Cambiar disciplina:</label>
             <select class="form-select" name="changeDisciplina" id="changeDisciplina">
-              <option selected disabled value="">Seleccione...</option>
-              <option value="Musculacion">Musculacion</option>
-              <option value="Body_Pump">Body Pump</option>
-              <option value="body_Combat">Body Combat</option>
-              <option value="Funcional">Funcional</option>
-              <option value="Hit">Hit</option>
-              <option value="Especifico">Especifico</option>
-              <option value="Everlast_Boxing">Everlast Boxing</option>
-              <option value="Mini_Voley">Mini Voley</option>
-              <option value="Taekwondo">Taekwondo</option>
-              <option value="Futbol_Infantil">Futbol Infantil</option>
+                <option selected disabled value="">Seleccione...</option>
+                <option value="Musculacion">Musculacion</option>
+                <option value="Body_Pump">Body Pump</option>
+                <option value="body_Combat">Body Combat</option>
+                <option value="Funcional">Funcional</option>
+                <option value="URKU">URKU</option>
+                <option value="Ritmos_Flow">Ritmos Flow</option>              
+                <option value="Especifico">Especifico</option>
+                <option value="Everlast_Boxing">Everlast Boxing</option>
+                <option value="Mini_Voley">Mini Voley</option>
+                <option value="Taekwondo">Taekwondo</option>
+                <option value="Futbol_Infantil">Futbol Infantil</option>
             </select>
         </div>
         <div class="mb-1 col-md-3">
           <label for="addDisciplina" class="form-label">Agregar disciplina:</label>
             <select class="form-select" name="addDisciplina" id="addDisciplina">
-              <option selected disabled value="">Seleccione...</option>
-              <option value="Musculacion">Musculacion</option>
-              <option value="Body_Pump">Body Pump</option>
-              <option value="body_Combat">Body Combat</option>
-              <option value="Funcional">Funcional</option>
-              <option value="Hit">Hit</option>
-              <option value="Especifico">Especifico</option>
-              <option value="Everlast_Boxing">Everlast Boxing</option>
-              <option value="Mini_Voley">Mini Voley</option>
-              <option value="Taekwondo">Taekwondo</option>
-              <option value="Futbol_Infantil">Futbol Infantil</option>
+                <option selected disabled value="">Seleccione...</option>
+                <option value="Musculacion">Musculacion</option>
+                <option value="Body_Pump">Body Pump</option>
+                <option value="body_Combat">Body Combat</option>
+                <option value="Funcional">Funcional</option>
+                <option value="URKU">URKU</option>
+                <option value="Ritmos_Flow">Ritmos Flow</option>
+                <option value="Especifico">Especifico</option>
+                <option value="Everlast_Boxing">Everlast Boxing</option>
+                <option value="Mini_Voley">Mini Voley</option>
+                <option value="Taekwondo">Taekwondo</option>
+                <option value="Futbol_Infantil">Futbol Infantil</option>
             </select>
         </div>
         <div class="mb-1 col-md-1">
