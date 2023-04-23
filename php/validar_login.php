@@ -40,11 +40,21 @@ if (isset($_POST['submit'])){
             header("Location: especifico.php");
         } elseif ($disciplina_cliente == "Mini_Voley") {
             header("Location: mini-voley.php");
-        } else {
-            echo "Disciplina desconocida";
+        } elseif ($disciplina_cliente == "Funcional") {
+            header("Location: funcional.php");
         }
-        exit;
-    } 
+    }
+    else {
+        // Si los datos no son válidos, mostrar un mensaje de error
+        echo "<script>Swal.fire({
+            icon: 'error',
+            title: 'Socio o disciplina desconocida!!!',
+            showConfirmButton: false,
+            timer: 2000
+          });</script>";
+    }
+    
+    
 
     if ($num_rows2 > 0) {
         // Obtener el nombre del Administrador
@@ -61,7 +71,7 @@ if (isset($_POST['submit'])){
     
     else {
         // Si los datos no son válidos, mostrar un mensaje de error
-        echo "Nombre de usuario incorrecto";
+        echo "Socio o disciplina desconocida";
     }
 }
 

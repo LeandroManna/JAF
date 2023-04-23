@@ -9,6 +9,7 @@
   <!-- Incluir los archivos CSS de Bootstrap 5 -->
   <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="../css/login.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -45,17 +46,12 @@
                   <label for="username" class="form-label">N° de Socio</label>
                   <input type="number" class="form-control" name="username" id="username" required autofocus placeholder="N° de Socio">
                 </div>
-                <!-- <div class="mb-3">
-                  <label for="password" class="form-label">Contraseña</label>
-                  <input type="text" class="form-control" id="password" name="password" required placeholder="Contraseña">
-                </div> -->
                 <div class="d-grid gap-2 mb-3">
                   <input type="submit" class="btn btn-primary" value="Iniciar Sesion" name="submit">
                     <?php
                         include ("../php/validar_login.php");
                     ?>
                 </div>
-                <!-- <p class="text-center mb-0">¿No tienes cuenta? <a href="#">Regístrate</a></p> -->
               </form>
     
             </div>
