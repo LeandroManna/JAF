@@ -112,10 +112,22 @@
                       <label for="validationCustom04" class="form-label">Tipos de Entrenamiento</label>
                       <select class="form-select" id="selectOption" name="tipoEntrenamiento">
                         <option selected disabled value="">Seleccione...</option>
-                        <option id="eBasico" value="eBasico">Activar brazos</option>
-                        <option id="eIntermedio" value="eIntermedio">Activar pecho</option>
-                        <option id="eAvanzado" value="eAvanzado">Activar abdomen</option>
-                        <option id="ePiernas" value="ePiernas">Activar piernas</option>
+                        <option id="eBasico" value="eBasico">Activacion #1</option>
+                        <option id="eIntermedio" value="eIntermedio">Activacion #2</option>
+                        <option id="eAvanzado" value="eAvanzado">Activacion #3</option>
+                        <option id="ePiernas" value="ePiernas">Activacion #4</option>
+                        <option id="act_cinco" value="act_cinco">Activacion #5</option>
+                        <option id="act_seis" value="act_seis">Activacion #6</option>
+                        <option id="act_siete" value="act_siete">Activacion #7</option>
+                        <option id="act_ocho" value="act_ocho">Activacion #8</option>
+                        <option id="act_nueve" value="act_nueve">Activacion #9</option>
+                        <option id="act_diez" value="act_diez">Activacion #10</option>
+                        <option id="act_once" value="act_once">Activacion #11</option>
+                        <option id="act_doce" value="act_doce">Activacion #12</option>
+                        <option id="act_trece" value="act_trece">Activacion #13</option>
+                        <option id="act_catorce" value="act_catorce">Activacion #14</option>
+                        <option id="act_quince" value="act_quince">Activacion #15</option>
+                        <option id="act_dieciseis" value="act_dieciseis">Activacion #16</option>
                       </select>
                     </div>
                     <?php
@@ -129,9 +141,21 @@
                         $pecho = $_POST['pecho'];
                         $abdominal = $_POST['abdominal'];
                         $pierna = $_POST['pierna'];
+                        $act_cinco = $_POST['actCinco'];
+                        $act_seis = $_POST['actSeis'];
+                        $act_siete = $_POST['actSiete'];
+                        $act_ocho = $_POST['actOcho'];
+                        $act_nueve = $_POST['actNueve'];
+                        $act_diez = $_POST['actDiez'];
+                        $act_once = $_POST['actOnce'];
+                        $act_doce = $_POST['actDoce'];
+                        $act_trece = $_POST['actTrece'];
+                        $act_catorce = $_POST['actCatorce'];
+                        $act_quince = $_POST['actQuince'];
+                        $act_dieciseis = $_POST['actDieciseis'];
                       
                         // Preparar la consulta SQL para actualizar la tabla
-                        $sql = "UPDATE activacionmuscular SET brazo='$brazo', pecho='$pecho', abdominal='$abdominal', pierna='$pierna' WHERE id=1";
+                        $sql = "UPDATE activacionmuscular SET brazo='$brazo', pecho='$pecho', abdominal='$abdominal', pierna='$pierna', act_cinco='$act_cinco', act_seis='$act_seis', act_siete='$act_siete', act_ocho='$act_ocho', act_nueve='$act_nueve', act_diez='$act_diez', act_once='$act_once', act_doce='$act_doce', act_trece='$act_trece', act_catorce='$act_catorce', act_quince='$act_quince', act_dieciseis='$act_dieciseis' WHERE id=1";
                       
                         // Ejecutar la consulta SQL y verificar si se ha actualizado la tabla
                         if ($conn->query($sql) === TRUE) {
@@ -179,9 +203,119 @@
                         <textarea class="form-control" id="pierna" name="pierna" rows="8"></textarea>
                       </div>
                     </div>
+
+                    <!-- Checks de entrenamiento #5 -->
+                    <div class="col-sm-12 col-md-7 col-lg-7 col-xl-7 form-check my-2 " id="entrenamientoCinco">
+                      <!-- aca se ejecuta el script mostrarCampo -->
+                      <div class="mb-3">
+                        <label for="actCinco" class="form-label">Activacion #5...</label>
+                        <textarea class="form-control" id="actCinco" name="actCinco" rows="8"></textarea>
+                      </div>
+                    </div>
+
+                    <!-- Checks de entrenamiento #6 -->
+                    <div class="col-sm-12 col-md-7 col-lg-7 col-xl-7 form-check my-2 " id="entrenamientoSeis">
+                      <!-- aca se ejecuta el script mostrarCampo -->
+                      <div class="mb-3">
+                        <label for="actSeis" class="form-label">Activacion #6...</label>
+                        <textarea class="form-control" id="actSeis" name="actSeis" rows="8"></textarea>
+                      </div>
+                    </div>
+
+                    <!-- Checks de entrenamiento #7 -->
+                    <div class="col-sm-12 col-md-7 col-lg-7 col-xl-7 form-check my-2 " id="entrenamientoSiete">
+                      <!-- aca se ejecuta el script mostrarCampo -->
+                      <div class="mb-3">
+                        <label for="actSiete" class="form-label">Activacion #7...</label>
+                        <textarea class="form-control" id="actSiete" name="actSiete" rows="8"></textarea>
+                      </div>
+                    </div>
+
+                    <!-- Checks de entrenamiento #8 -->
+                    <div class="col-sm-12 col-md-7 col-lg-7 col-xl-7 form-check my-2 " id="entrenamientoOcho">
+                      <!-- aca se ejecuta el script mostrarCampo -->
+                      <div class="mb-3">
+                        <label for="actOcho" class="form-label">Activacion #8...</label>
+                        <textarea class="form-control" id="actOcho" name="actOcho" rows="8"></textarea>
+                      </div>
+                    </div>
+
+                    <!-- Checks de entrenamiento #9 -->
+                    <div class="col-sm-12 col-md-7 col-lg-7 col-xl-7 form-check my-2 " id="entrenamientoNueve">
+                      <!-- aca se ejecuta el script mostrarCampo -->
+                      <div class="mb-3">
+                        <label for="actNueve" class="form-label">Activacion #9...</label>
+                        <textarea class="form-control" id="actNueve" name="actNueve" rows="8"></textarea>
+                      </div>
+                    </div>
+
+                    <!-- Checks de entrenamiento #10 -->
+                    <div class="col-sm-12 col-md-7 col-lg-7 col-xl-7 form-check my-2 " id="entrenamientoDiez">
+                      <!-- aca se ejecuta el script mostrarCampo -->
+                      <div class="mb-3">
+                        <label for="actDiez" class="form-label">Activacion #10...</label>
+                        <textarea class="form-control" id="actDiez" name="actDiez" rows="8"></textarea>
+                      </div>
+                    </div>
+
+                    <!-- Checks de entrenamiento #11 -->
+                    <div class="col-sm-12 col-md-7 col-lg-7 col-xl-7 form-check my-2 " id="entrenamientoOnce">
+                      <!-- aca se ejecuta el script mostrarCampo -->
+                      <div class="mb-3">
+                        <label for="actOnce" class="form-label">Activacion #11...</label>
+                        <textarea class="form-control" id="actOnce" name="actOnce" rows="8"></textarea>
+                      </div>
+                    </div>
+
+                    <!-- Checks de entrenamiento #12 -->
+                    <div class="col-sm-12 col-md-7 col-lg-7 col-xl-7 form-check my-2 " id="entrenamientoDoce">
+                      <!-- aca se ejecuta el script mostrarCampo -->
+                      <div class="mb-3">
+                        <label for="actDoce" class="form-label">Activacion #12...</label>
+                        <textarea class="form-control" id="actDoce" name="actDoce" rows="8"></textarea>
+                      </div>
+                    </div>
+
+                    <!-- Checks de entrenamiento #13 -->
+                    <div class="col-sm-12 col-md-7 col-lg-7 col-xl-7 form-check my-2 " id="entrenamientoTrece">
+                      <!-- aca se ejecuta el script mostrarCampo -->
+                      <div class="mb-3">
+                        <label for="actTrece" class="form-label">Activacion #13...</label>
+                        <textarea class="form-control" id="actTrece" name="actTrece" rows="8"></textarea>
+                      </div>
+                    </div>
+
+                    <!-- Checks de entrenamiento #14 -->
+                    <div class="col-sm-12 col-md-7 col-lg-7 col-xl-7 form-check my-2 " id="entrenamientoCatorce">
+                      <!-- aca se ejecuta el script mostrarCampo -->
+                      <div class="mb-3">
+                        <label for="actCatorce" class="form-label">Activacion #14...</label>
+                        <textarea class="form-control" id="actCatorce" name="actCatorce" rows="8"></textarea>
+                      </div>
+                    </div>
+
+                    <!-- Checks de entrenamiento #15 -->
+                    <div class="col-sm-12 col-md-7 col-lg-7 col-xl-7 form-check my-2 " id="entrenamientoQuince">
+                      <!-- aca se ejecuta el script mostrarCampo -->
+                      <div class="mb-3">
+                        <label for="actQuince" class="form-label">Activacion #15...</label>
+                        <textarea class="form-control" id="actQuince" name="actQuince" rows="8"></textarea>
+                      </div>
+                    </div>
+
+                    <!-- Checks de entrenamiento #16 -->
+                    <div class="col-sm-12 col-md-7 col-lg-7 col-xl-7 form-check my-2 " id="entrenamientoDieciseis">
+                      <!-- aca se ejecuta el script mostrarCampo -->
+                      <div class="mb-3">
+                        <label for="actDieciseis" class="form-label">Activacion #16...</label>
+                        <textarea class="form-control" id="actDieciseis" name="actDieciseis" rows="8"></textarea>
+                      </div>
+                    </div>
+
                     <div class="d-flex justify-content-center my-3">
                       <button type="submit" class="btn btn-success" name="addEnt" id="addEnt" >Agregar entrenamiento</button>
                     </div>
+                    
                   </form>
                 </div>
               </div>
@@ -256,6 +390,54 @@
       const piernas = '<?php echo nl2br(implode('\n', $piernas)); ?>';
       if (document.getElementById('pierna')) {
           document.getElementById('pierna').value += piernas;
+      }
+      const act_cinco = '<?php echo nl2br(implode('\n', $act_cinco)); ?>';
+        if (document.getElementById('actCinco')) {
+            document.getElementById('actCinco').value += act_cinco;
+        }
+      const act_seis = '<?php echo nl2br(implode('\n', $act_seis)); ?>';
+      if (document.getElementById('actSeis')) {
+          document.getElementById('actSeis').value += act_seis;
+      }
+      const act_siete = '<?php echo nl2br(implode('\n', $act_siete)); ?>';
+      if (document.getElementById('actSiete')) {
+          document.getElementById('actSiete').value += act_siete;
+      }
+      const act_ocho = '<?php echo nl2br(implode('\n', $act_ocho)); ?>';
+      if (document.getElementById('actOcho')) {
+          document.getElementById('actOcho').value += act_ocho;
+      }
+      const act_nueve = '<?php echo nl2br(implode('\n', $act_nueve)); ?>';
+      if (document.getElementById('actNueve')) {
+          document.getElementById('actNueve').value += act_nueve;
+      }
+      const act_diez = '<?php echo nl2br(implode('\n', $act_diez)); ?>';
+      if (document.getElementById('actDiez')) {
+          document.getElementById('actDiez').value += act_diez;
+      }
+      const act_once = '<?php echo nl2br(implode('\n', $act_once)); ?>';
+      if (document.getElementById('actOnce')) {
+          document.getElementById('actOnce').value += act_once;
+      }
+      const act_doce = '<?php echo nl2br(implode('\n', $act_doce)); ?>';
+      if (document.getElementById('actDoce')) {
+          document.getElementById('actDoce').value += act_doce;
+      }
+      const act_trece = '<?php echo nl2br(implode('\n', $act_trece)); ?>';
+      if (document.getElementById('actTrece')) {
+          document.getElementById('actTrece').value += act_trece;
+      }
+      const act_catorce = '<?php echo nl2br(implode('\n', $act_catorce)); ?>';
+      if (document.getElementById('actCatorce')) {
+          document.getElementById('actCatorce').value += act_catorce;
+      }
+      const act_quince = '<?php echo nl2br(implode('\n', $act_quince)); ?>';
+      if (document.getElementById('actQuince')) {
+          document.getElementById('actQuince').value += act_quince;
+      }
+      const act_dieciseis = '<?php echo nl2br(implode('\n', $act_dieciseis)); ?>';
+      if (document.getElementById('actDieciseis')) {
+          document.getElementById('actDieciseis').value += act_dieciseis;
       }
     </script>
 
