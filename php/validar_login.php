@@ -48,7 +48,7 @@ if (isset($_POST['submit'])){
         // Si los datos no son válidos, mostrar un mensaje de error
         echo "<script>Swal.fire({
             icon: 'error',
-            title: 'Socio o disciplina desconocida!!!',
+            title: 'No se encontro un socio con ese número!!!',
             showConfirmButton: false,
             timer: 2000
           });</script>";
