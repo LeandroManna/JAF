@@ -177,7 +177,7 @@
                             <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <strong>Guia de ejercicios.</strong>
-                                    <textarea class="form-control border-0" id="pierna" name="pierna" rows="8" readonly disabled oncopy="return false;"></textarea>
+                                    <textarea class="form-control border-0" id="act_cinco" name="act_cinco" rows="8" readonly disabled oncopy="return false;"></textarea>
                                     <div>
                                         <p><strong>Video ejemplo de los ejercicios</strong></p>
                                         <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
@@ -198,7 +198,7 @@
                             <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <strong>Guia de ejercicios.</strong>
-                                    <textarea class="form-control border-0" id="pierna" name="pierna" rows="8" readonly disabled oncopy="return false;"></textarea>
+                                    <textarea class="form-control border-0" id="act_seis" name="act_seis" rows="8" readonly disabled oncopy="return false;"></textarea>
                                     <div>
                                         <p><strong>Video ejemplo de los ejercicios</strong></p>
                                         <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
@@ -219,7 +219,7 @@
                             <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <strong>Guia de ejercicios.</strong>
-                                    <textarea class="form-control border-0" id="pierna" name="pierna" rows="8" readonly disabled oncopy="return false;"></textarea>
+                                    <textarea class="form-control border-0" id="act_siete" name="act_siete" rows="8" readonly disabled oncopy="return false;"></textarea>
                                     <div>
                                         <p><strong>Video ejemplo de los ejercicios</strong></p>
                                         <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
@@ -240,7 +240,7 @@
                             <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <strong>Guia de ejercicios.</strong>
-                                    <textarea class="form-control border-0" id="pierna" name="pierna" rows="8" readonly disabled oncopy="return false;"></textarea>
+                                    <textarea class="form-control border-0" id="act_ocho" name="act_ocho" rows="8" readonly disabled oncopy="return false;"></textarea>
                                     <div>
                                         <p><strong>Video ejemplo de los ejercicios</strong></p>
                                         <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
@@ -261,7 +261,7 @@
                             <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <strong>Guia de ejercicios.</strong>
-                                    <textarea class="form-control border-0" id="pierna" name="pierna" rows="8" readonly disabled oncopy="return false;"></textarea>
+                                    <textarea class="form-control border-0" id="act_nueve" name="act_nueve" rows="8" readonly disabled oncopy="return false;"></textarea>
                                     <div>
                                         <p><strong>Video ejemplo de los ejercicios</strong></p>
                                         <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
@@ -282,7 +282,7 @@
                             <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <strong>Guia de ejercicios.</strong>
-                                    <textarea class="form-control border-0" id="pierna" name="pierna" rows="8" readonly disabled oncopy="return false;"></textarea>
+                                    <textarea class="form-control border-0" id="act_diez" name="act_diez" rows="8" readonly disabled oncopy="return false;"></textarea>
                                     <div>
                                         <p><strong>Video ejemplo de los ejercicios</strong></p>
                                         <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
@@ -303,7 +303,7 @@
                             <div id="collapseEleven" class="accordion-collapse collapse" aria-labelledby="headingEleven" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <strong>Guia de ejercicios.</strong>
-                                    <textarea class="form-control border-0" id="pierna" name="pierna" rows="8" readonly disabled oncopy="return false;"></textarea>
+                                    <textarea class="form-control border-0" id="act_once" name="act_once" rows="8" readonly disabled oncopy="return false;"></textarea>
                                     <div>
                                         <p><strong>Video ejemplo de los ejercicios</strong></p>
                                         <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
@@ -324,7 +324,7 @@
                             <div id="collapseTwelve" class="accordion-collapse collapse" aria-labelledby="headingTwelve" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <strong>Guia de ejercicios.</strong>
-                                    <textarea class="form-control border-0" id="pierna" name="pierna" rows="8" readonly disabled oncopy="return false;"></textarea>
+                                    <textarea class="form-control border-0" id="act_doce" name="act_doce" rows="8" readonly disabled oncopy="return false;"></textarea>
                                     <div>
                                         <p><strong>Video ejemplo de los ejercicios</strong></p>
                                         <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
@@ -345,7 +345,7 @@
                             <div id="collapseThirteen" class="accordion-collapse collapse" aria-labelledby="headingThirteen" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <strong>Guia de ejercicios.</strong>
-                                    <textarea class="form-control border-0" id="pierna" name="pierna" rows="8" readonly disabled oncopy="return false;"></textarea>
+                                    <textarea class="form-control border-0" id="act_trece" name="act_trece" rows="8" readonly disabled oncopy="return false;"></textarea>
                                     <div>
                                         <p><strong>Video ejemplo de los ejercicios</strong></p>
                                         <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
@@ -366,7 +366,7 @@
                             <div id="collapseFourteen" class="accordion-collapse collapse" aria-labelledby="headingFourteen" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <strong>Guia de ejercicios.</strong>
-                                    <textarea class="form-control border-0" id="pierna" name="pierna" rows="8" readonly disabled oncopy="return false;"></textarea>
+                                    <textarea class="form-control border-0" id="act_catorce" name="act_catorce" rows="8" readonly disabled oncopy="return false;"></textarea>
                                     <div>
                                         <p><strong>Video ejemplo de los ejercicios</strong></p>
                                         <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
@@ -387,7 +387,7 @@
                             <div id="collapseFifteen" class="accordion-collapse collapse" aria-labelledby="headingFifteen" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <strong>Guia de ejercicios.</strong>
-                                    <textarea class="form-control border-0" id="pierna" name="pierna" rows="8" readonly disabled oncopy="return false;"></textarea>
+                                    <textarea class="form-control border-0" id="act_quince" name="act_quince" rows="8" readonly disabled oncopy="return false;"></textarea>
                                     <div>
                                         <p><strong>Video ejemplo de los ejercicios</strong></p>
                                         <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
@@ -408,7 +408,7 @@
                             <div id="collapseSixteen" class="accordion-collapse collapse" aria-labelledby="headingSixteen" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <strong>Guia de ejercicios.</strong>
-                                    <textarea class="form-control border-0" id="pierna" name="pierna" rows="8" readonly disabled oncopy="return false;"></textarea>
+                                    <textarea class="form-control border-0" id="act_dieciseis" name="act_dieciseis" rows="8" readonly disabled oncopy="return false;"></textarea>
                                     <div>
                                         <p><strong>Video ejemplo de los ejercicios</strong></p>
                                         <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
@@ -487,6 +487,54 @@
         var piernas = '<?php echo nl2br(implode('\n', $piernas)); ?>';
         if (document.getElementById('pierna')) {
             document.getElementById('pierna').value += piernas;
+        }
+        var act_cinco = '<?php echo nl2br(implode('\n', $act_cinco)); ?>';
+        if (document.getElementById('act_cinco')) {
+            document.getElementById('act_cinco').value += act_cinco;
+        }
+        var act_seis = '<?php echo nl2br(implode('\n', $act_seis)); ?>';
+        if (document.getElementById('act_seis')) {
+            document.getElementById('act_seis').value += act_seis;
+        }
+        var act_siete = '<?php echo nl2br(implode('\n', $act_siete)); ?>';
+        if (document.getElementById('act_siete')) {
+            document.getElementById('act_siete').value += act_siete;
+        }
+        var act_ocho = '<?php echo nl2br(implode('\n', $act_ocho)); ?>';
+        if (document.getElementById('act_ocho')) {
+            document.getElementById('act_ocho').value += act_ocho;
+        }
+        var act_nueve = '<?php echo nl2br(implode('\n', $act_nueve)); ?>';
+        if (document.getElementById('act_nueve')) {
+            document.getElementById('act_nueve').value += act_nueve;
+        }
+        var act_diez = '<?php echo nl2br(implode('\n', $act_diez)); ?>';
+        if (document.getElementById('act_diez')) {
+            document.getElementById('act_diez').value += act_diez;
+        }
+        var act_once = '<?php echo nl2br(implode('\n', $act_once)); ?>';
+        if (document.getElementById('act_once')) {
+            document.getElementById('act_once').value += act_once;
+        }
+        var act_doce = '<?php echo nl2br(implode('\n', $act_doce)); ?>';
+        if (document.getElementById('act_doce')) {
+            document.getElementById('act_doce').value += act_doce;
+        }
+        var act_trece = '<?php echo nl2br(implode('\n', $act_trece)); ?>';
+        if (document.getElementById('act_trece')) {
+            document.getElementById('act_trece').value += act_trece;
+        }
+        var act_catorce = '<?php echo nl2br(implode('\n', $act_catorce)); ?>';
+        if (document.getElementById('act_catorce')) {
+            document.getElementById('act_catorce').value += act_catorce;
+        }
+        var act_quince = '<?php echo nl2br(implode('\n', $act_quince)); ?>';
+        if (document.getElementById('act_quince')) {
+            document.getElementById('act_quince').value += act_quince;
+        }
+        var act_dieciseis = '<?php echo nl2br(implode('\n', $act_dieciseis)); ?>';
+        if (document.getElementById('act_dieciseis')) {
+            document.getElementById('act_dieciseis').value += act_dieciseis;
         }
     </script>
 
