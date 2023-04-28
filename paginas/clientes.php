@@ -79,9 +79,20 @@
             ?>
 
             <div class="row justify-content-center">
-                <div class="col-sm-12 col-md-5 col-lg-5 col-xl-5 py-1">
+                <!-- Menu desplegable de tipos de entrenamiento -->
+                <div class="col-sm-12 col-md-5 col-lg-5 col-xl-5 my-2">
+                    <label for="validationCustom04" class="form-label text-light">Tipos de Entrenamiento</label>
+                    <select class="form-select" id="selectOption" name="tipoEntrenamiento">
+                      <option selected disabled value="">Seleccione...</option>
+                      <option id="eActivacion" value="eActivacion">Activacion</option>
+                      <option id="eCore" value="eCore">Core</option>
+                    </select>
+                    <hr style="border: 1px solid #000000;">
+                </div>
+                <!-- ACTIVACION -->
+                <div class="col-sm-12 col-md-5 col-lg-5 col-xl-5 py-1" id="eActiv">
+                    <h5 class="text-center text-light">Ejercicios de Activacion</h5>
                     <div class="accordion" id="accordionExample">
-
                         <!-- ACTIVACION 1 -->
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingOne">
@@ -419,7 +430,160 @@
                             </div>
                         </div>
                     </div>
+                    <hr style="border: 1px solid #000000;">
+                </div>
+                <!-- CORE -->
+                <div class="col-sm-12 col-md-5 col-lg-5 col-xl-5 py-1" id="eCor">
+                    <h5 class="text-center text-light">Ejercicios de Core</h5>
+                    <div class="accordion" id="accordionExample">
+                        <!-- CORE 1 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingUno">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUno" aria-expanded="true" aria-controls="collapseUno">
+                                Core #1
+                                </button>
+                            </h2>
+                            <div id="collapseUno" class="accordion-collapse collapse show" aria-labelledby="headingUno" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <strong>Guia de ejercicios.</strong> 
+                                    
+                                    <textarea class="form-control border-0" id="core1" name="core1" rows="8" readonly disabled oncopy="return false;"></textarea>
+                                    <div>
+                                        <p><strong>Video ejemplo de los ejercicios</strong></p>
+                                        <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none" controlsList="nodownload nodoubleplaybackrate" muted>
+                                            <source src="..\asets\Videos\Trabajos_de_core_°_1_Full HD 1080p.mp4" type="video/mp4" />
+                                        </video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                        <!-- CORE 2 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingDos">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDos" aria-expanded="false" aria-controls="collapseDos">
+                                Core #2
+                                </button>
+                            </h2>
+                            <div id="collapseDos" class="accordion-collapse collapse" aria-labelledby="headingDos" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <strong>Guia de ejercicios.</strong> 
+                                    <textarea class="form-control border-0" id="core2" name="core2" rows="8" readonly disabled oncopy="return false;"></textarea>
+                                    <div>
+                                        <p><strong>Video ejemplo de los ejercicios</strong></p>
+                                        <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
+                                            <source src="..\asets\Videos\Trabajos_de_core_°_2_Full HD 1080p.mp4" type="video/mp4" />
+                                        </video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CORE 3 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTres">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTres" aria-expanded="false" aria-controls="collapseTres">
+                                Core #3
+                                </button>
+                            </h2>
+                            <div id="collapseTres" class="accordion-collapse collapse" aria-labelledby="headingTres" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <strong>Guia de ejercicios.</strong> 
+                                    <textarea class="form-control border-0" id="core3" name="core3" rows="8" readonly disabled oncopy="return false;"></textarea>
+                                    <div>
+                                        <p><strong>Video ejemplo de los ejercicios</strong></p>
+                                        <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
+                                            <source src="..\asets\Videos\Trabajos_de_core_°_3_Full HD 1080p.mp4" type="video/mp4" />
+                                        </video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CORE 4 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingCuatro">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCuatro" aria-expanded="false" aria-controls="collapseCuatro">
+                                Core #4
+                                </button>
+                            </h2>
+                            <div id="collapseCuatro" class="accordion-collapse collapse" aria-labelledby="headingCuatro" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <strong>Guia de ejercicios.</strong> 
+                                    <textarea class="form-control border-0" id="core4" name="core4" rows="8" readonly disabled oncopy="return false;"></textarea>
+                                    <div>
+                                        <p><strong>Video ejemplo de los ejercicios</strong></p>
+                                        <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
+                                            <source src="..\asets\Videos\Trabajos_de_core_°_2_Full HD 1080p.mp4" type="video/mp4" />
+                                        </video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CORE 5 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingCinco">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCinco" aria-expanded="false" aria-controls="collapseCinco">
+                                Core #5
+                                </button>
+                            </h2>
+                            <div id="collapseCinco" class="accordion-collapse collapse" aria-labelledby="headingCinco" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <strong>Guia de ejercicios.</strong> 
+                                    <textarea class="form-control border-0" id="core5" name="core5" rows="8" readonly disabled oncopy="return false;"></textarea>
+                                    <div>
+                                        <p><strong>Video ejemplo de los ejercicios</strong></p>
+                                        <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
+                                            <source src="..\asets\Videos\Trabajos_de_core_°_5_Full HD 1080p.mp4" type="video/mp4" />
+                                        </video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CORE 6 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSeis">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeis" aria-expanded="false" aria-controls="collapseSeis">
+                                Core #6
+                                </button>
+                            </h2>
+                            <div id="collapseSeis" class="accordion-collapse collapse" aria-labelledby="headingSeis" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <strong>Guia de ejercicios.</strong> 
+                                    <textarea class="form-control border-0" id="core6" name="core6" rows="8" readonly disabled oncopy="return false;"></textarea>
+                                    <div>
+                                        <p><strong>Video ejemplo de los ejercicios</strong></p>
+                                        <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
+                                            <source src="..\asets\Videos\Trabajos_de_core_°_6_Full HD 1080p.mp4" type="video/mp4" />
+                                        </video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CORE 7 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSiete">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSiete" aria-expanded="false" aria-controls="collapseSiete">
+                                Core #7
+                                </button>
+                            </h2>
+                            <div id="collapseSiete" class="accordion-collapse collapse" aria-labelledby="headingSiete" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <strong>Guia de ejercicios.</strong> 
+                                    <textarea class="form-control border-0" id="core7" name="core7" rows="8" readonly disabled oncopy="return false;"></textarea>
+                                    <div>
+                                        <p><strong>Video ejemplo de los ejercicios</strong></p>
+                                        <video playsinline class="iframe-clientes my-2 video-player" controls="controls" preload="none">
+                                            <source src="..\asets\Videos\Trabajos_de_core_°_7_Full HD 1080p.mp4" type="video/mp4" />
+                                        </video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <hr style="border: 1px solid #000000;">
                 </div>
             </div>
@@ -467,7 +631,34 @@
     </footer>
 
     <script src="../javascript/bootstrap.bundle.min.js"></script>
+    <script src="../javascript/jquery-3.6.4.min.js"></script>
     <script src="../javascript/cerrarSesion.js"></script>
+    <!-- El siguiente script usa el select para mostrar los 2 div -->
+    <script>
+        $(document).ready(function() {
+            // ocultar todos los divs de entrenamiento
+            $('#eActiv').hide();
+            $('#eCor').hide();
+
+            // agregar evento onChange al select
+            $('#selectOption').change(function() {
+              // obtener el valor seleccionado
+              var selectedOption = $(this).children("option:selected").val();
+            
+              // mostrar el div correspondiente y ocultar los demás
+              if (selectedOption === 'eActivacion') {
+                $('#eActiv').show();
+                $('#eCor').hide();
+              } else if (selectedOption === 'eCore') {
+                    $('#eActiv').hide();
+                    $('#eCor').show();
+              } else {
+                    $('#eActiv').hide();
+                    $('#eCor').hide();
+                }
+            });
+        });
+    </script>
     <script src="https://kit.fontawesome.com/85a9ee331b.js" crossorigin="anonymous"></script>
 
 
