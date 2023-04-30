@@ -40,6 +40,11 @@
             <div class="col-md-6">
     
               <h2 class="text-center mb-4">Iniciar sesión</h2>
+              <div>
+                <video class="w-100 my-2 video-player" controls="controls" >
+                  <source src="..\asets\Videos\lv_0_20230331074205.mp4" type="video/mp4" />
+                </video>
+              </div>
     
               <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                 <div class="mb-3">

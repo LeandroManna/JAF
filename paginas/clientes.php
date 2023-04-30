@@ -67,17 +67,13 @@
                     </h3>
                 </div>
             </div>
-
             <hr style="border: 1px solid #000000;">
-
             <h6 class="text-center text-dark">
                 <?php echo "" . $_SESSION['detalle'] . "";?>
             </h6>
-
             <?php
                 include ("../php/activarMusculos.php");
             ?>
-
             <div class="row justify-content-center">
                 <!-- Menu desplegable de tipos de entrenamiento -->
                 <div class="col-sm-12 col-md-5 col-lg-5 col-xl-5 my-2">
