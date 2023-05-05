@@ -36,11 +36,11 @@
 
     <main>
       <div class="container my-3 py-4">
-          <div class="row justify-content-center">
-            <div class="col-md-6">
-    
-              <h2 class="text-center mb-4">Iniciar sesión</h2>
-              <div>
+          <div class="row justify-content-center mx-3">
+            <div class="col-md-6 rounded cuadro-fondo">
+              <h2 class="text-center text-blue my-3"><strong>Iniciar sesión</strong></h2>
+              <hr style="border: 1px solid #000000;">
+              <div class="d-none">
                 <video class="w-100 my-2 video-player" controls="controls" >
                   <source src="..\asets\Videos\lv_0_20230331074205.mp4" type="video/mp4" />
                 </video>
@@ -58,7 +58,6 @@
                     ?>
                 </div>
               </form>
-    
             </div>
           </div>
       </div>

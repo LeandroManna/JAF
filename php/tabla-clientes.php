@@ -9,7 +9,7 @@
 <!-- Formulario que aparece precargado con datos del cliente seleccionado en la tabla -->
 <div class="d-none col-sm-12" id="miDiv">
     <h2 class="text-center card-subtitle py-3">Editar clientes</h2>
-    <form method="post" name="editClient" id="formulario" class="row">
+    <form method="post" name="editClient" id="formulario" class="row border border-2 pt-2 rounded-3">
         <div class="mb-1 col-md-2">
             <label for="id" class="form-label">N° de Socio</label>
             <input type="number" class="form-control" name="id" id="id" placeholder="N° de Socio" readonly disabled>
@@ -79,13 +79,13 @@
             </div>
         </div>
         
-        <div class="mb-1">
+        <div class="mb-2">
             <label for="detalle" class="form-label">Mensaje privado:</label>
             <textarea class="form-control" name="detalle" id="detalle" rows="3" autofocus></textarea>
         </div>
-        <div class="d-flex justify-content-center btn-group" role="group">
+        <div class="d-flex justify-content-center btn-group my-3" role="group">
             <button type="submit" class="btn btn-success mx-1" id="editarCliente">Editar cliente</button>
-            <button type="submit" class="btn btn-info mx-1" id="">Presente</button>
+            <button type="submit" class="btn btn-info mx-1" id="">Volver</button>
         </div>
     </form>
 </div>

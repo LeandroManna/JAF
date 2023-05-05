@@ -53,7 +53,7 @@
     
     <main>
         <div class="container my-3">
-          <h2 class="text-center">Reportes de clientes</h2>
+          <h2 class="text-center card-subtitle text-dark py-3">Reportes de clientes</h2>
           <div class="row my-3 justify-content-center">
             <div class="row col-md-6">
               <form class="row">

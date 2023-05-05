@@ -46,7 +46,7 @@
 ?>
 
 
-<form id="form-clientes" method="POST" class="row">
+<form id="form-clientes" method="POST" class="row border border-2 pt-2 rounded-3">
     <div class="mb-3 col-md-4">
         <label for="disciplina" class="form-label">Disciplina *</label>
         <select class="form-select" name="disciplina" id="disciplina" required>
@@ -89,11 +89,11 @@
         <label for="celular" class="form-label">Celular *</label>
         <input type="number" class="form-control" name="celular" id="celular" placeholder="Ej. 3885000000">
     </div>
-    <div class="mb-3">
+    <div class="mb-3 d-none">
         <label for="detalle" class="form-label">Detalle:</label>
         <textarea class="form-control" name="detalle" id="detalle" rows="3"></textarea>
     </div>
-    <div class="d-grid gap-2">
+    <div class="d-grid gap-2 my-3">
         <button type="submit" class="btn btn-success" name="submit">Agregar cliente</button>
     </div>
 </form>
