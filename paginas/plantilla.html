@@ -1,3 +1,15 @@
+<?php
+    // Inicio de la sesión
+    session_start();
+    // Verificación de que el cliente haya iniciado sesión y su nombre esté almacenado en la variable de sesión
+    if (!isset($_SESSION['nombre'])) {
+      // Si el nombre del cliente no está almacenado en la variable de sesión, redirige al cliente a la página1.php para iniciar sesión
+      header('Location: login.php');
+      exit();
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -5,8 +17,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sobre Nosotros</title>
+    <title>Especifico</title>
     <link rel="icon" href="../asets/Img/logo.png" type="image/png">
+    <!-- Incluir los archivos CSS de Bootstrap 5 -->
     <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
 </head>
@@ -15,18 +28,16 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="../index.html">
-                    <img src="../asets/Img/logo.png" alt="" width="50" height="50">
-                    <a class="navbar-brand" href="" id="text-musculacion">Nosotros</a>
-                </a>
+              <a class="navbar-brand" href="#">
+                <img src="../asets/Img/logo.png" alt="" width="50" height="50">
+                <a class="navbar-brand" href="" id="text-musculacion">Especifico</a>
+              </a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ms-auto">
-                  <a class="nav-link"href="../index.html">Inicio</a>
-                  <a class="nav-link active" aria-current="page" href="sobreNosotros.html">Nosotros</a>
-                  <a class="nav-link" href="login.php">Login</a>
+                    <a class="nav-link" aria-current="page" href="#" onclick="cerrarSesion()">Cerrar sesion</a>
                 </div>
               </div>
             </div>
@@ -35,30 +46,10 @@
     
     <main>
         <div class="container my-3">
-
-          <div class="col-12">
             
-            <div class="row mt-4 text-center align-items-center">
-              <h2 class="text-info my-3 fs-1">Bienvenido a Juan Aguirre Fitness</h2>
-              <div class="col-md-6">
-                <img src="..\asets\Img\Post instagram fotografía y texto cita curiosidad versátil sencillo amarillo y negro.jpg" class="img-fluid my-3 rounded-3" alt="Aviso importante">
-              </div>
-              <div class="col-md-6 fs-6">
-                <p class="text-light">Estamos dedicados a ayudarlo a lograr sus objetivos de fitness. Nuestro equipo de entrenadores experimentados y amigables está aquí para brindarle el apoyo y la orientación que necesita para alcanzar su mejor forma física. Ofrecemos una variedad de programas de entrenamiento, desde entrenamiento de fuerza y ​​resistencia hasta clases de cardio.</p>
-
-                <p class="text-light">Nuestras instalaciones de última generación están diseñadas para brindarle un ambiente cómodo y motivador para su entrenamiento. Contamos con una amplia variedad de equipos de entrenamiento de alta calidad, desde pesas libres hasta máquinas de entrenamiento cardiovascular y de resistencia.</p>
-
-                <p class="text-light">Además de nuestro programa de entrenamiento, también ofrecemos servicios adicionales, como nutrición deportiva. Nuestro objetivo es ayudarlo a lograr su mejor estado de salud y bienestar.</p>
-
-                <p class="text-light">Contáctenos hoy mismo para programar una visita y obtener más información sobre cómo podemos ayudarlo a alcanzar sus objetivos de fitness.</p>
-              </div>
-              
-              
-          </div>
-          </div>
         </div>
     </main>
-    
+
     <footer class="bg-dark text-light p-3 centrado">
       <div class="container">
         <div class="row">
@@ -100,7 +91,9 @@
     </footer>
 
     <script src="../javascript/bootstrap.bundle.min.js"></script>
+    <script src="../javascript/cerrarSesion.js"></script>
     <script src="https://kit.fontawesome.com/85a9ee331b.js" crossorigin="anonymous"></script>
+
 
     <!-- EL SIGUIENTE SCRIPT COLOCA EL AÑO DE FORMA AUTOMATICA EN EL COPY DEL FOOTER -->
     <script>
@@ -108,6 +101,5 @@
       document.getElementById("currentYear").innerHTML = currentYear;
     </script>
 
-</body>
-
+  </body>
 </html>

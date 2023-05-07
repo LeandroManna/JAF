@@ -1,44 +1,68 @@
+<?php
+    // Inicio de la sesión
+    session_start();
+    // Verificación de que el cliente haya iniciado sesión y su nombre esté almacenado en la variable de sesión
+    if (!isset($_SESSION['nombre'])) {
+      // Si el nombre del cliente no está almacenado en la variable de sesión, redirige al cliente a la página1.php para iniciar sesión
+      header('Location: login.php');
+      exit();
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <link rel="icon" href="../asets/Img/logo.png" type="image/png">
-  <!-- Incluir los archivos CSS de Bootstrap 5 -->
-  <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/login.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presente</title>
+    <link rel="icon" href="../asets/Img/logo.png" type="image/png">
+    <!-- Incluir los archivos CSS de Bootstrap 5 -->
+    <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/admin.css">
 </head>
 
 <body>
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="../index.html">
-              <img src="../asets/Img/logo.png" alt="" width="50" height="50">
-              <a class="navbar-brand" href="" id="text-musculacion">Iniciar Sesion</a>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-              <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="../index.html">Inicio</a>
-                <a class="nav-link" href="sobreNosotros.html">Nosotros</a>
-                <a class="nav-link active" aria-current="page" href="login.php">Login</a>
-              </div>
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="../asets/Img/logo.png" alt="" width="50" height="50">
+            <a class="navbar-brand text-center" href="#" id="text-musculacion">Presente</a>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ms-auto">
+              <a class="nav-link " aria-current="page" href="admin-clientes.php">Clientes</a>
+              <a class="nav-link " aria-current="page" href="pagos.php">Pagos</a>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Reportes
+                </a>
+                <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                  <li><a class="nav-link" href="reporteAdmin.html">Administradores</a></li>
+                  <li><a class="nav-link" href="reporteClientes.php">Clientes</a></li>
+                  <li><a class="nav-link" href="pagos.php">Pagos</a></li>
+                </ul>
+              </li>
+              <a class="nav-link active" aria-current="page" href="presente.php">Presente</a>
+              <a class="nav-link" aria-current="page" href="#" onclick="cerrarSesion()">Cerrar sesion</a>
             </div>
           </div>
+        </div>
       </nav>
     </header>
-
-    <main class="d-flex align-items-center">
+    
+    <main class="d-flex align-item-center">
       <div class="container my-3 py-4 d-flex justify-content-center">
           <div class="row col-9 justify-content-center rounded py-5 shadow-lg">
             <div class="col-md-6 rounded cuadro-fondo">
-              <h2 class="text-center text-blue my-3"><strong>Iniciar sesión</strong></h2>
+              <h2 class="text-center text-blue my-3"><strong>Registra tu presencia</strong></h2>
               <hr style="border: 1px solid #000000;">
               <div class="d-none">
                 <video class="w-100 my-2 video-player" controls="controls" >
@@ -52,16 +76,17 @@
                   <input type="number" class="form-control" name="username" id="username" required autofocus placeholder="N° de Socio">
                 </div>
                 <div class="d-grid gap-2 mb-3">
-                  <input type="submit" class="btn btn-primary" value="Iniciar Sesion" name="submit">
-                    <?php
-                        include ("../php/validar_login.php");
-                    ?>
+                  <input type="submit" class="btn btn-primary" value="Registrar presencia" name="submit">
+                  <?php
+                    include ("../php/validar_presente.php");
+                  ?>
                 </div>
               </form>
             </div>
           </div>
       </div>
     </main>
+
 
     <footer class="bg-dark text-light p-3 centrado">
       <div class="container">
@@ -103,9 +128,8 @@
       </div>
     </footer>
 
-    <!-- Incluir los archivos JavaScript de Bootstrap 5 -->
     <script src="../javascript/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../javascript/cerrarSesion.js"></script>
     <script src="https://kit.fontawesome.com/85a9ee331b.js" crossorigin="anonymous"></script>
 
 
@@ -115,8 +139,5 @@
       document.getElementById("currentYear").innerHTML = currentYear;
     </script>
 
-    
-  
-</body>
-
+  </body>
 </html>

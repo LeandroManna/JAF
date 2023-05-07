@@ -9,7 +9,7 @@ body {
     grid-template-rows: auto 1fr auto;
 }
 .cuadro-fondo {
-    background-color: #ff99eb;
+    /* background-color: #ff99eb; */
     background-image: url('../asets/Img/logo.png');
     background-repeat: no-repeat;
     background-size: contain;
