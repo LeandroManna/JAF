@@ -21,10 +21,12 @@ if (isset($_POST['submit'])){
         $nombre_cliente = $cliente['nombre'];
         $detalle_cliente = $cliente['detalle'];
         $disciplina_cliente = $cliente['disciplina'];
+        $clase_cliente = $cliente['clases'];
         
         // Almacenamiento del nombre del cliente en una variable de sesión
         $_SESSION['nombre'] = $nombre_cliente;
         $_SESSION['detalle'] = $detalle_cliente;
+        $_SESSION['clases'] = $clase_cliente;
         
         // Redireccionar con el numero de socio
         if ($cliente) {

@@ -61,9 +61,15 @@
     <main class="d-flex align-items-center">
       <div class="container my-3">
         <div class="text-center">
-          <h2>Mariela te quedan</h2>
+
+          <h2 class="text-center">
+            <?php echo "" . $_SESSION['nombre'] . "";?>, te quedan: 
+          </h2>
+
           <div class="d-flex justify-content-center align-items-center">
-            <h1 id="clases-count" class="display-1 mx-2 fw-bolder">12</h1>
+            <h1 id="clases-count" class="display-1 mx-2 fw-bolder">
+              <?php echo "" . $_SESSION['clases'] . "";?>
+            </h1>
             <p class="align-self-end">clases</p>
           </div>
 
