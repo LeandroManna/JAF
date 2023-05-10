@@ -6,6 +6,9 @@ body {
     display: grid;
     min-height: 100vh;
     grid-template-rows: auto 1fr auto;
+    
+    font-family: 'Audiowide', cursive;
+    font-family: 'Nova Flat', cursive;
 }
 
 #text-musculacion{
