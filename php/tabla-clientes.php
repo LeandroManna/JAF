@@ -1,4 +1,4 @@
-<div class=" justify-content-center col-sm-12 col-lg-8 col-xl-8" id="tabla">
+<div class=" justify-content-center col-sm-12" id="tabla">
     <h2 class="text-center card-subtitle py-3">Listado de Clientes</h2>
     <?php
       include "crearTablaClientes.php";
@@ -34,13 +34,17 @@
             <label for="celular" class="form-label">Celular:</label>
             <input type="number" class="form-control" name="celular" id="celular" >
         </div>
-        <div class="mb-1 col-md-3">
+        <div class="mb-1 col-md-2">
+            <label for="disciplina_dos" class="form-label">Segunda disciplina:</label>
+            <input type="text" class="form-control" name="disciplina_dos" id="disciplina_dos" placeholder="Disciplina..." readonly disabled>
+        </div>
+        <div class="mb-1 col-md-2">
             <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento:</label>
             <input type="date" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" >
         </div>
         <div class="mb-1 col-md-3">
-          <label for="changeDisciplina" class="form-label">Cambiar disciplina:</label>
-            <select class="form-select" name="changeDisciplina" id="changeDisciplina">
+          <label for="changeDisciplina" class="form-label">Cambiar 1° disciplina:</label>
+            <select class="form-select" name="changeDisciplina" id="changeDisciplina" required>
                 <option selected disabled value="">Seleccione...</option>
                 <option value="Musculacion">Musculacion</option>
                 <option value="Body_Pump">Body Pump</option>
@@ -56,7 +60,7 @@
             </select>
         </div>
         <div class="mb-1 col-md-3">
-          <label for="addDisciplina" class="form-label">Agregar disciplina:</label>
+          <label for="addDisciplina" class="form-label">Cambiar 2° disciplina:</label>
             <select class="form-select" name="addDisciplina" id="addDisciplina">
                 <option selected disabled value="">Seleccione...</option>
                 <option value="Musculacion">Musculacion</option>
@@ -89,7 +93,6 @@
         </div>
     </form>
 </div>
-
 
 <script src="../javascript/eliminarCliente.js"></script>
 <script src="../javascript/btnEditarGuardar.js"></script>

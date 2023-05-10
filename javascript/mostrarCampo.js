@@ -18,11 +18,18 @@ $(document).ready(function() {
   $('#entrenamientoQuince').hide();
   $('#entrenamientoDieciseis').hide();
 
+  $('#core-uno').hide();
+  $('#core-dos').hide();
+  $('#core-tres').hide();
+  $('#core-cuatro').hide();
+  $('#core-cinco').hide();
+  $('#core-seis').hide();
+  $('#core-siete').hide();
+
   // agregar evento onChange al select
   $('#selectOption').change(function() {
     // obtener el valor seleccionado
     var selectedOption = $(this).children("option:selected").val();
-  
     // mostrar el div correspondiente y ocultar los demás
     if (selectedOption === 'eBasico') {
       $('#entrenamientoBasico').show();
@@ -313,6 +320,74 @@ $(document).ready(function() {
       $('#entrenamientoCatorce').hide();
       $('#entrenamientoQuince').hide();
       $('#entrenamientoDieciseis').hide();
+    } 
+  });
+  $('#selectOptionCore').change(function() {
+    var selectedOptionCore = $(this).children("option:selected").val();
+    if (selectedOptionCore === 'core_uno') {
+      $('#core-uno').show();
+      $('#core-dos').hide();
+      $('#core-tres').hide();
+      $('#core-cuatro').hide();
+      $('#core-cinco').hide();
+      $('#core-seis').hide();
+      $('#core-siete').hide();
+    } else if (selectedOptionCore === 'core_dos') {
+      $('#core-uno').hide();
+      $('#core-dos').show();
+      $('#core-tres').hide();
+      $('#core-cuatro').hide();
+      $('#core-cinco').hide();
+      $('#core-seis').hide();
+      $('#core-siete').hide();
+    } else if (selectedOptionCore === 'core_tres') {
+      $('#core-uno').hide();
+      $('#core-dos').hide();
+      $('#core-tres').show();
+      $('#core-cuatro').hide();
+      $('#core-cinco').hide();
+      $('#core-seis').hide();
+      $('#core-siete').hide();
+    } else if (selectedOptionCore === 'core_cuatro') {
+      $('#core-uno').hide();
+      $('#core-dos').hide();
+      $('#core-tres').hide();
+      $('#core-cuatro').show();
+      $('#core-cinco').hide();
+      $('#core-seis').hide();
+      $('#core-siete').hide();
+    } else if (selectedOptionCore === 'core_cinco') {
+      $('#core-uno').hide();
+      $('#core-dos').hide();
+      $('#core-tres').hide();
+      $('#core-cuatro').hide();
+      $('#core-cinco').show();
+      $('#core-seis').hide();
+      $('#core-siete').hide();
+    } else if (selectedOptionCore === 'core_seis') {
+      $('#core-uno').hide();
+      $('#core-dos').hide();
+      $('#core-tres').hide();
+      $('#core-cuatro').hide();
+      $('#core-cinco').hide();
+      $('#core-seis').show();
+      $('#core-siete').hide();
+    } else if (selectedOptionCore === 'core_siete') {
+      $('#core-uno').hide();
+      $('#core-dos').hide();
+      $('#core-tres').hide();
+      $('#core-cuatro').hide();
+      $('#core-cinco').hide();
+      $('#core-seis').hide();
+      $('#core-siete').show();
+    } else {
+      $('#core-uno').hide();
+      $('#core-dos').hide();
+      $('#core-tres').hide();
+      $('#core-cuatro').hide();
+      $('#core-cinco').hide();
+      $('#core-seis').hide();
+      $('#core-siete').hide();
     } 
   });
 });

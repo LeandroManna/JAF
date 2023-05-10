@@ -442,7 +442,6 @@
                             <div id="collapseUno" class="accordion-collapse collapse show" aria-labelledby="headingUno" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <strong>Guia de ejercicios.</strong> 
-                                    
                                     <textarea class="form-control border-0" id="core1" name="core1" rows="8" readonly disabled oncopy="return false;"></textarea>
                                     <div>
                                         <p><strong>Video ejemplo de los ejercicios</strong></p>
@@ -657,7 +656,7 @@
     </script>
     <script src="https://kit.fontawesome.com/85a9ee331b.js" crossorigin="anonymous"></script>
 
-
+    <!-- Muestra en los text area los datos de los campos de la BBDD -->
     <script>
         var brazos = '<?php echo nl2br(implode('\n', $brazos)); ?>';
         if (document.getElementById('brazo')) {
@@ -722,6 +721,34 @@
         var act_dieciseis = '<?php echo nl2br(implode('\n', $act_dieciseis)); ?>';
         if (document.getElementById('act_dieciseis')) {
             document.getElementById('act_dieciseis').value += act_dieciseis;
+        }
+        var core_uno = '<?php echo nl2br(implode('\n', $core_uno)); ?>';
+        if (document.getElementById('core1')) {
+            document.getElementById('core1').value += core_uno;
+        }
+        var core_dos = '<?php echo nl2br(implode('\n', $core_dos)); ?>';
+        if (document.getElementById('core2')) {
+            document.getElementById('core2').value += core_dos;
+        }
+        var core_tres = '<?php echo nl2br(implode('\n', $core_tres)); ?>';
+        if (document.getElementById('core3')) {
+            document.getElementById('core3').value += core_tres;
+        }
+        var core_cuatro = '<?php echo nl2br(implode('\n', $core_cuatro)); ?>';
+        if (document.getElementById('core4')) {
+            document.getElementById('core4').value += core_cuatro;
+        }
+        var core_cinco = '<?php echo nl2br(implode('\n', $core_cinco)); ?>';
+        if (document.getElementById('core5')) {
+            document.getElementById('core5').value += core_cinco;
+        }
+        var core_seis = '<?php echo nl2br(implode('\n', $core_seis)); ?>';
+        if (document.getElementById('core6')) {
+            document.getElementById('core6').value += core_seis;
+        }
+        var core_siete = '<?php echo nl2br(implode('\n', $core_siete)); ?>';
+        if (document.getElementById('core7')) {
+            document.getElementById('core7').value += core_siete;
         }
     </script>
 

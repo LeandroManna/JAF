@@ -29,6 +29,13 @@
         $act_catorce = array();
         $act_quince = array();
         $act_dieciseis = array();
+        $core_uno = array();
+        $core_dos = array();
+        $core_tres = array();
+        $core_cuatro = array();
+        $core_cinco = array();
+        $core_seis = array();
+        $core_siete = array();
         while($fila = mysqli_fetch_assoc($rdo_activacion)) {
             $brazos[] = mysqli_real_escape_string($conn, $fila['brazo']);
             $pechos[] = mysqli_real_escape_string($conn, $fila['pecho']);
@@ -46,6 +53,13 @@
             $act_catorce[] = mysqli_real_escape_string($conn, $fila['act_catorce']);
             $act_quince[] = mysqli_real_escape_string($conn, $fila['act_quince']);
             $act_dieciseis[] = mysqli_real_escape_string($conn, $fila['act_dieciseis']);
+            $core_uno[] = mysqli_real_escape_string($conn, $fila['core_uno']);
+            $core_dos[] = mysqli_real_escape_string($conn, $fila['core_dos']);
+            $core_tres[] = mysqli_real_escape_string($conn, $fila['core_tres']);
+            $core_cuatro[] = mysqli_real_escape_string($conn, $fila['core_cuatro']);
+            $core_cinco[] = mysqli_real_escape_string($conn, $fila['core_cinco']);
+            $core_seis[] = mysqli_real_escape_string($conn, $fila['core_seis']);
+            $core_siete[] = mysqli_real_escape_string($conn, $fila['core_siete']);
         }
     }
     

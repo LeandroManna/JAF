@@ -9,6 +9,7 @@ const inputFechaNacimiento = document.querySelector('#fecha_nacimiento');
 const inputCelular = document.querySelector('#celular');
 const inputDetalle = document.querySelector('#detalle');
 const inputDisciplina = document.querySelector('#disciplina');
+const inputDisciplinaDos = document.querySelector('#disciplina_dos');
 const btnGuardar = document.querySelector('#editarCliente');
 
 btnEditar.forEach(btn => {
@@ -32,6 +33,7 @@ btnEditar.forEach(btn => {
         inputFechaNacimiento.value = cliente.fecha_nacimiento;
         inputCelular.value = cliente.celular;
         inputDisciplina.value = cliente.disciplina;
+        inputDisciplinaDos.value = cliente.disciplina_dos;
         inputDetalle.value = cliente.detalle;
       }
     }
@@ -47,6 +49,11 @@ btnGuardar.addEventListener('click', () => {
   const fechaNacimiento = inputFechaNacimiento.value;
   const celular = inputCelular.value;
   const detalle = inputDetalle.value;
+  
+  // Obtener el valor seleccionado del select "changeDisciplina"
+  const nuevaDisciplina = document.getElementById('changeDisciplina').value;
+  const segundaDisciplina = document.getElementById('addDisciplina').value;
+
   // Actualizar los datos del cliente en la base de datos usando una petición AJAX
   const xhr = new XMLHttpRequest();
   xhr.open('POST', '../php/editarCliente.php', true);
@@ -59,5 +66,7 @@ btnGuardar.addEventListener('click', () => {
       window.location.reload();
     }
   }
-  xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}`);
+  xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}&disciplina=${nuevaDisciplina}&disciplina_dos=${segundaDisciplina}`);
 });
+
+

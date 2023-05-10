@@ -38,9 +38,9 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav ms-auto">
-              <a class="nav-link " aria-current="page" href="admin-clientes.php">Clientes</a>
-              <a class="nav-link " aria-current="page" href="pagos.php">Pagos</a>
-              <li class="nav-item dropdown">
+              <a class="nav-link d-none " aria-current="page" href="admin-clientes.php">Clientes</a>
+              <a class="nav-link d-none " aria-current="page" href="pagos.php">Pagos</a>
+              <li class="nav-item dropdown d-none">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Reportes
                 </a>
@@ -51,7 +51,7 @@
                 </ul>
               </li>
               <a class="nav-link active" aria-current="page" href="presente.php">Presente</a>
-              <a class="nav-link" aria-current="page" href="#" onclick="cerrarSesion()">Cerrar sesion</a>
+              <a class="nav-link d-none" aria-current="page" href="#" onclick="cerrarSesion()">Cerrar sesion</a>
             </div>
           </div>
         </div>

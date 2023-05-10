@@ -39,7 +39,7 @@
                       <li><a class="nav-link" href="reportePagos.html">Pagos</a></li>
                     </ul>
                   </li>
-                  <a class="nav-link" aria-current="page" href="presente.php">Presente</a>
+                  <a class="nav-link" aria-current="page" href="presente.php" target="_blank">Presente</a>
                   
                   <a class="nav-link" aria-current="page" href="#" onclick="cerrarSesion()">Cerrar sesion</a>
                 </div>

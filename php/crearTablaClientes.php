@@ -43,9 +43,11 @@ if (mysqli_num_rows($resultado) > 0) {
     // Crear la tabla HTML
     echo "<table class='table table-info table-striped centrado'>";
     echo "<tr>
-              <th>Disciplina</th>
               <th>N° de Socio</th>
+              <th>1° Disciplina</th>
+              <th>2° Disciplina</th>
               <th>Apellido</th>
+              <th>Nombre</th>
               <th>Acciones</th>
           </tr>";
 
@@ -53,9 +55,11 @@ if (mysqli_num_rows($resultado) > 0) {
     while($fila = mysqli_fetch_assoc($resultado)) {
                 
           echo "<tr data-id='" . $fila['id'] . "-" . $fila['id'] . "'>
-                <td>" . ucfirst($fila['disciplina']) . "</td>
                 <td>" . $fila['id'] . "</td>
+                <td>" . ucfirst($fila['disciplina']) . "</td>
+                <td>" . ucfirst($fila['disciplina_dos']) . "</td>
                 <td>" . $fila['apellido'] . "</td>
+                <td>" . $fila['nombre'] . "</td>
                 <td>
                     <div class='btn-group' role='group' aria-label='Basic mixed styles example'>
                       <button type='button' class='btn btn-success editar' name='editar' id='editar' data-id='" . $fila["id"] . "'><i class='fa-solid fa-user-pen'></i></button>

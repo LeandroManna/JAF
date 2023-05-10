@@ -19,10 +19,12 @@ $act_catorce = $post['act_catorce'];
 $act_quince = $post['act_quince'];
 $act_dieciseis = $post['act_dieciseis'];
 
+$core_uno = $_POST['core_uno'];
+
 // Actualizar los datos del cliente en la base de datos
-$sql = "UPDATE activacionmuscular SET brazo=?, pecho=?, abdominal=?, pierna=?, act_cinco=?, act_seis=?, act_siete=?, act_ocho=?, act_nueve=?, act_diez=?, act_once=?, act_doce=?, act_trece=?, act_catorce=?, act_quince=?, act_dieciseis=?  WHERE id=?";
+$sql = "UPDATE activacionmuscular SET brazo=?, pecho=?, abdominal=?, pierna=?, act_cinco=?, act_seis=?, act_siete=?, act_ocho=?, act_nueve=?, act_diez=?, act_once=?, act_doce=?, act_trece=?, act_catorce=?, act_quince=?, act_dieciseis=?, core_uno=?  WHERE id=?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ssssssssssssssssi", $brazo, $pecho, $abdominal, $pierna, $act_cinco, $act_seis, $act_siete, $act_ocho, $act_nueve, $act_diez, $act_once, $act_doce, $act_trece, $act_catorce, $act_quince, $act_dieciseis, $id);
+$stmt->bind_param("sssssssssssssssssi", $brazo, $pecho, $abdominal, $pierna, $act_cinco, $act_seis, $act_siete, $act_ocho, $act_nueve, $act_diez, $act_once, $act_doce, $act_trece, $act_catorce, $act_quince, $act_dieciseis, $core_uno, $id);
 $stmt->execute();
 $stmt->close();
 $conn->close();
