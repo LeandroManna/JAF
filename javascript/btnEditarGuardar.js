@@ -12,6 +12,8 @@ const inputDisciplina = document.querySelector('#disciplina');
 const inputDisciplinaDos = document.querySelector('#disciplina_dos');
 const btnGuardar = document.querySelector('#editarCliente');
 
+
+
 btnEditar.forEach(btn => {
   btn.addEventListener('click', () => {
     // Obtener el id del cliente a editar desde el atributo data-id
@@ -53,20 +55,63 @@ btnGuardar.addEventListener('click', () => {
   // Obtener el valor seleccionado del select "changeDisciplina"
   const nuevaDisciplina = document.getElementById('changeDisciplina').value;
   const segundaDisciplina = document.getElementById('addDisciplina').value;
-
-  // Actualizar los datos del cliente en la base de datos usando una petición AJAX
-  const xhr = new XMLHttpRequest();
-  xhr.open('POST', '../php/editarCliente.php', true);
-  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  xhr.onload = function() {
-    if (this.status === 200) {
-      // Ocultar el formulario y recargar la página
-      formularioCliente.classList.add('d-none');
-      divTabla.classList.remove('d-none');
-      window.location.reload();
+  
+  // Verificar si se ha seleccionado alguna disciplina
+  if (nuevaDisciplina !== '' && segundaDisciplina !== '') {
+    // Se han seleccionado ambos select, se modifican ambos campos
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '../php/editarCliente.php', true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.onload = function() {
+      if (this.status === 200) {
+        // Ocultar el formulario y recargar la página
+        formularioCliente.classList.add('d-none');
+        divTabla.classList.remove('d-none');
+        window.location.href = "admin-clientes.php";
+      }
     }
-  }
-  xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}&disciplina=${nuevaDisciplina}&disciplina_dos=${segundaDisciplina}`);
-});
-
-
+    xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}&disciplina=${nuevaDisciplina}&disciplina_dos=${segundaDisciplina}`);
+  } else if (nuevaDisciplina !== '') {
+    // Solo se ha seleccionado el primer select, se modifica solo el primer campo
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '../php/editarCliente.php', true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.onload = function() {
+      if (this.status === 200) {
+        // Ocultar el formulario y recargar la página
+        formularioCliente.classList.add('d-none');
+        divTabla.classList.remove('d-none');
+        window.location.href = "admin-clientes.php";
+      }
+    }
+    xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}&disciplina=${nuevaDisciplina}&disciplina_dos=${inputDisciplinaDos.value}`);
+  } else if (segundaDisciplina !== '') {
+    // Solo se ha seleccionado el segundo select, se modifica solo el segundo campo
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '../php/editarCliente.php', true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.onload = function() {
+      if (this.status === 200) {
+        // Ocultar el formulario y recargar la página
+        formularioCliente.classList.add('d-none');
+        divTabla.classList.remove('d-none');
+        window.location.href = "admin-clientes.php";
+      }
+    }
+    xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}&disciplina=${inputDisciplina.value}&disciplina_dos=${segundaDisciplina}`);
+  } else {
+    // No se ha seleccionado ninguna disciplina, se mantienen los campos como están
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '../php/editarCliente.php', true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.onload = function() {
+      if (this.status === 200) {
+        // Ocultar el formulario y recargar la página
+        formularioCliente.classList.add('d-none');
+        divTabla.classList.remove('d-none');
+        window.location.href = "admin-clientes.php";
+      }
+    }
+    xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}&disciplina=${inputDisciplina.value}&disciplina_dos=${inputDisciplinaDos.value}`);
+}
+}); 

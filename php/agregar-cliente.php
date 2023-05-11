@@ -23,17 +23,25 @@
 
             // Ejecutar la consulta
             $resultado = mysqli_query($conn, $query);
-
-            echo "<script>Swal.fire({
-                icon: 'success',
-                title: 'Cliente agregado correctamente!!!',
-                showConfirmButton: false,
-                timer: 2000
-              });</script>";
+            echo "<script>
+                window.location.href = 'admin-clientes.php';
+              </script>";
+            echo "<script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Cliente agregado correctamente!!!',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+              </script>";
+            
 
             // Mostrar un mensaje de éxito si la consulta fue exitosa
             if ($resultado) {
-                echo "<script>document.getElementById('form-clientes').reset();document.getElementById('mensaje-exito').innerHTML = 'Nuevo cliente agregado correctamente';</script>";
+                echo "<script>
+                document.getElementById('form-clientes').reset();
+                document.getElementById('mensaje-exito').innerHTML = 'Cliente agregado correctamente';
+                </script>";
             }
         } else {
             // Mostrar un mensaje de error si el cliente ya existe en la base de datos

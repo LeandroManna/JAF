@@ -43,8 +43,8 @@
             <input type="date" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" >
         </div>
         <div class="mb-1 col-md-3">
-          <label for="changeDisciplina" class="form-label">Cambiar 1° disciplina:</label>
-            <select class="form-select" name="changeDisciplina" id="changeDisciplina" required>
+            <label for="changeDisciplina" class="form-label">Cambiar 1° disciplina:</label>
+            <select class="form-select" name="changeDisciplina" id="changeDisciplina" >
                 <option selected disabled value="">Seleccione...</option>
                 <option value="Musculacion">Musculacion</option>
                 <option value="Body_Pump">Body Pump</option>
@@ -60,8 +60,8 @@
             </select>
         </div>
         <div class="mb-1 col-md-3">
-          <label for="addDisciplina" class="form-label">Cambiar 2° disciplina:</label>
-            <select class="form-select" name="addDisciplina" id="addDisciplina">
+            <label for="addDisciplina" class="form-label">Cambiar 2° disciplina:</label>
+            <select class="form-select" name="addDisciplina" id="addDisciplina" >
                 <option selected disabled value="">Seleccione...</option>
                 <option value="Musculacion">Musculacion</option>
                 <option value="Body_Pump">Body Pump</option>
@@ -89,7 +89,7 @@
         </div>
         <div class="d-flex justify-content-center btn-group my-3" role="group">
             <button type="submit" class="btn btn-success mx-1" id="editarCliente">Editar cliente</button>
-            <button type="submit" class="btn btn-info mx-1" id="">Volver</button>
+            <a href="admin-clientes.php" class="btn btn-info mx-1">Volver</a>
         </div>
     </form>
 </div>
