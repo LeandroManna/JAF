@@ -34,8 +34,9 @@
   
     // Ejecutar la consulta SQL y verificar si se ha actualizado la tabla
     if ($conn->query($sql) === TRUE) {
-      
-        /* echo "Los datos se han actualizado correctamente en la tabla activacion muscular"; */
+      // Redirigir
+      header("Location: admin-clientes.php");
+      //echo "Los datos se han actualizado correctamente en la tabla activacion muscular"; 
     } else {
         echo "Error al actualizar los datos en la tabla activacion muscular: " . $conn->error;
     }
@@ -405,8 +406,6 @@
                       </div>
                     </div>
                     
-                    
-
                     <div class="d-flex justify-content-center my-3">
                       <button type="submit" class="btn btn-success" name="addEnt" id="addEnt" >Agregar entrenamiento</button>
                     </div>
