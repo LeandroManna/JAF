@@ -82,13 +82,12 @@ if (mysqli_num_rows($resultado) > 0) {
     echo "</div>";
     
 } else {
-  echo "<script>alert('No se encontraron clientes.');</script>";
-  header("Location: ../paginas/admin-clientes.php");
+  // Cerrar la conexión a la base de datos
+  mysqli_close($conn);
+  echo "<script>
+          window.location.href = 'admin-clientes.php';
+          alert('No se encontraron clientes.');
+        </script>";
   exit();
-
 }
-
-// Cerrar la conexión a la base de datos
-mysqli_close($conn);
-
 ?>
