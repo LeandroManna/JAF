@@ -66,11 +66,21 @@
           </h2>
 
           <div class="d-flex justify-content-center align-items-center">
-            <h1 id="clases-count" class="display-1 mx-2 fw-bolder">
+            <h1 id="clases-count" class="display-1 fw-bolder" style="margin-bottom: 0px">
               <?php echo "" . $_SESSION['clases'] . "";?>
+              <h4 class="align-self-end mx-3">clases</h4>
             </h1>
-            <p class="align-self-end">clases</p>
+            
           </div>
+          <h3 class="my-3">
+            De <?php echo "" . $_SESSION['disciplina'] . "";?>
+            <?php if (!empty($_SESSION['disciplina_dos'])): ?>
+            
+              y de <?php echo $_SESSION['disciplina_dos']; ?>
+            
+            <?php endif; ?>
+          </h3>
+          
 
           <form onsubmit="restarClase(event)">
             <button type="submit" class="btn btn-primary mx-1">Presente</button>
@@ -130,36 +140,35 @@
       function restarClase(event) {
         event.preventDefault(); // Evitar que el formulario se envíe
         var h1Element = document.getElementById("clases-count");
-var valorActual = parseInt(h1Element.innerText);
-var nuevoValor = valorActual - 1;
-h1Element.innerText = nuevoValor;
+        var valorActual = parseInt(h1Element.innerText);
+        var nuevoValor = valorActual - 1;
+        h1Element.innerText = nuevoValor;
 
-// Crear un objeto FormData y agregar el nuevo valor de las clases
-var formData = new FormData();
-formData.append("clases", nuevoValor);
+        // Crear un objeto FormData y agregar el nuevo valor de las clases
+        var formData = new FormData();
+        formData.append("clases", nuevoValor);
 
-// Realizar una solicitud AJAX utilizando Fetch API
-fetch("../php/validar_presente.php", {
-  method: "POST",
-  body: formData
-})
-  .then(function(response) {
-    // Verificar la respuesta del servidor
-    if (response.ok) {
-      // Redireccionar al confirmar la presencia
-      window.location.href = "presente.php";
-    } else {
-      // Manejar cualquier error en la respuesta del servidor
-      console.log("Error al actualizar las clases");
-    }
-  })
-  .catch(function(error) {
-    // Manejar cualquier error de conexión
-    console.log("Error de conexión");
-  });
-
+        // Realizar una solicitud AJAX utilizando Fetch API
+        fetch("../php/validar_presente.php", {
+          method: "POST",
+          body: formData
+        })
+          .then(function(response) {
+            // Verificar la respuesta del servidor
+            if (response.ok) {
+              // Redireccionar al confirmar la presencia
+              window.location.href = "presente.php";
+            } else {
+              // Manejar cualquier error en la respuesta del servidor
+              console.log("Error al actualizar las clases");
+            }
+          })
+          .catch(function(error) {
+            // Manejar cualquier error de conexión
+            console.log("Error de conexión");
+          });
       }
-
+            
       window.addEventListener("DOMContentLoaded", function() {
         var buttonElement = document.querySelector("button[type='submit']");
         buttonElement.focus();

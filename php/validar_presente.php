@@ -20,11 +20,14 @@ if (isset($_POST['submit'])) {
         $nombre_cliente = $cliente['nombre'];
         $detalle_cliente = $cliente['detalle'];
         $disciplina_cliente = $cliente['disciplina'];
+        $disciplina2_cliente = $cliente['disciplina_dos'];
         $clase_cliente = $cliente['clases'];
         
         $_SESSION['nombre'] = $nombre_cliente;
         $_SESSION['detalle'] = $detalle_cliente;
         $_SESSION['clases'] = $clase_cliente;
+        $_SESSION['disciplina'] = $disciplina_cliente;
+        $_SESSION['disciplina_dos'] = $disciplina2_cliente;
         
         if ($cliente) {
             header("Location: confirmar-presencia.php");
