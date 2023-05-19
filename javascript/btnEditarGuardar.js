@@ -10,6 +10,7 @@ const inputCelular = document.querySelector('#celular');
 const inputDetalle = document.querySelector('#detalle');
 const inputDisciplina = document.querySelector('#disciplina');
 const inputDisciplinaDos = document.querySelector('#disciplina_dos');
+const inputClases = document.querySelector('#clases');
 const btnGuardar = document.querySelector('#editarCliente');
 
 
@@ -37,6 +38,7 @@ btnEditar.forEach(btn => {
         inputDisciplina.value = cliente.disciplina;
         inputDisciplinaDos.value = cliente.disciplina_dos;
         inputDetalle.value = cliente.detalle;
+        inputClases.value = cliente.clases;
       }
     }
     xhr.send();
@@ -55,6 +57,7 @@ btnGuardar.addEventListener('click', () => {
   // Obtener el valor seleccionado del select "changeDisciplina"
   const nuevaDisciplina = document.getElementById('changeDisciplina').value;
   const segundaDisciplina = document.getElementById('addDisciplina').value;
+  const clases = inputClases.value;
   
   // Verificar si se ha seleccionado alguna disciplina
   if (nuevaDisciplina !== '' && segundaDisciplina !== '') {
@@ -70,7 +73,7 @@ btnGuardar.addEventListener('click', () => {
         window.location.href = "admin-clientes.php";
       }
     }
-    xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}&disciplina=${nuevaDisciplina}&disciplina_dos=${segundaDisciplina}`);
+    xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}&disciplina=${nuevaDisciplina}&disciplina_dos=${segundaDisciplina}&clases=${clases}`);
   } else if (nuevaDisciplina !== '') {
     // Solo se ha seleccionado el primer select, se modifica solo el primer campo
     const xhr = new XMLHttpRequest();
@@ -84,7 +87,7 @@ btnGuardar.addEventListener('click', () => {
         window.location.href = "admin-clientes.php";
       }
     }
-    xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}&disciplina=${nuevaDisciplina}&disciplina_dos=${inputDisciplinaDos.value}`);
+    xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}&disciplina=${nuevaDisciplina}&disciplina_dos=${inputDisciplinaDos.value}&clases=${clases}`);
   } else if (segundaDisciplina !== '') {
     // Solo se ha seleccionado el segundo select, se modifica solo el segundo campo
     const xhr = new XMLHttpRequest();
@@ -98,7 +101,7 @@ btnGuardar.addEventListener('click', () => {
         window.location.href = "admin-clientes.php";
       }
     }
-    xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}&disciplina=${inputDisciplina.value}&disciplina_dos=${segundaDisciplina}`);
+    xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}&disciplina=${inputDisciplina.value}&disciplina_dos=${segundaDisciplina}&clases=${clases}`);
   } else {
     // No se ha seleccionado ninguna disciplina, se mantienen los campos como están
     const xhr = new XMLHttpRequest();
@@ -112,6 +115,6 @@ btnGuardar.addEventListener('click', () => {
         window.location.href = "admin-clientes.php";
       }
     }
-    xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}&disciplina=${inputDisciplina.value}&disciplina_dos=${inputDisciplinaDos.value}`);
+    xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}&disciplina=${inputDisciplina.value}&disciplina_dos=${inputDisciplinaDos.value}&clases=${clases}`);
 }
 }); 

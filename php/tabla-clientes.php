@@ -76,11 +76,15 @@
                 <option value="Futbol_Infantil">Futbol Infantil</option>
             </select>
         </div>
-        <div class="mb-1 col-md-1">
+        <div class="mb-1 col-md-1 d-none">
             <label class="form-label" for="flexSwitchCheckDefault">Activo:</label>
             <div class=" form-check form-switch ">
                 <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
             </div>
+        </div>
+        <div class="mb-1 col-md-2">
+            <label for="clases" class="form-label">Cantidad de clases:</label>
+            <input type="number" class="form-control" name="clases" id="clases" >
         </div>
         
         <div class="mb-2">
