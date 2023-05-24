@@ -68,10 +68,10 @@
           <div class="d-flex justify-content-center align-items-center">
             <h1 id="clases-count" class="display-1 fw-bolder" style="margin-bottom: 0px">
               <?php echo "" . $_SESSION['clases'] . "";?>
-              <h4 class="align-self-end mx-3">clases</h4>
+              <h4 id="clases-message" class="align-self-end mx-3">clases</h4>
             </h1>
-            
           </div>
+
           <h3 class="my-3">
             De <?php echo "" . $_SESSION['disciplina'] . "";?>
             <?php if (!empty($_SESSION['disciplina_dos'])): ?>
@@ -141,18 +141,21 @@
         event.preventDefault(); // Evitar que el formulario se envíe
         var h1Element = document.getElementById("clases-count");
         var valorActual = parseInt(h1Element.innerText);
-        var nuevoValor = valorActual - 1;
-        h1Element.innerText = nuevoValor;
-
-        // Crear un objeto FormData y agregar el nuevo valor de las clases
-        var formData = new FormData();
-        formData.append("clases", nuevoValor);
-
-        // Realizar una solicitud AJAX utilizando Fetch API
-        fetch("../php/validar_presente.php", {
-          method: "POST",
-          body: formData
-        })
+            
+        // Verificar si el valor actual es mayor que 0 antes de restar
+        if (valorActual > 0) {
+          var nuevoValor = valorActual - 1;
+          h1Element.innerText = nuevoValor;
+          
+          // Crear un objeto FormData y agregar el nuevo valor de las clases
+          var formData = new FormData();
+          formData.append("clases", nuevoValor);
+          
+          // Realizar una solicitud AJAX utilizando Fetch API
+          fetch("../php/validar_presente.php", {
+            method: "POST",
+            body: formData
+          })
           .then(function(response) {
             // Verificar la respuesta del servidor
             if (response.ok) {
@@ -167,8 +170,18 @@
             // Manejar cualquier error de conexión
             console.log("Error de conexión");
           });
+        } else {
+          // Mostrar un mensaje cuando el valor llega a 0
+          var clasesMessage = document.getElementById("clases-message");
+          clasesMessage.innerText = "Ya no le quedan clases";
+          
+          // Redireccionar a "presente.php" después de 3 segundos
+          setTimeout(function() {
+            window.location.href = "presente.php";
+          }, 2000);
+        }
       }
-            
+   
       window.addEventListener("DOMContentLoaded", function() {
         var buttonElement = document.querySelector("button[type='submit']");
         buttonElement.focus();
