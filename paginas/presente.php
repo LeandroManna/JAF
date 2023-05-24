@@ -58,7 +58,7 @@
       </nav>
     </header>
     
-    <main class="d-flex align-item-center">
+    <main class="d-flex align-items-center">
       <div class="container my-3 py-4 d-flex justify-content-center">
           <div class="row col-9 justify-content-center rounded py-5 shadow-lg">
             <div class="col-md-6 rounded cuadro-fondo">
@@ -70,18 +70,21 @@
                 </video>
               </div>
     
-              <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                <div class="mb-3">
-                  <label for="username" class="form-label">N° de Socio</label>
-                  <input type="number" class="form-control" name="username" id="username" required autofocus placeholder="N° de Socio">
-                </div>
-                <div class="d-grid gap-2 mb-3">
-                  <input type="submit" class="btn btn-primary" value="Registrar presencia" name="submit">
-                  <?php
-                    include ("../php/validar_presente.php");
-                  ?>
-                </div>
-              </form>
+              <div class="d-flex justify-content-center">
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                  <div class="mb-3">
+                    <h4 for="username" class="form-label"><strong>N° de Socio</strong></h4>
+                    <input type="number" class="form-control" name="username" id="username" required autofocus placeholder="N° de Socio">
+                  </div>
+                  <div class="d-grid gap-2 mb-3">
+                    <input type="submit" class="btn btn-primary" value="Registrar presencia" name="submit">
+                    <?php
+                      include ("../php/validar_presente.php");
+                    ?>
+                  </div>
+                </form>
+              </div>
+              
             </div>
           </div>
       </div>

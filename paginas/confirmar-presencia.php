@@ -58,8 +58,8 @@
     </header>
     
     <main class="d-flex align-items-center">
-      <div class="container my-3">
-        <div class="text-center">
+      <div class="container my-3 d-flex justify-content-center">
+        <div class="text-center rounded shadow-lg px-5 py-5">
 
           <h2 class="text-center">
             <?php echo "" . $_SESSION['nombre'] . "";?>, te quedan: 
@@ -84,7 +84,7 @@
 
           <form onsubmit="restarClase(event)">
             <button type="submit" class="btn btn-primary mx-1">Presente</button>
-            <a href="presente.php" class="btn btn-secondary mx-1">Volver</a>
+            <a href="presente.php" class="btn btn-secondary mx-1 d-none">Volver</a>
           </form>
         </div>
       </div>
