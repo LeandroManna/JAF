@@ -141,16 +141,16 @@
         event.preventDefault(); // Evitar que el formulario se envíe
         var h1Element = document.getElementById("clases-count");
         var valorActual = parseInt(h1Element.innerText);
-            
+
         // Verificar si el valor actual es mayor que 0 antes de restar
         if (valorActual > 0) {
           var nuevoValor = valorActual - 1;
           h1Element.innerText = nuevoValor;
-          
+
           // Crear un objeto FormData y agregar el nuevo valor de las clases
           var formData = new FormData();
           formData.append("clases", nuevoValor);
-          
+
           // Realizar una solicitud AJAX utilizando Fetch API
           fetch("../php/validar_presente.php", {
             method: "POST",
@@ -174,11 +174,11 @@
           // Mostrar un mensaje cuando el valor llega a 0
           var clasesMessage = document.getElementById("clases-message");
           clasesMessage.innerText = "Ya no le quedan clases";
-          
+
           // Redireccionar a "presente.php" después de 3 segundos
           setTimeout(function() {
             window.location.href = "presente.php";
-          }, 2000);
+          }, 5000);
         }
       }
    
