@@ -1,3 +1,30 @@
+<?php
+include "../php/conexion.php";
+
+if (isset($_POST['submit'])) {
+    $id = $_POST['id'];
+    $nombre = $_POST['nombre'];
+    $apellido = $_POST['apellido'];
+    $monto = $_POST['monto'];
+    $disciplina = $_POST['disciplina'];
+    $fecha_vencimiento = $_POST['fecha_vencimiento'];
+
+    // Depurar los valores de $_POST
+    //echo "Nombre: " . $nombre . "<br>";
+    //echo "Monto: " . $monto . "<br>";
+
+    // Insertar el nuevo pago en la base de datos
+    $query = mysqli_query($conn, "INSERT INTO pagos (id, nombre, apellido, monto, disciplina, fecha_vencimiento) 
+    VALUES ('$id', '$nombre', '$apellido', '$monto', '$disciplina', '$fecha_vencimiento')");
+
+    if ($query) {
+        // Redirigir
+      header("Location: pagos.php");
+    } else {
+        echo "Error al registrar el pago: " . mysqli_error($conn);
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -49,86 +76,54 @@
     </header>
     
     <main>
-        <div class="container my-3">
-            <h2 class="text-center card-subtitle text-dark py-3">Registro de Pagos</h2>
-            <!-- Datos del cliente buscado -->
-            <form action='' method='GET' name="buscar">
-              <div class='input-group mb-3'>
-                <input type='text' name='buscar' class='form-control form-control-sm' placeholder='Buscar' aria-label='Buscar' aria-describedby='basic-addon2' value=''>
-                <div class='input-group-append'>
-                  <button id="buscar" class='btn btn-outline-secondary' name='buscar-btn' type='submit'><i class='fa fa-search'></i></button>
-                </div>
-              </div>
-            </form>
-            <form action="" method="post">
-                <div class="row justify-content-center my-3">
-                    <div class="col-12 col-md-2 mb-2">
-                        <!-- <label for="id" class="form-label">N° de Socio</label> -->
-                        <input type="number" class="form-control" name="id" id="id" placeholder="N° de Socio" readonly disabled>
-                    </div>
-                    <div class="col-12 col-md-5 mb-2">
-                        <!-- <label for="nombre" class="form-label">Nombre:</label> -->
-                        <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" readonly disabled>
-                    </div>
-                    <div class="col-12 col-md-5 ">
-                        <!-- <label for="apellido" class="form-label">Apellido:</label> -->
-                        <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido" readonly disabled>
-                    </div>
-                </div>
-            </form>
-            
-
-            <!-- Formulario de pago -->
-            <div class="row justify-content-center">
-                <form id="formulario-pago" class=" border border-2 pt-2 rounded-3">
-                  <div class="row ">
-                    <div class="form-group col-12 col-md-4">
-                      <label for="validationCustom04" class="form-label">Disciplina</label>
-                      <select class="form-select" id="validationCustom04">
-                        <option selected disabled value="">Seleccione...</option>
-                        <option id="eBasico" value="eBasico">Musculacion</option>
-                        <option id="eIntermedio" value="eIntermedio">Body pump</option>
-                        <option id="eAvanzado" value="eAvanzado">Funcional</option>
-                        <option id="eAvanzado" value="eAvanzado">Ritmos flow</option>
-                        <option id="eAvanzado" value="eAvanzado">Futbol infantil</option>
-                        <option id="eAvanzado" value="eAvanzado">Body combat</option>
-                      </select>
-                    </div>
-                    <div class="form-group col-12 col-md-4">
-                      <label for="validationCustom04" class="form-label">Metodo de pago</label>
-                      <select class="form-select" id="validationCustom04">
-                        <option selected disabled value="">Seleccione...</option>
-                        <option id="eBasico" value="eBasico">Efectivo</option>
-                        <option id="eIntermedio" value="eIntermedio">Transferencia</option>
-                        <option id="eAvanzado" value="eAvanzado">Debito</option>
-                      </select>
-                    </div>
-                    <div class="form-group col-12 col-md-4">
-                      <label class="form-label" for="fecha-pago">Importe abonado:</label>
-                      <input type="number" class="form-select" id="fecha-pago" placeholder="$4000">
-                    </div>
-                    <div class="form-group col-12 col-md-6">
-                      <label for="fecha-pago">Fecha de pago</label>
-                      <input type="date" class="form-control" id="fecha-pago">
-                    </div>
-                    <div class="form-group col-12 col-md-6">
-                      <label for="fecha-vencimiento">Fecha de vencimiento</label>
-                      <input type="date" class="form-control" id="fecha-vencimiento">
-                    </div>
-                  </div>
-                  <div class="d-flex justify-content-center">
-                    <div class="m-3">
-                        <button type="submit" id="gPago" class="btn btn-success mt-3">Guardar pago</button>
-                    </div>
-                    <div class="m-3">
-                        <button type="submit" id="cPago" class="btn btn-danger mt-3">Cancelar pago</button>
-                    </div>
-                  </div>
-                    
-                </form>
-            </div>
-        </div>
+      <div class="container my-3">
+        <h1 class="text-center card-subtitle text-dark py-3">Registro de Pagos de Socios</h1>
+        <form id="" method="POST" class="row border border-2 pt-2 rounded-3">
+          <!-- Campos del formulario -->
+          <div class="mb-3 col-md-4">
+            <label for="id" class="form-label">N° de Socio: *</label>
+            <input type="number" class="form-control bg-color" name="id" id="id" placeholder="N° de Socio">
+          </div>
+          <div class="mb-3 col-md-4">
+            <label for="nombre" class="form-label">Nombre *</label>
+            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" >
+          </div>
+          <div class="mb-3 col-md-4">
+            <label for="apellido" class="form-label">Apellido *</label>
+            <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido" >
+          </div>
+          <div class="mb-3 col-md-4">
+            <label for="disciplina" class="form-label">Disciplina *</label>
+            <select class="form-select" name="disciplina" id="disciplina" required>
+              <option selected disabled value="">Seleccione...</option>
+              <option value="Musculacion">Musculacion</option>
+              <option value="Body_Pump">Body Pump</option>
+              <option value="body_Combat">Body Combat</option>
+              <option value="Funcional">Funcional</option>
+              <option value="URKU">URKU</option>
+              <option value="Especifico">Especifico</option>
+              <option value="Everlast_Boxing">Everlast Boxing</option>
+              <option value="Ritmos_Flow">Ritmos Flow</option>
+              <option value="Mini_Voley">Mini Voley</option>
+              <option value="Taekwondo">Taekwondo</option>
+              <option value="Futbol_Infantil">Futbol Infantil</option>
+            </select>
+          </div>
+          <div class="mb-3 col-md-4">
+            <label for="monto" class="form-label">Monto *</label>
+            <input type="number" class="form-control" name="monto" placeholder="Monto del pago" required>
+          </div>
+          <div class="mb-3 col-md-4">
+            <label for="fecha_vencimiento" class="form-label">Fecha de vencimiento *</label>
+            <input type="date" class="form-control" name="fecha_vencimiento" id="fecha_vencimiento" >
+          </div>
+          <div class="d-grid gap-2 my-3">
+            <button type="submit" class="btn btn-success" name="submit">Guardar Pago</button>
+          </div>
+        </form>
+      </div>
     </main>
+
 
     <footer class="bg-dark text-light p-3 centrado">
       <div class="container">
@@ -183,6 +178,9 @@
       var currentYear = new Date().getFullYear();
       document.getElementById("currentYear").innerHTML = currentYear;
     </script>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="enviar_pdf.js"></script>
 
 
 </body>
