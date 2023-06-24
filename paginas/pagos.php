@@ -3,27 +3,37 @@ include "../php/conexion.php";
 
 if (isset($_POST['submit'])) {
     $id = $_POST['id'];
+    $id_cliente = $_POST['id_cliente'];
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
     $monto = $_POST['monto'];
     $disciplina = $_POST['disciplina'];
     $fecha_vencimiento = $_POST['fecha_vencimiento'];
+    $clases = $_POST['clases'];
+
 
     // Depurar los valores de $_POST
     //echo "Nombre: " . $nombre . "<br>";
     //echo "Monto: " . $monto . "<br>";
 
     // Insertar el nuevo pago en la base de datos
-    $query = mysqli_query($conn, "INSERT INTO pagos (id, nombre, apellido, monto, disciplina, fecha_vencimiento) 
-    VALUES ('$id', '$nombre', '$apellido', '$monto', '$disciplina', '$fecha_vencimiento')");
+    $query = mysqli_query($conn, "INSERT INTO pagos (id_cliente, nombre, apellido, monto, disciplina, fecha_vencimiento) 
+    VALUES ('$id_cliente', '$nombre', '$apellido', '$monto', '$disciplina', '$fecha_vencimiento')");
 
     if ($query) {
-        // Redirigir
+      // Redirigir
       header("Location: pagos.php");
     } else {
-        echo "Error al registrar el pago: " . mysqli_error($conn);
+      echo "Error al registrar el pago: " . mysqli_error($conn);
     }
 }
+// Actualizar los datos del cliente en la base de datos
+$sql = "UPDATE clientes SET clases=? WHERE id=?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("si", $clases, $id_cliente);
+$stmt->execute();
+$stmt->close();
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -78,11 +88,11 @@ if (isset($_POST['submit'])) {
     <main>
       <div class="container my-3">
         <h1 class="text-center card-subtitle text-dark py-3">Registro de Pagos de Socios</h1>
-        <form id="" method="POST" class="row border border-2 pt-2 rounded-3">
+        <form id="" name="pagoCliente" method="POST" class="row border border-2 pt-2 rounded-3">
           <!-- Campos del formulario -->
           <div class="mb-3 col-md-4">
-            <label for="id" class="form-label">N° de Socio: *</label>
-            <input type="number" class="form-control bg-color" name="id" id="id" placeholder="N° de Socio">
+            <label for="id_cliente" class="form-label">N° de Socio: *</label>
+            <input type="number" class="form-control bg-color" name="id_cliente" id="id_cliente" placeholder="N° de Socio">
           </div>
           <div class="mb-3 col-md-4">
             <label for="nombre" class="form-label">Nombre *</label>
@@ -116,6 +126,10 @@ if (isset($_POST['submit'])) {
           <div class="mb-3 col-md-4">
             <label for="fecha_vencimiento" class="form-label">Fecha de vencimiento *</label>
             <input type="date" class="form-control" name="fecha_vencimiento" id="fecha_vencimiento" >
+          </div>
+          <div class="mb-1 col-md-2">
+            <label for="clases" class="form-label">Cantidad de clases:</label>
+            <input type="number" class="form-control" name="clases" id="clases" >
           </div>
           <div class="d-grid gap-2 my-3">
             <button type="submit" class="btn btn-success" name="submit">Guardar Pago</button>

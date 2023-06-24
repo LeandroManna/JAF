@@ -1,3 +1,42 @@
+<?php
+include "../php/conexion.php";
+
+if (isset($_POST['submit'])) {
+    $id = $_POST['id'];
+    $nombre = $_POST['nombre'];
+    $apellido = $_POST['apellido'];
+    $monto = $_POST['monto'];
+    $disciplina = $_POST['disciplina'];
+    $fecha_pago = $_POST['fecha_pago'];
+    $fecha_vencimiento = $_POST['fecha_vencimiento'];
+    $clases = $_POST['clases'];
+
+
+    // Depurar los valores de $_POST
+    //echo "Nombre: " . $nombre . "<br>";
+    //echo "Monto: " . $monto . "<br>";
+
+    // Insertar el nuevo pago en la base de datos
+    $query = mysqli_query($conn, "INSERT INTO pagos (id_cliente, nombre, apellido, monto, disciplina, fecha_pago, fecha_vencimiento) 
+    VALUES ('$id', '$nombre', '$apellido', '$monto', '$disciplina', '$fecha_pago', '$fecha_vencimiento')");
+
+    if ($query) {
+        // Mostrar alerta de pago guardado
+        echo '<script>Swal.fire("¡Pago guardado!", "El pago se ha guardado correctamente.", "success");</script>';
+    } else {
+        echo "Error al registrar el pago: " . mysqli_error($conn);
+    }
+    // Actualizar los datos del cliente en la base de datos
+$sql = "UPDATE clientes SET clases=? WHERE id=?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("si", $clases, $id);
+$stmt->execute();
+$stmt->close();
+$conn->close();
+}
+?>
+
+
 <div class=" justify-content-center col-sm-12" id="tabla">
     <h2 class="text-center card-subtitle py-3">Listado de Clientes</h2>
     <?php
@@ -12,11 +51,11 @@
     <form method="post" name="editClient" id="formulario" class="row border border-2 pt-2 rounded-3">
         <div class="mb-1 col-md-2">
             <label for="id" class="form-label">N° de Socio</label>
-            <input type="number" class="form-control" name="id" id="id" placeholder="N° de Socio" readonly disabled>
+            <input type="number" class="form-control" name="id" id="id" placeholder="N° de Socio" readonly >
         </div>
         <div class="mb-1 col-md-2">
             <label for="disciplina" class="form-label">Disciplina:</label>
-            <input type="text" class="form-control" name="disciplina" id="disciplina" placeholder="Disciplina..." readonly disabled>
+            <input type="text" class="form-control" name="disciplina" id="disciplina" placeholder="Disciplina..." readonly >
         </div>
         <div class="mb-1 col-md-2">
             <label for="dni" class="form-label">DNI:</label>
@@ -82,20 +121,43 @@
                 <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
             </div>
         </div>
-        <div class="mb-1 col-md-2">
-            <label for="clases" class="form-label">Cantidad de clases:</label>
-            <input type="number" class="form-control" name="clases" id="clases" >
-        </div>
-        
         <div class="mb-2">
             <label for="detalle" class="form-label">Mensaje privado:</label>
             <textarea class="form-control" name="detalle" id="detalle" rows="3" autofocus></textarea>
         </div>
         <div class="d-flex justify-content-center btn-group my-3" role="group">
-            <button type="submit" class="btn btn-success mx-1" id="editarCliente">Editar cliente</button>
-            <a href="admin-clientes.php" class="btn btn-info mx-1">Volver</a>
+            <button type="submit" class="btn btn-success mx-1 rounded-3" id="editarCliente">Editar cliente</button>
+            <a href="admin-clientes.php" class="btn btn-info mx-1 rounded-3">Volver</a>
         </div>
+        <div class="border-top border-2 pt-2 rounded-3">
+            <h2 class="text-center card-subtitle py-2">Generar pago</h2>
+            <div class="row">
+                <div class="m-1 col-md-2">
+                    <label for="clases" class="form-label">Cantidad de clases:</label>
+                    <input type="number" class="form-control" name="clases" id="clases" >
+                </div>
+                <div class="m-1 col-md-2">
+                    <label for="monto" class="form-label">Monto *</label>
+                    <input type="number" class="form-control" name="monto" placeholder="Monto del pago" required>
+                </div>
+                <div class="m-1 col-md-2">
+                    <label for="fecha_pago" class="form-label">Fecha de pago *</label>
+                    <input type="date" class="form-control" name="fecha_pago" id="fecha_pago" >
+                </div>
+                <div class="m-1 col-md-2">
+                    <label for="fecha_vencimiento" class="form-label">Vencimiento *</label>
+                    <input type="date" class="form-control" name="fecha_vencimiento" id="fecha_vencimiento" >
+                </div>
+            </div>
+            <div class="d-flex justify-content-center btn-group my-3">
+                <button type="submit" class="btn btn-success mx-1 rounded-3" name="submit">Guardar Pago</button>
+                <a href="admin-clientes.php" class="btn btn-info mx-1 rounded-3">Volver</a>
+            </div>
+        </div>
+        
     </form>
+
+    
 </div>
 
 <script src="../javascript/eliminarCliente.js"></script>
