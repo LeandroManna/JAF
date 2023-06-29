@@ -138,7 +138,7 @@ $conn->close();
                 </div>
                 <div class="m-1 col-md-2">
                     <label for="monto" class="form-label">Monto *</label>
-                    <input type="number" class="form-control" name="monto" placeholder="Monto del pago" required>
+                    <input type="number" class="form-control" name="monto" placeholder="Monto del pago">
                 </div>
                 <div class="m-1 col-md-2">
                     <label for="fecha_pago" class="form-label">Fecha de pago *</label>

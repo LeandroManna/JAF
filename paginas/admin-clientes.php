@@ -99,23 +99,45 @@
       <div class="container my-3">
         <div class="row justify-content-center">
           <!-- Saludo de bienvenida con datos de la BD -->
-          <div class="col-sm-12 py-1 d-none" style="text-align: center;">
-              <!-- Bienvenida al cliente con su nombre almacenado en la variable de sesión -->
-              <?php
-                include "../php/conexion.php";
-                // Inicio de la sesión
-                session_start();
-                // Verificación de que el cliente haya iniciado sesión y su nombre esté almacenado en la variable de sesión
-                if (!isset($_SESSION['nombre'])) {
-                  // Si el nombre del cliente no está almacenado en la variable de sesión, redirige al cliente a la página1.php para iniciar sesión
-                  header('Location: login.php');
-                  exit();
+          <div class="col-sm-12 py-1" style="text-align: center;">
+            <?php
+              include "../php/conexion.php";
+              session_start();
+          
+              if (!isset($_SESSION['nombre'])) {
+                header('Location: login.php');
+                exit();
+              }
+            
+              // Establecer la zona horaria a Argentina
+              date_default_timezone_set('America/Argentina/Buenos_Aires');
+            
+              // Obtener el nombre del administrador actual
+              $nombreAdministrador = $_SESSION['nombre'];
+            
+              echo '<h5 class="text-center">Bienvenido(a), ' . $nombreAdministrador . '!</h5>';
+            
+              // Obtener la fecha actual
+              $fechaActual = date('Y-m-d');
+            
+              // Consulta para obtener los clientes que cumplen años en la fecha actual
+              $consulta = "SELECT nombre, apellido, celular FROM clientes WHERE DATE_FORMAT(fecha_nacimiento, '%m-%d') = DATE_FORMAT('$fechaActual', '%m-%d')";
+              $resultado = mysqli_query($conn, $consulta);
+            
+              // Verificar si hay clientes que cumplen años hoy
+              if (mysqli_num_rows($resultado) > 0) {
+                echo '<h5 class="text-center">Clientes que cumplen años hoy:</h5>';
+              
+                // Mostrar los nombres, apellidos y números de celular de los clientes que cumplen años hoy
+                while ($row = mysqli_fetch_assoc($resultado)) {
+                  $celular = $row['celular'];
+                  $enlaceWhatsapp = 'https://wa.me/' . '54' . $celular;
+                  echo '<p>' . $row['nombre'] . ' ' . $row['apellido'] . ' - Celular: <a href="' . $enlaceWhatsapp . '" target="_BLANC">' . $celular . '</a></p>';
                 }
-              ?>
-              <h5 class="text-center">Bienvenido(a), 
-              <?php echo "" . $_SESSION['nombre'] . "!";?>!
-              </h5>
+              }
+            ?>
           </div>
+
           <!-- Contenido gral de la pagina -->
           <div class="col-sm-12 col-md-10 col-lg-10 col-xl-10 py-1">
             <!-- Lista de pestañas -->
