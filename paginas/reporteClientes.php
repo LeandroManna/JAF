@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -31,7 +30,6 @@
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ms-auto">
                   <a class="nav-link " aria-current="page" href="admin-clientes.php">Clientes</a>
-                  <a class="nav-link " aria-current="page" href="pagos.php">Pagos</a>
 
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -40,7 +38,7 @@
                     <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
                       <li><a class="nav-link" href="reporteAdmin.html">Administradores</a></li>
                       <li><a class="nav-link active" href="reporteClientes.php">Clientes</a></li>
-                      <li><a class="nav-link" href="#">Pagos</a></li>
+                      <li><a class="nav-link" href="reportePagos.php">Pagos</a></li>
                     </ul>
                   </li>
                   <a class="nav-link" aria-current="page" href="presente.php" target="_blank">Presente</a>
@@ -151,8 +149,6 @@
     <script src="https://kit.fontawesome.com/85a9ee331b.js" crossorigin="anonymous"></script>
 
     <script src="../javascript/cerrarSesion.js"></script>
-
-    
 
     <script>
       /* Dar funcion al boton de busqueda */

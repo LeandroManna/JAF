@@ -74,7 +74,6 @@
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ms-auto">
                   <a class="nav-link active" aria-current="page" href="admin-clientes.php">Clientes</a>
-                  <a class="nav-link" aria-current="page" href="pagos.php">Pagos</a>
 
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -83,7 +82,7 @@
                     <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
                       <li><a class="nav-link" href="reporteAdmin.html">Administradores</a></li>
                       <li><a class="nav-link" href="reporteClientes.php">Clientes</a></li>
-                      <li><a class="nav-link" href="#">Pagos</a></li>
+                      <li><a class="nav-link" href="reportePagos.php">Pagos</a></li>
                     </ul>
                   </li>
                   <a class="nav-link" aria-current="page" href="presente.php" target="_blank">Presente</a>
@@ -115,7 +114,7 @@
               // Obtener el nombre del administrador actual
               $nombreAdministrador = $_SESSION['nombre'];
             
-              echo '<h5 class="text-center">Bienvenido(a), ' . $nombreAdministrador . '!</h5>';
+              echo '<h5 class="text-center d-none">Bienvenido(a), ' . $nombreAdministrador . '!</h5>';
             
               // Obtener la fecha actual
               $fechaActual = date('Y-m-d');
@@ -126,13 +125,13 @@
             
               // Verificar si hay clientes que cumplen años hoy
               if (mysqli_num_rows($resultado) > 0) {
-                echo '<h5 class="text-center">Clientes que cumplen años hoy:</h5>';
+                echo '<h3 class="text-center pb-3">Clientes que cumplen años hoy:</h3>';
               
                 // Mostrar los nombres, apellidos y números de celular de los clientes que cumplen años hoy
                 while ($row = mysqli_fetch_assoc($resultado)) {
                   $celular = $row['celular'];
                   $enlaceWhatsapp = 'https://wa.me/' . '54' . $celular;
-                  echo '<p>' . $row['nombre'] . ' ' . $row['apellido'] . ' - Celular: <a href="' . $enlaceWhatsapp . '" target="_BLANC">' . $celular . '</a></p>';
+                  echo '<p class="pb-2">' . $row['nombre'] . ' ' . $row['apellido'] . ' - Celular: <a href="' . $enlaceWhatsapp . '" target="_BLANC" type="button" class="btn btn-secondary py-0">' . $celular . '</a></p>';
                 }
               }
             ?>

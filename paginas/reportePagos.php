@@ -1,3 +1,7 @@
+<?php
+  include ("../php/conexion.php");
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -36,9 +40,9 @@
                       Reportes
                     </a>
                     <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-                      <li><a class="nav-link active" href="reporteAdmin.html">Administradores</a></li>
+                      <li><a class="nav-link" href="reporteAdmin.html">Administradores</a></li>
                       <li><a class="nav-link" href="reporteClientes.php">Clientes</a></li>
-                      <li><a class="nav-link" href="reportePagos.php">Pagos</a></li>
+                      <li><a class="nav-link active" href="reportePagos.php">Pagos</a></li>
                     </ul>
                   </li>
                   <a class="nav-link" aria-current="page" href="presente.php" target="_blank">Presente</a>
@@ -52,28 +56,11 @@
     
     <main>
         <div class="container my-3">
-          <h2 class="text-center card-subtitle text-dark py-3">Reporte de administradores</h2>
+          <h2 class="text-center card-subtitle text-dark py-3">Reporte de pagos</h2>
           <div class="row my-3 justify-content-center">
             <div class="row col-md-6">
-              <form class="row">
-                <div class="form-group">
-                  <label for="disciplina">Disciplina:</label>
-                  <select class="form-control" id="disciplina">
-                    <option value="todas">-- Todas las disciplinas --</option>
-                    <option value="Musculacion">Musculacion</option>
-                    <option value="Body_Pump">Body Pump</option>
-                    <option value="Body_Combat">Body Combat</option>
-                    <option value="Funcional">Funcional</option>
-                    <option value="Hit">Hit</option>
-                    <option value="Especifico">Especifico</option>
-                    <option value="Everlast_Boxing">Everlast Boxing</option>
-                    <option value="Mini_Voley">Mini Voley</option>
-                    <option value="Taekwondo">Taekwondo</option>
-                    <option value="Futbol_Infantil">Futbol Infantil</option>
-                  </select>
-                </div>
+            <form class="row">
                 <div class="d-flex justify-content-center my-3">
-                    <button type="submit" class="btn btn-primary col-md-4" id="buscarBtn">Buscar</button>
                     <button type="button" class="btn btn-success col-md-4 mx-2" id="exportarExcelBtn">Exportar a Excel</button>
                 </div>
               </form>
@@ -83,20 +70,86 @@
           <!-- Tabla de reportes -->
           <div class="container-fluid d-flex justify-content-center">
             <div class="col-md-9 " id="tabla">
-              <table class="table table-striped ">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Disciplina</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Fecha de nacimiento</th>
-                    <th>DNI</th>
-                  </tr>
-                </thead>
-                <tbody id="tablaAdmin">
-                </tbody>
-              </table>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>N° de Socio</th>
+                  <th>Apellido</th>
+                  <th>Nombre</th>
+                  <th>Disciplina</th>
+                  <th>Fecha de pago</th>
+                  <th>Monto</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                  // Obtener el mes y año actual
+                  $mes_actual = date('m');
+                  $anio_actual = date('Y');
+
+                  // Consulta para obtener las disciplinas existentes
+                  $sql_disciplinas = "SELECT DISTINCT disciplina FROM pagos ORDER BY disciplina ASC";
+                  $result_disciplinas = $conn->query($sql_disciplinas);
+
+                  $total_general = 0;
+
+                  if ($result_disciplinas->num_rows > 0) {
+                    while ($row_disciplina = $result_disciplinas->fetch_assoc()) {
+                      // Obtener la disciplina actual
+                      $disciplina_actual = $row_disciplina["disciplina"];
+                    
+                      // Consulta para obtener los pagos realizados dentro del mes en curso para la disciplina actual
+                      $sql_pagos = "SELECT id_cliente, nombre, apellido, disciplina, fecha_pago, monto FROM pagos WHERE MONTH(fecha_pago) = $mes_actual AND YEAR(fecha_pago) = $anio_actual AND disciplina = '$disciplina_actual'";
+                      $result_pagos = $conn->query($sql_pagos);
+                    
+                      $total_disciplina = 0;
+                    
+                      if ($result_pagos->num_rows > 0) {
+                        while ($row_pago = $result_pagos->fetch_assoc()) {
+                          // Obtener los valores de cada columna
+                          $id_cliente = $row_pago["id_cliente"];
+                          $nombre = $row_pago["nombre"];
+                          $apellido = $row_pago["apellido"];
+                          $disciplina = $row_pago["disciplina"];
+                          $fecha_pago = $row_pago["fecha_pago"];
+                          $monto = $row_pago["monto"];
+                        
+                          // Mostrar los datos en la tabla
+                          echo "<tr>";
+                          echo "<td>$id_cliente</td>";
+                          echo "<td>$apellido</td>";
+                          echo "<td>$nombre</td>";
+                          echo "<td>$disciplina</td>";
+                          echo "<td>$fecha_pago</td>"; // Aquí deberías agregar el campo "Tipo de pago" si lo tienes en tu base de datos
+                          echo "<td>$monto</td>";
+                          echo "</tr>";
+                        
+                          // Sumar el monto por disciplina
+                          $total_disciplina += $monto;
+                        
+                          // Sumar al total general
+                          $total_general += $monto;
+                        }
+                      }
+                    
+                      // Mostrar el total de la disciplina actual
+                      echo "<tr>";
+                      echo "<td colspan='5'></td>"; // Ajustar el colspan según la cantidad de columnas de tu tabla
+                      echo "<td><strong>Total por disciplina:</strong></td>";
+                      echo "<td><strong>$total_disciplina</strong></td>";
+                      echo "</tr>";
+                    }
+                  }
+                
+                  // Mostrar el total general
+                  echo "<tr>";
+                  echo "<td colspan='5'></td>"; // Ajustar el colspan según la cantidad de columnas de tu tabla
+                  echo "<td><strong>Total general:</strong></td>";
+                  echo "<td><strong>$total_general</strong></td>";
+                  echo "</tr>";
+                ?>
+              </tbody>
+            </table>
             </div>
           </div>
         </div>
@@ -150,60 +203,14 @@
     <script src="../javascript/cerrarSesion.js"></script>
 
     <script>
-      /* Dar funcion al boton de busqueda */
-      $("#buscarBtn").click(function(e){
-        e.preventDefault();
-        cargarClientesFiltrados();
-      });
-
-      /* Mostrar los clientes filtrados en la tabala */
-      function cargarClientesFiltrados() {
-        var disciplina = $("#disciplina").val();
-
-        $.ajax({
-          url: "../php/obtenerClientesAdmin.php",
-          type: "POST",
-          data: { disciplina: disciplina},
-          dataType: "json",
-          success: function(data) {
-            // Limpiar la tabla de clientes
-            $("#tablaAdmin").empty(); 
-
-            // Filtrar los clientes según la disciplina seleccionada
-            if (disciplina !== "todas") {
-              data = data.filter(function(cliente) {
-                return cliente.disciplina === disciplina;
-              });
-            }
-
-            // Agregar los clientes filtrados a la tabla
-            data.forEach(function(cliente) {
-              $("#tablaAdmin").append(`
-                <tr>
-                  <td>${cliente.id}</td>
-                  <td>${cliente.disciplina}</td>
-                  <td>${cliente.nombre}</td>
-                  <td>${cliente.apellido}</td>
-                  <td>${cliente.fecha_nacimiento}</td>
-                  <td>${cliente.dni}</td>
-                </tr>
-              `);
-            });
-          },
-          error: function(error) {
-            console.log(error);
-          }
-        });
-      }
-
-      /* Exportar tabla a Excel */
-      const $btnExportar = document.querySelector("#exportarExcelBtn"),
+            /* Exportar tabla a Excel */
+            const $btnExportar = document.querySelector("#exportarExcelBtn"),
         $tabla = document.querySelector("#tabla");
 
       $btnExportar.addEventListener("click", function() {
           let tableExport = new TableExport($tabla, {
               exportButtons: false, // Sin botones
-              filename: "JAF-Reporte-Admin", //Nombre del archivo de Excel
+              filename: "JAF-Reporte-Pagos", //Nombre del archivo de Excel
               sheetname: "Reporte", //Título de la hoja
           });
           let datos = tableExport.getExportData();
@@ -219,6 +226,7 @@
       });
     </script>
 
+    
     <!-- EL SIGUIENTE SCRIPT COLOCA EL AÑO DE FORMA AUTOMATICA EN EL COPY DEL FOOTER -->
     <script>
       var currentYear = new Date().getFullYear();
