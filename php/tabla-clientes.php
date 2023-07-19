@@ -11,11 +11,6 @@ if (isset($_POST['submit'])) {
     $fecha_vencimiento = $_POST['fecha_vencimiento'];
     $clases = $_POST['clases'];
 
-
-    // Depurar los valores de $_POST
-    //echo "Nombre: " . $nombre . "<br>";
-    //echo "Monto: " . $monto . "<br>";
-
     // Insertar el nuevo pago en la base de datos
     $query = mysqli_query($conn, "INSERT INTO pagos (id_cliente, nombre, apellido, monto, disciplina, fecha_pago, fecha_vencimiento) 
     VALUES ('$id', '$nombre', '$apellido', '$monto', '$disciplina', '$fecha_pago', '$fecha_vencimiento')");
@@ -26,14 +21,16 @@ if (isset($_POST['submit'])) {
     } else {
         echo "Error al registrar el pago: " . mysqli_error($conn);
     }
+
     // Actualizar los datos del cliente en la base de datos
-$sql = "UPDATE clientes SET clases=? WHERE id=?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("si", $clases, $id);
-$stmt->execute();
-$stmt->close();
-$conn->close();
+    $sql = "UPDATE clientes SET clases=? WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("si", $clases, $id);
+    $stmt->execute();
+    $stmt->close();
+    $conn->close();
 }
+
 ?>
 
 
@@ -129,6 +126,9 @@ $conn->close();
             <button type="submit" class="btn btn-success mx-1 rounded-3" id="editarCliente">Editar cliente</button>
             <a href="admin-clientes.php" class="btn btn-info mx-1 rounded-3">Volver</a>
         </div>
+
+    <!-- INICIO SECTOR DE PAGOS -->
+
         <div class="border-top border-2 pt-2 rounded-3">
             <h2 class="text-center card-subtitle py-2">Generar pago</h2>
             <div class="row">
@@ -154,11 +154,54 @@ $conn->close();
                 <a href="admin-clientes.php" class="btn btn-info mx-1 rounded-3">Volver</a>
             </div>
         </div>
-        
     </form>
-
-    
+    <div id="ultimoPago"></div>
 </div>
 
 <script src="../javascript/eliminarCliente.js"></script>
 <script src="../javascript/btnEditarGuardar.js"></script>
+
+<!-- Script para mostrar el ultimo pago de cada socio -->
+<script>
+    // Función para cargar el último pago del cliente seleccionado
+    function cargarUltimoPago(clienteID) {
+        const container = document.getElementById('ultimoPago');
+        container.innerHTML = ''; // Limpiar el contenedor antes de cargar los datos
+
+        // Hacer una solicitud AJAX para obtener el último pago del cliente
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                const pago = JSON.parse(this.responseText);
+
+                // Crear elementos HTML para mostrar los datos del último pago
+                const titulo = document.createElement('h2');
+                titulo.textContent = 'Último pago registrado';
+
+                const monto = document.createElement('p');
+                monto.textContent = 'Monto: ' + pago.monto;
+
+                const fecha = document.createElement('p');
+                fecha.textContent = 'Fecha: ' + pago.fecha_pago;
+
+                // Agregar los elementos al contenedor
+                container.appendChild(titulo);
+                container.appendChild(monto);
+                container.appendChild(fecha);
+            }
+        };
+        xhr.open('GET', 'obtenerUltimoPago.php?id=' + clienteID, true);
+        xhr.send();
+    }
+
+    // Evento para capturar la selección de un cliente en la tabla
+    document.addEventListener('DOMContentLoaded', function () {
+        const editarBotones = document.querySelectorAll('.editar');
+        editarBotones.forEach(function (boton) {
+            boton.addEventListener('click', function () {
+                const clienteID = this.getAttribute('data-id');
+                cargarUltimoPago(clienteID);
+            });
+        });
+    });
+</script>
