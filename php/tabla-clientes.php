@@ -155,11 +155,32 @@ if (isset($_POST['submit'])) {
             </div>
         </div>
     </form>
-    <div id="ultimoPago"></div>
+    <!-- MOSTRAR ULTIMO PAGO -->
+    <div class="d-flex justify-content-center gap-3 m-3">
+    <div class="d-none">
+        <img src="../asets/Img/logo.png" alt="Logo de la empresa" id="logoPreload">
+    </div>
+
+        <div id="ultimoPago"></div>
+        <div>
+            <canvas id="pdfCanvas"></canvas>
+            <div>
+                <button type="button" class="btn btn-info mx-1 rounded-3 d-none" id="descargarPdf">Descargar PDF</button>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center btn-group my-3" role="group">
+        <button type="button" class="btn btn-success mx-1 rounded-3" id="generarPDF">Generar Comprobante</button>
+    </div>
 </div>
 
 <script src="../javascript/eliminarCliente.js"></script>
 <script src="../javascript/btnEditarGuardar.js"></script>
+<!-- Incluir pdf.js desde los servidores de Mozilla -->
+<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
+<script src="../javascript/generarComprobante.js"></script>
 
 <!-- Script para mostrar el ultimo pago de cada socio -->
 <script>
@@ -179,15 +200,19 @@ if (isset($_POST['submit'])) {
                 titulo.textContent = 'Último pago registrado';
 
                 const monto = document.createElement('p');
-                monto.textContent = 'Monto: ' + pago.monto;
+                monto.textContent = 'Monto: $' + pago.monto;
 
                 const fecha = document.createElement('p');
-                fecha.textContent = 'Fecha: ' + pago.fecha_pago;
+                fecha.textContent = 'Fecha de pago: ' + pago.fecha_pago;
+                
+                const fechaVencimiento = document.createElement('p');
+                fechaVencimiento.textContent = 'Fecha de vencimiento: ' + pago.fecha_vencimiento; 
 
                 // Agregar los elementos al contenedor
                 container.appendChild(titulo);
                 container.appendChild(monto);
                 container.appendChild(fecha);
+                container.appendChild(fechaVencimiento);
             }
         };
         xhr.open('GET', 'obtenerUltimoPago.php?id=' + clienteID, true);
@@ -205,3 +230,4 @@ if (isset($_POST['submit'])) {
         });
     });
 </script>
+

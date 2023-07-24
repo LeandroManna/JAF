@@ -10,7 +10,8 @@ if (isset($_GET['id'])) {
         $ultimoPago = mysqli_fetch_assoc($query);
         $pago = [
             'monto' => $ultimoPago['monto'],
-            'fecha_pago' => $ultimoPago['fecha_pago']
+            'fecha_pago' => $ultimoPago['fecha_pago'],
+            'fecha_vencimiento' => $ultimoPago['fecha_vencimiento']
         ];
         echo json_encode($pago);
     } else {
