@@ -63,6 +63,7 @@ if (mysqli_num_rows($resultado) > 0) {
                 <td>
                     <div class='btn-group' role='group' aria-label='Basic mixed styles example'>
                       <button type='button' class='btn btn-success editar' name='editar' id='editar' data-id='" . $fila["id"] . "'><i class='fa-solid fa-user-pen'></i></button>
+                      <button type='button' class='btn btn-info' name='eliminar' id='familiar' data-id='" . $fila["id"] . "'><i class='fa-solid fa-people-group'></i></button>
                       <button type='button' class='btn btn-danger' name='eliminar' id='eliminar' data-cliente-id='" . $fila["id"] . "'><i class='fa-solid fa-trash'></i></button>
                     </div>
                 </td>

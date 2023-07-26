@@ -11,11 +11,12 @@ $detalle = $_POST['detalle'];
 $disciplina = $_POST['disciplina'];
 $disciplina_dos = $_POST['disciplina_dos'];
 $clases = $_POST['clases'];
+$grupoFamiliar = $_POST['grupo_familiar'];
 
 // Actualizar los datos del cliente en la base de datos
-$sql = "UPDATE clientes SET nombre=?, apellido=?, dni=?, fecha_nacimiento=?, celular=?, detalle=?, disciplina=?, disciplina_dos=?, clases=? WHERE id=?";
+$sql = "UPDATE clientes SET nombre=?, apellido=?, dni=?, fecha_nacimiento=?, celular=?, detalle=?, disciplina=?, disciplina_dos=?, clases=?, grupo_familiar=? WHERE id=?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("sssssssssi", $nombre, $apellido, $dni, $fecha_nacimiento, $celular, $detalle, $disciplina, $disciplina_dos, $clases, $id);
+$stmt->bind_param("ssssssssssi", $nombre, $apellido, $dni, $fecha_nacimiento, $celular, $detalle, $disciplina, $disciplina_dos, $clases, $grupoFamiliar, $id);
 $stmt->execute();
 $stmt->close();
 $conn->close();

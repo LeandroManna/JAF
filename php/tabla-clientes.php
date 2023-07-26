@@ -29,10 +29,8 @@ if (isset($_POST['submit'])) {
     $stmt->execute();
     $stmt->close();
     $conn->close();
-}
-
+    }
 ?>
-
 
 <div class=" justify-content-center col-sm-12" id="tabla">
     <h2 class="text-center card-subtitle py-3">Listado de Clientes</h2>
@@ -40,7 +38,6 @@ if (isset($_POST['submit'])) {
       include "crearTablaClientes.php";
     ?>
 </div>
-
 
 <!-- Formulario que aparece precargado con datos del cliente seleccionado en la tabla -->
 <div class="d-none col-sm-12" id="miDiv">
@@ -118,6 +115,10 @@ if (isset($_POST['submit'])) {
                 <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
             </div>
         </div>
+        <div class="mb-1 col-md-2">
+            <label for="grupoFamiliar" class="form-label">Grupo familiar:</label>
+            <input type="text" class="form-control" name="grupoFamiliar" id="grupoFamiliar" >
+        </div>
         <div class="mb-2">
             <label for="detalle" class="form-label">Mensaje privado:</label>
             <textarea class="form-control" name="detalle" id="detalle" rows="3" autofocus></textarea>
@@ -127,8 +128,7 @@ if (isset($_POST['submit'])) {
             <a href="admin-clientes.php" class="btn btn-info mx-1 rounded-3">Volver</a>
         </div>
 
-    <!-- INICIO SECTOR DE PAGOS -->
-
+        <!-- INICIO SECTOR DE PAGOS -->
         <div class="border-top border-2 pt-2 rounded-3">
             <h2 class="text-center card-subtitle py-2">Generar pago</h2>
             <div class="row">
@@ -157,10 +157,9 @@ if (isset($_POST['submit'])) {
     </form>
     <!-- MOSTRAR ULTIMO PAGO -->
     <div class="d-flex justify-content-center gap-3 m-3">
-    <div class="d-none">
-        <img src="../asets/Img/logo.png" alt="Logo de la empresa" id="logoPreload">
-    </div>
-
+        <div class="d-none">
+            <img src="../asets/Img/logo.png" alt="Logo de la empresa" id="logoPreload">
+        </div>
         <div id="ultimoPago"></div>
         <div>
             <canvas id="pdfCanvas"></canvas>
@@ -172,6 +171,15 @@ if (isset($_POST['submit'])) {
     <div class="d-flex justify-content-center btn-group my-3" role="group">
         <button type="button" class="btn btn-success mx-1 rounded-3" id="generarPDF">Generar Comprobante</button>
     </div>
+</div>
+
+<div class="d-none col-sm-12" id="gFamiliar">
+    <h2 class="text-center card-subtitle py-3">Grupo familiar</h2>
+    <!-- Label para mostrar el nombre del grupo familiar -->
+    <label id="grupoFamiliarLabel"></label>
+    <form method="post" name="formFam" id="formFam" class="row pt-2 rounded-3">
+        <!-- Aquí se agregarán los campos de cada socio -->
+    </form>
 </div>
 
 <script src="../javascript/eliminarCliente.js"></script>

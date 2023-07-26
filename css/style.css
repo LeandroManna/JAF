@@ -30,6 +30,18 @@ body {
     justify-content: center;
     align-items: center;
   }
+
+/* Estilos para los campos de cada socio */
+#formFam .form-group {
+    display: flex;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+/* Estilos para el botón "Editar grupo familiar" */
+#editarFam {
+    margin-top: 10px;
+}
   
 
 
