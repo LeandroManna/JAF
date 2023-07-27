@@ -16,15 +16,9 @@ const inputClases = document.querySelector('#clases');
 const btnGuardar = document.querySelector('#editarCliente');
 const inputFamiliar = document.querySelector('#grupoFamiliar');
 
-const clienteIdFam = document.querySelector('#idFam');
-const inputNombreFam = document.querySelector('#nombreFam');
-const inputApellidoFam = document.querySelector('#apellidoFam');
-const inputCelularFam = document.querySelector('#celularFam');
-const inputDisciplinaFam = document.querySelector('#disciplinaFam');
+/* INICIO VARIABLES GLOBALES DEL GRUPO FAMILIAR */
 const grupoFamiliarLabel = document.querySelector('#grupoFamiliarLabel');
 
-// Variable global para almacenar los datos del cliente
-//let cliente = null;
 
 // Definir la función para mostrar los datos del cliente en el formulario
 function mostrarCliente(cliente) {
@@ -205,18 +199,64 @@ btnFamiliar.forEach(btn => {
           xhr.send(data);
         }
 
-        // Agregar evento al botón "Guardar Pago"
-        btnGuardarPago.addEventListener('click', () => {
-          // Obtener todos los inputs de clases
-          const clasesInputs = document.querySelectorAll('[name="clases"]');
 
-          // Recorrer todos los inputs y guardar los pagos
-          clasesInputs.forEach(input => {
-            const clienteId = input.getAttribute('id');
-            const clasesValue = input.value;
-            guardarPago(clienteId, clasesValue);
-          });
-        });
+// Agregar evento al botón "Guardar Pago"
+btnGuardarPago.addEventListener('click', () => {
+  // Obtener todos los conjuntos de inputs de pagos
+  const pagosInputs = document.querySelectorAll('.d-flex.flex-wrap.justify-content-center');
+
+  // Recorrer todos los conjuntos de inputs y guardar los pagos
+  pagosInputs.forEach(pagosInput => {
+    const clienteId = pagosInput.querySelector('[name="clases"]').getAttribute('id');
+    const clasesValue = pagosInput.querySelector('[name="clases"]').value;
+    const montoValue = pagosInput.querySelector('[name="monto"]').value;
+    const fechaPagoValue = pagosInput.querySelector('[name="fecha_pago"]').value;
+    const fechaVencimientoValue = pagosInput.querySelector('[name="fecha_vencimiento"]').value;
+    const formaPagoValue = pagosInput.querySelector('[name="forma_pago"]').value;
+
+    // Si el cliente tiene clases, actualizamos el campo clases en la tabla clientes
+    if (clasesValue !== '') {
+      guardarPago(clienteId, clasesValue);
+    }
+
+    // Si se ingresaron datos de pago, realizamos el INSERT INTO en la tabla pagos
+    if (montoValue !== '' && fechaPagoValue !== '' && fechaVencimientoValue !== '' && formaPagoValue !== '') {
+      // Crear un objeto con los datos del pago del cliente actual
+      const pagoData = {
+        id: clienteId,
+        monto: montoValue,
+        fecha_pago: fechaPagoValue,
+        fecha_vencimiento: fechaVencimientoValue,
+        forma_pago: formaPagoValue,
+      };
+
+      // Enviar los datos de pago al servidor mediante una petición AJAX para realizar el INSERT INTO
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', '../php/insertarPago.php', true);
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          // La solicitud se completó con éxito
+          console.log('Pago insertado correctamente');
+          // Aquí puedes realizar acciones adicionales después de insertar el pago, si es necesario
+        } else {
+          // La solicitud falló con algún error
+          console.error('Error al insertar el pago');
+          // Aquí puedes manejar el error de acuerdo a tus necesidades
+        }
+      };
+
+      // Definir los datos que se enviarán en la solicitud (pagoData)
+      const data = `id=${pagoData.id}&monto=${pagoData.monto}&fecha_pago=${pagoData.fecha_pago}&fecha_vencimiento=${pagoData.fecha_vencimiento}&forma_pago=${pagoData.forma_pago}`;
+
+      // Enviar la solicitud al servidor con los datos
+      xhr.send(data);
+    }
+  });
+});
+
+
+
 
         // Crear el botón "Volver"
         const btnVolver = document.createElement('a');
