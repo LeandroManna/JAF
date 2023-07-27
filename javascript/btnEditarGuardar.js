@@ -79,7 +79,9 @@ btnFamiliar.forEach(btn => {
         document.getElementById('formFam').innerHTML = '';
 
         // Recorrer los clientes y crear los campos del formulario para cada uno
-        clientes.forEach(cliente => {
+        clientes.forEach(clienteData => {
+          cliente = clienteData; // Asignar el objeto cliente en el contexto actual del forEach
+
           const formFam = document.getElementById('formFam');
 
           // Crear un nuevo div para agrupar cada conjunto de input con su label y otro para flexbox
@@ -106,22 +108,27 @@ btnFamiliar.forEach(btn => {
           // Crear el div y el label para el campo Cantidad de clases
           const divClases = createInputDiv('clases', 'number', cliente.clases, false, 'mb-1', 'col-md-2', 'mx-1');
           divInputs.appendChild(divClases);
+          divClases.lastChild.setAttribute('id', cliente.id); // Añadir el atributo al input
 
           // Crear el div y el label para el campo Monto
           const divMonto = createInputDiv(`monto`, 'number', '', false, 'mb-1', 'col-md-2', 'mx-1');
           divInputs.appendChild(divMonto);
+          divMonto.lastChild.setAttribute('id', cliente.id); // Añadir el atributo al input
 
           // Crear el div y el label para el campo Fecha de pago
           const divFechaPago = createInputDiv(`fecha_pago`, 'date', '', false, 'mb-1', 'col-md-2', 'mx-1');
           divInputs.appendChild(divFechaPago);
+          divFechaPago.lastChild.setAttribute('id', cliente.id); // Añadir el atributo al input
 
           // Crear el div y el label para el campo Fecha de vencimiento
           const divFechaVencimiento = createInputDiv(`fecha_vencimiento`, 'date', '', false, 'mb-1', 'col-md-2', 'mx-1');
           divInputs.appendChild(divFechaVencimiento);
+          divFechaVencimiento.lastChild.setAttribute('id', cliente.id); // Añadir el atributo al input
 
           // Crear el div y el label para el campo Forma de pago
           const divFormaPago = createInputDiv(`forma_pago`, 'text', '', false, 'mb-1', 'col-md-2', 'mx-1');
           divInputs.appendChild(divFormaPago);
+          divFormaPago.lastChild.setAttribute('id', cliente.id); // Añadir el atributo al input
 
           // Agregar el div de inputs al div contenedor
           divClienteContainer.appendChild(divInputs);
@@ -140,6 +147,7 @@ btnFamiliar.forEach(btn => {
             input.name = labelText; // El nombre específico que proporcionaste
             input.value = inputValue;
             input.readOnly = readOnly;
+            input.setAttribute('id', cliente.id);
 
             const label = document.createElement('label');
             label.classList.add('form-label');
@@ -159,14 +167,55 @@ btnFamiliar.forEach(btn => {
         // Crear el botón "Guardar Pago"
         const btnGuardarPago = document.createElement('button');
         btnGuardarPago.type = 'button'; // Cambiar el tipo de botón a "button" para evitar que envíe el formulario
+        btnGuardarPago.name = 'button';
         btnGuardarPago.classList.add('btn', 'btn-success', 'mx-1', 'rounded-3');
         btnGuardarPago.textContent = 'Guardar Pago';
+        btnGuardarPago.setAttribute('data-cliente-id', cliente.id); // Corregir esta línea para asignar el clienteId al atributo
 
-        // Agregar el evento al botón "Guardar Pago"
+        function guardarPago(clienteId, clasesValue) {
+          // Crear una nueva instancia de XMLHttpRequest
+          const xhr = new XMLHttpRequest();
+
+          // Especificar el método y la URL para la petición
+          xhr.open('POST', '../php/actualizarClasesCliente.php', true);
+
+          // Establecer el tipo de contenido de la solicitud
+          xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+          // Definir la función que se ejecutará cuando la solicitud finalice
+          xhr.onload = function () {
+            if (xhr.status === 200) {
+              // La solicitud se completó con éxito
+              console.log('Clases actualizadas correctamente');
+              // Aquí puedes realizar acciones adicionales después de actualizar las clases, si es necesario
+            } else {
+              // La solicitud falló con algún error
+              console.error('Error al actualizar las clases');
+              // Aquí puedes manejar el error de acuerdo a tus necesidades
+            }
+          };
+
+          // Definir los datos que se enviarán en la solicitud (clienteId y clasesValue)
+          const data = `id=${clienteId}&clases=${clasesValue}`;
+
+          // Enviar la solicitud al servidor con los datos
+          xhr.send(data);
+        }
+
+        // Agregar evento al botón "Guardar Pago"
         btnGuardarPago.addEventListener('click', () => {
-          // Find the corresponding cliente object for the clicked button
-          const cliente = clientes.find(c => c.id === clienteId);
-          guardarPago(cliente); // Llamar a la función guardarPago y pasar el objeto cliente como argumento
+          // Obtener el valor del atributo data-cliente-id del botón correspondiente
+          const clienteId = btnGuardarPago.getAttribute('data-cliente-id');
+
+          // Buscar los inputs que tengan el atributo id y el valor correspondiente al cliente
+          const clasesInput = document.querySelector(`[id="${clienteId}"]`);
+
+          // Obtener el valor del input de clases
+          console.log('valor:', clasesInput.value);
+          const clasesValue = clasesInput.value;
+
+          // Llamar a la función para guardar el pago con los valores obtenidos
+          guardarPago(clienteId, clasesValue);
         });
 
         // Crear el botón "Volver"
