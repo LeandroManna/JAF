@@ -24,8 +24,25 @@ const inputDisciplinaFam = document.querySelector('#disciplinaFam');
 const grupoFamiliarLabel = document.querySelector('#grupoFamiliarLabel');
 
 // Variable global para almacenar los datos del cliente
-let cliente = null;
+//let cliente = null;
 
+// Definir la función para mostrar los datos del cliente en el formulario
+function mostrarCliente(cliente) {
+  divTabla.classList.add('d-none');
+  formularioCliente.classList.remove('d-none');
+
+  clienteId.value = cliente.id;
+  inputNombre.value = cliente.nombre;
+  inputApellido.value = cliente.apellido;
+  inputDni.value = cliente.dni;
+  inputFechaNacimiento.value = cliente.fecha_nacimiento;
+  inputCelular.value = cliente.celular;
+  inputDisciplina.value = cliente.disciplina;
+  inputDisciplinaDos.value = cliente.disciplina_dos;
+  inputDetalle.value = cliente.detalle;
+  inputClases.value = cliente.clases;
+  inputFamiliar.value = cliente.grupo_familiar;
+}
 btnEditar.forEach(btn => {
   btn.addEventListener('click', () => {
     // Obtener el id del cliente a editar desde el atributo data-id
@@ -35,28 +52,15 @@ btnEditar.forEach(btn => {
     xhr.open('GET', `../php/obtenerCliente.php?id=${id}`, true);
     xhr.onload = function() {
       if (this.status === 200) {
-        cliente = JSON.parse(this.responseText);
+        const cliente = JSON.parse(this.responseText);
         console.log(cliente);
         // Mostrar el formulario y autocompletar los datos del cliente
-        divTabla.classList.add('d-none');
-        formularioCliente.classList.remove('d-none');
-        
-        clienteId.value = cliente.id;
-        inputNombre.value = cliente.nombre;
-        inputApellido.value = cliente.apellido;
-        inputDni.value = cliente.dni;
-        inputFechaNacimiento.value = cliente.fecha_nacimiento;
-        inputCelular.value = cliente.celular;
-        inputDisciplina.value = cliente.disciplina;
-        inputDisciplinaDos.value = cliente.disciplina_dos;
-        inputDetalle.value = cliente.detalle;
-        inputClases.value = cliente.clases;
-        inputFamiliar.value = cliente.grupo_familiar;
+        mostrarCliente(cliente);
       }
-    }
+    };
     xhr.send();
   });
-}); 
+});
 
 
 btnFamiliar.forEach(btn => {
@@ -170,7 +174,6 @@ btnFamiliar.forEach(btn => {
         btnGuardarPago.name = 'button';
         btnGuardarPago.classList.add('btn', 'btn-success', 'mx-1', 'rounded-3');
         btnGuardarPago.textContent = 'Guardar Pago';
-        btnGuardarPago.setAttribute('data-cliente-id', cliente.id); // Corregir esta línea para asignar el clienteId al atributo
 
         function guardarPago(clienteId, clasesValue) {
           // Crear una nueva instancia de XMLHttpRequest
@@ -204,18 +207,15 @@ btnFamiliar.forEach(btn => {
 
         // Agregar evento al botón "Guardar Pago"
         btnGuardarPago.addEventListener('click', () => {
-          // Obtener el valor del atributo data-cliente-id del botón correspondiente
-          const clienteId = btnGuardarPago.getAttribute('data-cliente-id');
+          // Obtener todos los inputs de clases
+          const clasesInputs = document.querySelectorAll('[name="clases"]');
 
-          // Buscar los inputs que tengan el atributo id y el valor correspondiente al cliente
-          const clasesInput = document.querySelector(`[id="${clienteId}"]`);
-
-          // Obtener el valor del input de clases
-          console.log('valor:', clasesInput.value);
-          const clasesValue = clasesInput.value;
-
-          // Llamar a la función para guardar el pago con los valores obtenidos
-          guardarPago(clienteId, clasesValue);
+          // Recorrer todos los inputs y guardar los pagos
+          clasesInputs.forEach(input => {
+            const clienteId = input.getAttribute('id');
+            const clasesValue = input.value;
+            guardarPago(clienteId, clasesValue);
+          });
         });
 
         // Crear el botón "Volver"
@@ -235,7 +235,6 @@ btnFamiliar.forEach(btn => {
     xhr2.send();
   });
 });
-
 
 
 btnGuardar.addEventListener('click', () => {
