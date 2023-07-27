@@ -255,9 +255,6 @@ btnGuardarPago.addEventListener('click', () => {
   });
 });
 
-
-
-
         // Crear el botón "Volver"
         const btnVolver = document.createElement('a');
         btnVolver.href = 'admin-clientes.php';
