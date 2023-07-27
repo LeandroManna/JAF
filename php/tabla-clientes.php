@@ -211,6 +211,7 @@ if (isset($_POST['submit'])) {
 <!-- jsPDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
 <script src="../javascript/generarComprobante.js"></script>
+<script src="../javascript/generarComprobanteFamiliar.js"></script>
 
 <!-- Script para mostrar el ultimo pago de cada socio -->
 <script>
@@ -261,70 +262,77 @@ if (isset($_POST['submit'])) {
     });
 </script>
 
-<!-- Script para mostrar el último pago de cada socio -->
-<!-- Agregar la siguiente función dentro del bloque <script> en admin-clientes.php -->
+<!-- Script para mostrar el último pago de cada socio del grupo familiar-->
 <script>
-function cargarUltimosPagosGrupoFamiliar() {
-    // Obtener el valor del grupo familiar desde el contenido del elemento con el id "grupoFamiliarLabel"
-    const grupoFamiliarLabel = document.getElementById('grupoFamiliarLabel');
-    const grupoFamiliarValue = grupoFamiliarLabel.textContent.replace('Socios pertenecientes al grupo familiar (', '').replace(')', '');
+    function cargarUltimosPagosGrupoFamiliar() {
+        // Obtener el valor del grupo familiar desde el contenido del elemento con el id "grupoFamiliarLabel"
+        const grupoFamiliarLabel = document.getElementById('grupoFamiliarLabel');
+        const grupoFamiliarValue = grupoFamiliarLabel.textContent.replace('Socios pertenecientes al grupo familiar (', '').replace(')', '');
 
-    // Actualizar el valor del input oculto con el valor del grupo familiar
-    const grupoFamiliarInput = document.getElementById('grupoFamiliarValue');
-    grupoFamiliarInput.value = grupoFamiliarValue;
+        // Actualizar el valor del input oculto con el valor del grupo familiar
+        const grupoFamiliarInput = document.getElementById('grupoFamiliarValue');
+        grupoFamiliarInput.value = grupoFamiliarValue;
 
-    const container = document.getElementById('ultimoPagoFamiliar');
-    container.innerHTML = ''; // Limpiar el contenedor antes de cargar los datos
+        const container = document.getElementById('ultimoPagoFamiliar');
+        container.innerHTML = ''; // Limpiar el contenedor antes de cargar los datos
 
-    // Hacer una solicitud AJAX para obtener los datos de los clientes y sus últimos pagos
-    const xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            const clientesPagos = JSON.parse(this.responseText);
+        // Hacer una solicitud AJAX para obtener los datos de los clientes y sus últimos pagos
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                const clientesPagos = JSON.parse(this.responseText);
 
-            // Recorrer los datos de los clientes y sus últimos pagos
-            clientesPagos.forEach(function (clientePago) {
-                // Crear elementos HTML para mostrar los datos de cada cliente y su último pago
-                const clienteContainer = document.createElement('div');
+                // Recorrer los datos de los clientes y sus últimos pagos
+                clientesPagos.forEach(function (clientePago) {
+                    // Crear elementos HTML para mostrar los datos de cada cliente y su último pago
+                    const clienteContainer = document.createElement('div');
 
-                const titulo = document.createElement('h2');
-                titulo.textContent = 'Último pago de ' + clientePago.apellido + ' ' + clientePago.nombre;
+                    const titulo = document.createElement('h2');
+                    titulo.textContent = 'Último pago de ' + clientePago.apellido + ' ' + clientePago.nombre;
 
-                const monto = document.createElement('p');
-                monto.textContent = 'Monto: $' + clientePago.monto;
+                    const monto = document.createElement('p');
+                    monto.textContent = 'Monto: $' + clientePago.monto;
 
-                const fechaPago = document.createElement('p');
-                fechaPago.textContent = 'Fecha de pago: ' + clientePago.fecha_pago;
+                    const fechaPago = document.createElement('p');
+                    fechaPago.textContent = 'Fecha de pago: ' + clientePago.fecha_pago;
 
-                const fechaVencimiento = document.createElement('p');
-                fechaVencimiento.textContent = 'Fecha de vencimiento: ' + clientePago.fecha_vencimiento;
+                    const fechaVencimiento = document.createElement('p');
+                    fechaVencimiento.textContent = 'Fecha de vencimiento: ' + clientePago.fecha_vencimiento;
 
-                const formaPago = document.createElement('p');
-                formaPago.textContent = 'Forma de pago: ' + clientePago.tipo_pago;
+                    const formaPago = document.createElement('p');
+                    formaPago.textContent = 'Forma de pago: ' + clientePago.tipo_pago;
 
-                // Agregar los elementos al contenedor de pagos
-                clienteContainer.appendChild(titulo);
-                clienteContainer.appendChild(monto);
-                clienteContainer.appendChild(fechaPago);
-                clienteContainer.appendChild(fechaVencimiento);
-                clienteContainer.appendChild(formaPago);
+                    // Agregar los elementos al contenedor de pagos
+                    clienteContainer.appendChild(titulo);
+                    clienteContainer.appendChild(monto);
+                    clienteContainer.appendChild(fechaPago);
+                    clienteContainer.appendChild(fechaVencimiento);
+                    clienteContainer.appendChild(formaPago);
 
-                container.appendChild(clienteContainer);
-            });
-        }
-    };
+                    container.appendChild(clienteContainer);
+                });
+            }
+        };
 
-    // Modificamos la URL de la solicitud AJAX para incluir el parámetro "grupo_familiar"
-    xhr.open('GET', `obtenerUltimosPagosGrupoFamiliar.php?grupo_familiar=${encodeURIComponent(grupoFamiliarValue)}`, true);
-    xhr.send();
-}
+        // Modificamos la URL de la solicitud AJAX para incluir el parámetro "grupo_familiar"
+        xhr.open('GET', `obtenerUltimosPagosGrupoFamiliar.php?grupo_familiar=${encodeURIComponent(grupoFamiliarValue)}`, true);
+        xhr.send();
+    }
 
-// Evento para cargar la función "cargarUltimosPagosGrupoFamiliar" cuando el documento se haya cargado
-document.addEventListener('DOMContentLoaded', function() {
-    const generarPDFFamButton = document.getElementById('generarPDFFam');
-    generarPDFFamButton.addEventListener('click', cargarUltimosPagosGrupoFamiliar);
-});
+    // Evento para cargar la función "cargarUltimosPagosGrupoFamiliar" cuando el documento se haya cargado
+    document.addEventListener('DOMContentLoaded', function() {
+        const generarPDFFamButton = document.getElementById('generarPDFFam');
+        generarPDFFamButton.addEventListener('click', cargarUltimosPagosGrupoFamiliar);
+    });
 </script>
+
+
+
+
+
+
+
+
 
 
 

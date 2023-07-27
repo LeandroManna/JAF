@@ -27,7 +27,7 @@ document.getElementById("generarPDF").addEventListener("click", function() {
 
   // Precargar la imagen del logo
   const logoImage = new Image();
-  logoImage.src = "../asets/Img/logo.png";
+  logoImage.src = "../asets/Img/logo2.jpg";
 
   // Declarar las variables logoWidthInches y logoHeightInches fuera de logoImage.onload
   let logoWidthInches, logoHeightInches;
@@ -35,19 +35,19 @@ document.getElementById("generarPDF").addEventListener("click", function() {
   // Esperar a que la imagen se cargue completamente
   logoImage.onload = function() {
     // Ajustar el tamaño de fuente para que el contenido quepa en el canvas
-    pdf.setFontSize(10);
+    pdf.setFontSize(8);
 
     // Agregar el logo de la empresa en la parte superior izquierda del canvas
     logoWidthInches = 0.75; // Ahora es la mitad del tamaño original (1.5 pulgadas / 2)
     const logoAspectRatio = logoImage.width / logoImage.height; // Relación de aspecto del logo
     logoHeightInches = logoWidthInches / logoAspectRatio;
-    pdf.addImage(logoImage, 'PNG', 0.5, 0.5, logoWidthInches, logoHeightInches);
+    pdf.addImage(logoImage, 'JPG', 0.5, 0.5, logoWidthInches, logoHeightInches);
 
     // Agregar el texto "Juan Aguirre Fitness" al costado del logo
     pdf.text(1.75, 0.75, "Juan Aguirre Fitness"); // Ajusta la posición del texto al costado del logo
 
     // Agregar el contenido real del comprobante con coordenadas ajustadas para que aparezca debajo del logo y texto
-    pdf.text(0.5, 1.5, contenidoComprobante); // Ajusta la posición del contenido debajo del logo y texto
+    pdf.text(0.5, 2, contenidoComprobante); // Ajusta la posición del contenido debajo del logo y texto
 
     // Agregar el texto "Valido como Comprobante de Pago" en el pie de la hoja
     pdf.text(0.5, 4.8, "Valido como Comprobante de Pago");
@@ -86,7 +86,7 @@ document.getElementById("generarPDF").addEventListener("click", function() {
   
   // Precargar la imagen del logo antes de generar el comprobante
   const logoPreload = new Image();
-  logoPreload.src = "../asets/Img/logo.png";
+  logoPreload.src = "../asets/Img/logo2.jpg";
 
   document.getElementById("descargarPdf").addEventListener("click", function() {
     // Obtener el número de WhatsApp del socio
@@ -103,7 +103,7 @@ document.getElementById("generarPDF").addEventListener("click", function() {
   
     // Agregar el contenido del comprobante al PDF
     pdfForDownload.setFontSize(10);
-    pdfForDownload.addImage(logoImage, 'PNG', 0.5, 0.5, logoWidthInches, logoHeightInches);
+    pdfForDownload.addImage(logoImage, 'JPG', 0.5, 0.5, logoWidthInches, logoHeightInches);
     pdfForDownload.text(1.75, 0.75, "Juan Aguirre Fitness");
     pdfForDownload.text(0.5, 1.5, contenidoComprobante);
     pdfForDownload.text(0.5, 4.8, "Valido como Comprobante de Pago");
@@ -117,7 +117,4 @@ document.getElementById("generarPDF").addEventListener("click", function() {
     const urlWhatsApp = `https://wa.me/${numeroConCodigoDePais}`;
     window.open(urlWhatsApp);
   });
-  
-  
-  
 });
