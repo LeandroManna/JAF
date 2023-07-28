@@ -4,6 +4,7 @@ let logoAnchoPulgadas;
 let logoAlturaPulgadas;
 let vencimientoPago;
 let grupoFamiliarValue;
+let cantidadClases;
 let contenidoComprobante2; // Variable para almacenar el contenido del comprobante
 
 function generarComprobanteGrupoFamiliar() {
@@ -29,6 +30,7 @@ function generarComprobanteGrupoFamiliar() {
                 const montoPago = 'Monto: $' + clientePago.monto;
                 const fechaPago = 'Fecha de pago: ' + clientePago.fecha_pago;
                 vencimientoPago = 'Fecha de vencimiento: ' + clientePago.fecha_vencimiento;
+                clases = 'Clases: ' + clientePago.clases;
 
                 // Agregar los valores del cliente y su último pago al contenido del comprobante
                 contenidoComprobante2 += "N° de Socio: " + clientePago.id + "\n";
@@ -38,7 +40,8 @@ function generarComprobanteGrupoFamiliar() {
                 //contenidoComprobante2 += "Segunda disciplina: " + clientePago.disciplina_dos + "\n";
                 contenidoComprobante2 += montoPago + "\n";
                 contenidoComprobante2 += fechaPago + "\n";
-                contenidoComprobante2 += vencimientoPago + "\n\n";
+                contenidoComprobante2 += vencimientoPago + "\n";
+                contenidoComprobante2 += clases + "\n\n";
 
                 // Calcular y agregar el monto al total abonado
                 totalAbonado += parseFloat(clientePago.monto);

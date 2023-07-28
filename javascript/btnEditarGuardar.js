@@ -239,6 +239,7 @@ btnGuardarPago.addEventListener('click', () => {
           // La solicitud se completó con éxito
           console.log('Pago insertado correctamente');
           // Aquí puedes realizar acciones adicionales después de insertar el pago, si es necesario
+          alert('Pago generado correctamente');
         } else {
           // La solicitud falló con algún error
           console.error('Error al insertar el pago');
@@ -252,6 +253,13 @@ btnGuardarPago.addEventListener('click', () => {
       // Enviar la solicitud al servidor con los datos
       xhr.send(data);
     }
+  });
+  Swal.fire({
+    icon: 'success',
+    title: '¡Datos actualizados correctamente!',
+    text: 'Todos los datos han sido actualizados exitosamente.',
+    confirmButtonColor: '#3085d6',
+    confirmButtonText: 'Aceptar'
   });
 });
 
@@ -300,7 +308,7 @@ btnGuardar.addEventListener('click', () => {
         // Ocultar el formulario y recargar la página
         formularioCliente.classList.add('d-none');
         divTabla.classList.remove('d-none');
-        window.location.href = "admin-clientes.php";
+        //window.location.href = "admin-clientes.php";
       }
     }
     xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}&disciplina=${nuevaDisciplina}&disciplina_dos=${segundaDisciplina}&clases=${clases}&grupo_familiar=${grupoFamiliar}`);
@@ -314,7 +322,7 @@ btnGuardar.addEventListener('click', () => {
         // Ocultar el formulario y recargar la página
         formularioCliente.classList.add('d-none');
         divTabla.classList.remove('d-none');
-        window.location.href = "admin-clientes.php";
+        //window.location.href = "admin-clientes.php";
       }
     }
     xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}&disciplina=${nuevaDisciplina}&disciplina_dos=${inputDisciplinaDos.value}&clases=${clases}&grupo_familiar=${grupoFamiliar}`);
@@ -328,7 +336,7 @@ btnGuardar.addEventListener('click', () => {
         // Ocultar el formulario y recargar la página
         formularioCliente.classList.add('d-none');
         divTabla.classList.remove('d-none');
-        window.location.href = "admin-clientes.php";
+        //window.location.href = "admin-clientes.php";
       }
     }
     xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}&disciplina=${inputDisciplina.value}&disciplina_dos=${segundaDisciplina}&clases=${clases}&grupo_familiar=${grupoFamiliar}`);
@@ -342,7 +350,7 @@ btnGuardar.addEventListener('click', () => {
         // Ocultar el formulario y recargar la página
         formularioCliente.classList.add('d-none');
         divTabla.classList.remove('d-none');
-        window.location.href = "admin-clientes.php";
+        //window.location.href = "admin-clientes.php";
       }
     }
     xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}&disciplina=${inputDisciplina.value}&disciplina_dos=${inputDisciplinaDos.value}&clases=${clases}&grupo_familiar=${grupoFamiliar}`);

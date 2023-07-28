@@ -10,14 +10,15 @@ if (isset($_POST['submit'])) {
     $fecha_pago = $_POST['fecha_pago'];
     $fecha_vencimiento = $_POST['fecha_vencimiento'];
     $clases = $_POST['clases'];
+    $tipo_pago = $_POST['tipo_pago'];
 
     // Insertar el nuevo pago en la base de datos
-    $query = mysqli_query($conn, "INSERT INTO pagos (id_cliente, nombre, apellido, monto, disciplina, fecha_pago, fecha_vencimiento) 
-    VALUES ('$id', '$nombre', '$apellido', '$monto', '$disciplina', '$fecha_pago', '$fecha_vencimiento')");
+    $query = mysqli_query($conn, "INSERT INTO pagos (id_cliente, nombre, apellido, monto, disciplina, fecha_pago, fecha_vencimiento, tipo_pago) 
+    VALUES ('$id', '$nombre', '$apellido', '$monto', '$disciplina', '$fecha_pago', '$fecha_vencimiento', '$tipo_pago')");
 
     if ($query) {
         // Mostrar alerta de pago guardado
-        echo '<script>Swal.fire("¡Pago guardado!", "El pago se ha guardado correctamente.", "success");</script>';
+        echo "El pago se ha guardado correctamente.";
     } else {
         echo "Error al registrar el pago: " . mysqli_error($conn);
     }
@@ -148,6 +149,10 @@ if (isset($_POST['submit'])) {
                     <label for="fecha_vencimiento" class="form-label">Vencimiento *</label>
                     <input type="date" class="form-control" name="fecha_vencimiento" id="fecha_vencimiento" >
                 </div>
+                <div class="m-1 col-md-2">
+                    <label for="tipo_pago" class="form-label">Forma de pago *</label>
+                    <input type="text" class="form-control" name="tipo_pago" id="tipo_pago" >
+                </div>
             </div>
             <div class="d-flex justify-content-center btn-group my-3">
                 <button type="submit" class="btn btn-success mx-1 rounded-3" name="submit">Guardar Pago</button>
@@ -172,7 +177,7 @@ if (isset($_POST['submit'])) {
         <button type="button" class="btn btn-success mx-1 rounded-3" id="generarPDF">Generar Comprobante</button>
     </div>
 </div>
-
+<!-- INICIO GRUPO FAMILIAR -->
 <div class="d-none col-sm-12" id="gFamiliar">
     <h2 class="text-center card-subtitle py-3">Grupo familiar</h2>
     <!-- Label para mostrar el nombre del grupo familiar -->

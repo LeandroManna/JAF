@@ -79,6 +79,7 @@
                   <th>Disciplina</th>
                   <th>Fecha de pago</th>
                   <th>Monto</th>
+                  <th>Forma de pago</th>
                 </tr>
               </thead>
               <tbody>
@@ -99,7 +100,7 @@
                       $disciplina_actual = $row_disciplina["disciplina"];
                     
                       // Consulta para obtener los pagos realizados dentro del mes en curso para la disciplina actual
-                      $sql_pagos = "SELECT id_cliente, nombre, apellido, disciplina, fecha_pago, monto FROM pagos WHERE MONTH(fecha_pago) = $mes_actual AND YEAR(fecha_pago) = $anio_actual AND disciplina = '$disciplina_actual'";
+                      $sql_pagos = "SELECT id_cliente, nombre, apellido, disciplina, fecha_pago, monto, tipo_pago FROM pagos WHERE MONTH(fecha_pago) = $mes_actual AND YEAR(fecha_pago) = $anio_actual AND disciplina = '$disciplina_actual'";
                       $result_pagos = $conn->query($sql_pagos);
                     
                       $total_disciplina = 0;
@@ -113,6 +114,7 @@
                           $disciplina = $row_pago["disciplina"];
                           $fecha_pago = $row_pago["fecha_pago"];
                           $monto = $row_pago["monto"];
+                          $tipo_pago = $row_pago["tipo_pago"];
                         
                           // Mostrar los datos en la tabla
                           echo "<tr>";
@@ -120,8 +122,9 @@
                           echo "<td>$apellido</td>";
                           echo "<td>$nombre</td>";
                           echo "<td>$disciplina</td>";
-                          echo "<td>$fecha_pago</td>"; // Aquí deberías agregar el campo "Tipo de pago" si lo tienes en tu base de datos
+                          echo "<td>$fecha_pago</td>";
                           echo "<td>$monto</td>";
+                          echo "<td>$tipo_pago</td>";
                           echo "</tr>";
                         
                           // Sumar el monto por disciplina
@@ -134,7 +137,7 @@
                     
                       // Mostrar el total de la disciplina actual
                       echo "<tr>";
-                      echo "<td colspan='5'></td>"; // Ajustar el colspan según la cantidad de columnas de tu tabla
+                      echo "<td colspan='6'></td>"; // Ajustar el colspan según la cantidad de columnas de tu tabla
                       echo "<td><strong>Total por disciplina:</strong></td>";
                       echo "<td><strong>$total_disciplina</strong></td>";
                       echo "</tr>";
@@ -143,7 +146,7 @@
                 
                   // Mostrar el total general
                   echo "<tr>";
-                  echo "<td colspan='5'></td>"; // Ajustar el colspan según la cantidad de columnas de tu tabla
+                  echo "<td colspan='6'></td>"; // Ajustar el colspan según la cantidad de columnas de tu tabla
                   echo "<td><strong>Total general:</strong></td>";
                   echo "<td><strong>$total_general</strong></td>";
                   echo "</tr>";
