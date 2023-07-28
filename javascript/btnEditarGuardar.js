@@ -47,7 +47,7 @@ btnEditar.forEach(btn => {
     xhr.onload = function() {
       if (this.status === 200) {
         const cliente = JSON.parse(this.responseText);
-        console.log(cliente);
+        //console.log(cliente); //MUESTRA LOS DATOS ALMACENADOS EN cliente
         // Mostrar el formulario y autocompletar los datos del cliente
         mostrarCliente(cliente);
       }
