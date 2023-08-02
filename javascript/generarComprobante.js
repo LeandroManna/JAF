@@ -135,7 +135,7 @@ document.getElementById("descargarPdf").addEventListener("click", function() {
   
   // Descargar el PDF con el nombre "comprobante-(apellido).pdf"
   const apellidoClienteForFileName = apellidoCliente.replace(/\s+/g, '-').toLowerCase(); // Reemplazar espacios por guiones y convertir a minúsculas
-  const fileName = `comprobante-${apellidoClienteForFileName}-${formattedDateTime}.pdf`;
+  const fileName = `comprobanteJAF-${apellidoClienteForFileName}-${formattedDateTime}.pdf`;
   pdfForDownload.save(fileName);
   
     // Abrir WhatsApp con el número del socio al hacer clic en el botón "descargarPdf"

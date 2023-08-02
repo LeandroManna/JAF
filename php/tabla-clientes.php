@@ -150,9 +150,17 @@ if (isset($_POST['submit'])) {
                     <label for="fecha_vencimiento" class="form-label">Vencimiento *</label>
                     <input type="date" class="form-control" name="fecha_vencimiento" id="fecha_vencimiento" >
                 </div>
-                <div class="m-1 col-md-2">
+                <!-- <div class="m-1 col-md-2">
                     <label for="tipo_pago" class="form-label">Forma de pago *</label>
                     <input type="text" class="form-control" name="tipo_pago" id="tipo_pago" >
+                </div> -->
+                <div class="mb-1 col-md-3">
+                    <label for="tipo_pago" class="form-label">Forma de pago:</label>
+                    <select class="form-select" name="tipo_pago" id="tipo_pago" >
+                        <option selected disabled value="">Seleccione...</option>
+                        <option value="Efectivo">Efectivo</option>
+                        <option value="Transferencia">Transferencia</option>
+                    </select>
                 </div>
             </div>
             <div class="d-flex justify-content-center btn-group my-3">

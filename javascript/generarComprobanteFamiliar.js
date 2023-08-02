@@ -155,6 +155,6 @@ document.getElementById("descargarPdfFam").addEventListener("click", function() 
 
     // Descargar el PDF con el nombre "comprobante-grupo-familiar.pdf"
     const grupoFamiliarForFileName = grupoFamiliarValue.replace(/\s+/g, '-').toLowerCase(); // Reemplazar espacios por guiones y convertir a minúsculas
-    const fileName = `comprobante-grupofamiliar-${grupoFamiliarForFileName}-${formattedDateTime}.pdf`;
+    const fileName = `comprobanteJAF-grupofamiliar-${grupoFamiliarForFileName}-${formattedDateTime}.pdf`;
     pdfForDownload.save(fileName);
 });

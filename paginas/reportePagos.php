@@ -78,80 +78,120 @@
                   <th>Nombre</th>
                   <th>Disciplina</th>
                   <th>Fecha de pago</th>
-                  <th>Monto</th>
-                  <th>Forma de pago</th>
+                  <th>Transferencia</th>
+                  <th>Efectivo</th>
+                  <th>Totales</th>
                 </tr>
               </thead>
               <tbody>
-                <?php
-                  // Obtener el mes y año actual
-                  $mes_actual = date('m');
-                  $anio_actual = date('Y');
+  <?php
+    // Obtener el mes y año actual
+    $mes_actual = date('m');
+    $anio_actual = date('Y');
 
-                  // Consulta para obtener las disciplinas existentes
-                  $sql_disciplinas = "SELECT DISTINCT disciplina FROM pagos ORDER BY disciplina ASC";
-                  $result_disciplinas = $conn->query($sql_disciplinas);
+    // Consulta para obtener las disciplinas existentes
+    $sql_disciplinas = "SELECT DISTINCT disciplina FROM pagos ORDER BY disciplina ASC";
+    $result_disciplinas = $conn->query($sql_disciplinas);
 
-                  $total_general = 0;
+    $total_general = 0;
+    $total_transferencia = 0;
+    $total_efectivo = 0;
 
-                  if ($result_disciplinas->num_rows > 0) {
-                    while ($row_disciplina = $result_disciplinas->fetch_assoc()) {
-                      // Obtener la disciplina actual
-                      $disciplina_actual = $row_disciplina["disciplina"];
-                    
-                      // Consulta para obtener los pagos realizados dentro del mes en curso para la disciplina actual
-                      $sql_pagos = "SELECT id_cliente, nombre, apellido, disciplina, fecha_pago, monto, tipo_pago FROM pagos WHERE MONTH(fecha_pago) = $mes_actual AND YEAR(fecha_pago) = $anio_actual AND disciplina = '$disciplina_actual'";
-                      $result_pagos = $conn->query($sql_pagos);
-                    
-                      $total_disciplina = 0;
-                    
-                      if ($result_pagos->num_rows > 0) {
-                        while ($row_pago = $result_pagos->fetch_assoc()) {
-                          // Obtener los valores de cada columna
-                          $id_cliente = $row_pago["id_cliente"];
-                          $nombre = $row_pago["nombre"];
-                          $apellido = $row_pago["apellido"];
-                          $disciplina = $row_pago["disciplina"];
-                          $fecha_pago = $row_pago["fecha_pago"];
-                          $monto = $row_pago["monto"];
-                          $tipo_pago = $row_pago["tipo_pago"];
-                        
-                          // Mostrar los datos en la tabla
-                          echo "<tr>";
-                          echo "<td>$id_cliente</td>";
-                          echo "<td>$apellido</td>";
-                          echo "<td>$nombre</td>";
-                          echo "<td>$disciplina</td>";
-                          echo "<td>$fecha_pago</td>";
-                          echo "<td>$monto</td>";
-                          echo "<td>$tipo_pago</td>";
-                          echo "</tr>";
-                        
-                          // Sumar el monto por disciplina
-                          $total_disciplina += $monto;
-                        
-                          // Sumar al total general
-                          $total_general += $monto;
-                        }
-                      }
-                    
-                      // Mostrar el total de la disciplina actual
-                      echo "<tr>";
-                      echo "<td colspan='6'></td>"; // Ajustar el colspan según la cantidad de columnas de tu tabla
-                      echo "<td><strong>Total por disciplina:</strong></td>";
-                      echo "<td><strong>$total_disciplina</strong></td>";
-                      echo "</tr>";
-                    }
-                  }
-                
-                  // Mostrar el total general
-                  echo "<tr>";
-                  echo "<td colspan='6'></td>"; // Ajustar el colspan según la cantidad de columnas de tu tabla
-                  echo "<td><strong>Total general:</strong></td>";
-                  echo "<td><strong>$total_general</strong></td>";
-                  echo "</tr>";
-                ?>
-              </tbody>
+    if ($result_disciplinas->num_rows > 0) {
+      while ($row_disciplina = $result_disciplinas->fetch_assoc()) {
+        // Obtener la disciplina actual
+        $disciplina_actual = $row_disciplina["disciplina"];
+
+        // Consulta para obtener los pagos realizados dentro del mes en curso para la disciplina actual
+        $sql_pagos = "SELECT id_cliente, nombre, apellido, disciplina, fecha_pago, monto, tipo_pago FROM pagos WHERE MONTH(fecha_pago) = $mes_actual AND YEAR(fecha_pago) = $anio_actual AND disciplina = '$disciplina_actual'";
+        $result_pagos = $conn->query($sql_pagos);
+
+        $total_disciplina = 0;
+        $total_transferencia_disciplina = 0;
+        $total_efectivo_disciplina = 0;
+
+        if ($result_pagos->num_rows > 0) {
+          while ($row_pago = $result_pagos->fetch_assoc()) {
+            // Obtener los valores de cada columna
+            $id_cliente = $row_pago["id_cliente"];
+            $nombre = $row_pago["nombre"];
+            $apellido = $row_pago["apellido"];
+            $disciplina = $row_pago["disciplina"];
+            $fecha_pago = $row_pago["fecha_pago"];
+            $monto = $row_pago["monto"];
+            $tipo_pago = $row_pago["tipo_pago"];
+            $transferencia = ($tipo_pago === 'Transferencia') ? $monto : 0;
+            $efectivo = ($tipo_pago === 'Efectivo') ? $monto : 0;
+
+            // Update total_transferencia_disciplina and total_efectivo_disciplina
+            $total_transferencia_disciplina += $transferencia;
+            $total_efectivo_disciplina += $efectivo;
+
+            // Mostrar los datos en la tabla
+            echo "<tr>";
+            echo "<td>$id_cliente</td>";
+            echo "<td>$apellido</td>";
+            echo "<td>$nombre</td>";
+            echo "<td>$disciplina</td>";
+            echo "<td>$fecha_pago</td>";
+            echo "<td>$transferencia</td>";
+            echo "<td>$efectivo</td>";
+            echo "</tr>";
+
+            // Sumar el monto por disciplina
+            $total_disciplina += $monto;
+
+            // Sumar al total general
+            $total_general += $monto;
+          }
+        }
+
+        // Mostrar el total de la disciplina actual
+        echo "<tr>";
+        echo "<td><strong>Total Transferencia:</strong></td>";
+        echo "<td colspan='4'></td>";
+        echo "<td><strong>$total_transferencia_disciplina</strong></td>";
+        echo "</tr>";
+
+        echo "<tr>";
+        echo "<td><strong>Total Efectivo:</strong></td>";
+        echo "<td colspan='5'></td>";
+        echo "<td><strong>$total_efectivo_disciplina</strong></td>";
+        echo "</tr>";
+
+        echo "<tr>";
+        echo "<td><strong>Total por disciplina:</strong></td>";
+        echo "<td colspan='6'></td>";
+        echo "<td><strong>$total_disciplina</strong></td>";
+        echo "</tr>";
+
+        // Sumar el total_transferencia_disciplina y total_efectivo_disciplina al total general
+        $total_transferencia += $total_transferencia_disciplina;
+        $total_efectivo += $total_efectivo_disciplina;
+      }
+    }
+
+    // Mostrar el total general
+    echo "<tr>";
+    echo "<td><strong>Total Transferencia general:</strong></td>";
+    echo "<td colspan='4'></td>";
+    echo "<td><strong>$total_transferencia</strong></td>";
+    echo "</tr>";
+
+    echo "<tr>";
+    echo "<td><strong>Total Efectivo general:</strong></td>";
+    echo "<td colspan='5'></td>";
+    echo "<td><strong>$total_efectivo</strong></td>";
+    echo "</tr>";
+
+    echo "<tr>";
+    echo "<td><strong>Total general:</strong></td>";
+    echo "<td colspan='6'></td>";
+    echo "<td><strong>$total_general</strong></td>";
+    echo "</tr>";
+  ?>
+</tbody>
+
             </table>
             </div>
           </div>
