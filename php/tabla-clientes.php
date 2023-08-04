@@ -108,7 +108,7 @@ if (isset($_POST['submit'])) {
                 <option value="Mini_Voley">Mini Voley</option>
                 <option value="Taekwondo">Taekwondo</option>
                 <option value="Futbol_Infantil">Futbol Infantil</option>
-                <option value="Eliminar">Eliminar</option>
+                <option value=" ">Eliminar</option>
             </select>
         </div>
         <div class="mb-1 col-md-1 d-none">
@@ -132,7 +132,7 @@ if (isset($_POST['submit'])) {
 
         <!-- INICIO SECTOR DE PAGOS -->
         <div class="border-top border-2 pt-2 rounded-3">
-            <h2 class="text-center card-subtitle py-2">Generar pago</h2>
+            <h2 class="text-center card-subtitle py-2" id="textPrimerPago">Generar pago</h2>
             <div class="row">
                 <div class="m-1 col-md-2">
                     <label for="clases" class="form-label">Cantidad de clases:</label>
@@ -163,6 +163,40 @@ if (isset($_POST['submit'])) {
                     </select>
                 </div>
             </div>
+            <div id="boxDisciplinaDos" class="d-none">
+            <h2 class="text-center card-subtitle py-2" id=textSegundoPago>Generar segundo pago</h2>
+            <div class="row">
+                <div class="m-1 col-md-2">
+                    <label for="clases" class="form-label">Cantidad de clases:</label>
+                    <input type="number" class="form-control" name="clases" id="clases" >
+                </div>
+                <div class="m-1 col-md-2">
+                    <label for="monto" class="form-label">Monto *</label>
+                    <input type="number" class="form-control" name="monto" placeholder="Monto del pago">
+                </div>
+                <div class="m-1 col-md-2">
+                    <label for="fecha_pago" class="form-label">Fecha de pago *</label>
+                    <input type="date" class="form-control" name="fecha_pago" id="fecha_pago" >
+                </div>
+                <div class="m-1 col-md-2">
+                    <label for="fecha_vencimiento" class="form-label">Vencimiento *</label>
+                    <input type="date" class="form-control" name="fecha_vencimiento" id="fecha_vencimiento" >
+                </div>
+                <!-- <div class="m-1 col-md-2">
+                    <label for="tipo_pago" class="form-label">Forma de pago *</label>
+                    <input type="text" class="form-control" name="tipo_pago" id="tipo_pago" >
+                </div> -->
+                <div class="mb-1 col-md-3">
+                    <label for="tipo_pago" class="form-label">Forma de pago:</label>
+                    <select class="form-select" name="tipo_pago" id="tipo_pago" >
+                        <option selected disabled value="">Seleccione...</option>
+                        <option value="Efectivo">Efectivo</option>
+                        <option value="Transferencia">Transferencia</option>
+                    </select>
+                </div>
+            </div>
+            </div>
+            
             <div class="d-flex justify-content-center btn-group my-3">
                 <button type="submit" class="btn btn-success mx-1 rounded-3" name="submit">Guardar Pago</button>
                 <a href="admin-clientes.php" class="btn btn-info mx-1 rounded-3">Volver</a>

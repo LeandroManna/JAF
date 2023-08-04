@@ -15,6 +15,9 @@ const inputDisciplinaDos = document.querySelector('#disciplina_dos');
 const inputClases = document.querySelector('#clases');
 const btnGuardar = document.querySelector('#editarCliente');
 const inputFamiliar = document.querySelector('#grupoFamiliar');
+const boxDisciplinaDos = document.querySelector('#boxDisciplinaDos');
+const textSegundoPago = document.querySelector('#textSegundoPago');
+const textPrimerPago = document.querySelector('#textPrimerPago');
 
 /* INICIO VARIABLES GLOBALES DEL GRUPO FAMILIAR */
 const grupoFamiliarLabel = document.querySelector('#grupoFamiliarLabel');
@@ -36,6 +39,13 @@ function mostrarCliente(cliente) {
   inputDetalle.value = cliente.detalle;
   inputClases.value = cliente.clases;
   inputFamiliar.value = cliente.grupo_familiar;
+
+  textPrimerPago.textContent = "Pago correspondiente a " + inputDisciplina.value;
+
+  if (inputDisciplinaDos.value !== "" && inputDisciplinaDos.value !== " ") {
+    boxDisciplinaDos.classList.remove('d-none');
+    textSegundoPago.textContent = "Pago correspondiente a " + inputDisciplinaDos.value;
+  }
 }
 btnEditar.forEach(btn => {
   btn.addEventListener('click', () => {
@@ -298,11 +308,6 @@ btnGuardar.addEventListener('click', () => {
   const nuevaDisciplina = document.getElementById('changeDisciplina').value;
   const segundaDisciplina = document.getElementById('addDisciplina').value;
 
-  // Clear the "segunda disciplina" input if "Eliminar" is selected
-  if (segundaDisciplina === 'Eliminar') {
-    document.getElementById('disciplina_dos').value = "";
-  }
-
   // Check which select options are selected and send the appropriate data in the AJAX request
   const xhr = new XMLHttpRequest();
   xhr.open('POST', '../php/editarCliente.php', true);
@@ -317,13 +322,13 @@ btnGuardar.addEventListener('click', () => {
   }
 
   // Send the appropriate data based on the selected options
-  if (nuevaDisciplina !== '' && segundaDisciplina !== 'Eliminar') {
+  if (nuevaDisciplina !== '' && segundaDisciplina !== '') {
     // Se han seleccionado ambos select, se modifican ambos campos
     xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}&disciplina=${nuevaDisciplina}&disciplina_dos=${segundaDisciplina}&clases=${clases}&grupo_familiar=${grupoFamiliar}`);
   } else if (nuevaDisciplina !== '') {
     // Solo se ha seleccionado el primer select, se modifica solo el primer campo
     xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}&disciplina=${nuevaDisciplina}&disciplina_dos=${inputDisciplinaDos.value}&clases=${clases}&grupo_familiar=${grupoFamiliar}`);
-  } else if (segundaDisciplina !== 'Eliminar') {
+  } else if (segundaDisciplina !== '') {
     // Solo se ha seleccionado el segundo select, se modifica solo el segundo campo
     xhr.send(`id=${id}&nombre=${nombre}&apellido=${apellido}&dni=${dni}&fecha_nacimiento=${fechaNacimiento}&celular=${celular}&detalle=${detalle}&disciplina=${inputDisciplina.value}&disciplina_dos=${segundaDisciplina}&clases=${clases}&grupo_familiar=${grupoFamiliar}`);
   } else {
