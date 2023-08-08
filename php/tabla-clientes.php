@@ -163,32 +163,29 @@ if (isset($_POST['submit'])) {
                     </select>
                 </div>
             </div>
+            
             <div id="boxDisciplinaDos" class="d-none">
             <h2 class="text-center card-subtitle py-2" id=textSegundoPago>Generar segundo pago</h2>
             <div class="row">
                 <div class="m-1 col-md-2">
-                    <label for="clases" class="form-label">Cantidad de clases:</label>
-                    <input type="number" class="form-control" name="clases" id="clases" >
+                    <label for="clasesFam" class="form-label">Cantidad de clases:</label>
+                    <input type="number" class="form-control" name="clasesFam" id="clasesFam" >
                 </div>
                 <div class="m-1 col-md-2">
-                    <label for="monto" class="form-label">Monto *</label>
-                    <input type="number" class="form-control" name="monto" placeholder="Monto del pago">
+                    <label for="montoFam" class="form-label">Monto *</label>
+                    <input type="number" class="form-control" name="montoFam" placeholder="Monto del pago">
                 </div>
                 <div class="m-1 col-md-2">
-                    <label for="fecha_pago" class="form-label">Fecha de pago *</label>
-                    <input type="date" class="form-control" name="fecha_pago" id="fecha_pago" >
+                    <label for="fecha_pagoFam" class="form-label">Fecha de pago *</label>
+                    <input type="date" class="form-control" name="fecha_pagoFam" id="fecha_pagoFam" >
                 </div>
                 <div class="m-1 col-md-2">
-                    <label for="fecha_vencimiento" class="form-label">Vencimiento *</label>
-                    <input type="date" class="form-control" name="fecha_vencimiento" id="fecha_vencimiento" >
+                    <label for="fecha_vencimientoFam" class="form-label">Vencimiento *</label>
+                    <input type="date" class="form-control" name="fecha_vencimientoFam" id="fecha_vencimientoFam" >
                 </div>
-                <!-- <div class="m-1 col-md-2">
-                    <label for="tipo_pago" class="form-label">Forma de pago *</label>
-                    <input type="text" class="form-control" name="tipo_pago" id="tipo_pago" >
-                </div> -->
                 <div class="mb-1 col-md-3">
-                    <label for="tipo_pago" class="form-label">Forma de pago:</label>
-                    <select class="form-select" name="tipo_pago" id="tipo_pago" >
+                    <label for="tipo_pagoFam" class="form-label">Forma de pago:</label>
+                    <select class="form-select" name="tipo_pagoFam" id="tipo_pagoFam" >
                         <option selected disabled value="">Seleccione...</option>
                         <option value="Efectivo">Efectivo</option>
                         <option value="Transferencia">Transferencia</option>

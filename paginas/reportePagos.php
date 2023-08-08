@@ -59,9 +59,17 @@
           <h2 class="text-center card-subtitle text-dark py-3">Reporte de pagos</h2>
           <div class="row my-3 justify-content-center">
             <div class="row col-md-6">
-            <form class="row">
+            <form class="row" id="filtroForm">
+              <div class="form-group">
+                  <label for="filtro" class="form-label">Filtrar por:</label>
+                  <select class="form-control" name="filtro" id="filtro">
+                      <option value="mes">Mes</option>
+                      <option value="dia">Dia</option>
+                  </select>
+              </div>
                 <div class="d-flex justify-content-center my-3">
-                    <button type="button" class="btn btn-success col-md-4 mx-2" id="exportarExcelBtn">Exportar a Excel</button>
+                  <button type="button" class="btn btn-primary col-md-4 mx-2" id="btnBuscar">Buscar</button>
+                  <button type="button" class="btn btn-success col-md-4 mx-2" id="exportarExcelBtn">Exportar a Excel</button>
                 </div>
               </form>
             </div>
@@ -72,6 +80,12 @@
             <div class="col-md-9 " id="tabla">
             <table class="table table-striped">
               <thead>
+              <tr>
+                <th colspan="8" id="tituloReporte"></th>
+              </tr>
+              <tr>
+                <th colspan="8"></th>
+              </tr>
                 <tr>
                   <th>N° de Socio</th>
                   <th>Apellido</th>
@@ -83,115 +97,9 @@
                   <th>Totales</th>
                 </tr>
               </thead>
-              <tbody>
-  <?php
-    // Obtener el mes y año actual
-    $mes_actual = date('m');
-    $anio_actual = date('Y');
-
-    // Consulta para obtener las disciplinas existentes
-    $sql_disciplinas = "SELECT DISTINCT disciplina FROM pagos ORDER BY disciplina ASC";
-    $result_disciplinas = $conn->query($sql_disciplinas);
-
-    $total_general = 0;
-    $total_transferencia = 0;
-    $total_efectivo = 0;
-
-    if ($result_disciplinas->num_rows > 0) {
-      while ($row_disciplina = $result_disciplinas->fetch_assoc()) {
-        // Obtener la disciplina actual
-        $disciplina_actual = $row_disciplina["disciplina"];
-
-        // Consulta para obtener los pagos realizados dentro del mes en curso para la disciplina actual
-        $sql_pagos = "SELECT id_cliente, nombre, apellido, disciplina, fecha_pago, monto, tipo_pago FROM pagos WHERE MONTH(fecha_pago) = $mes_actual AND YEAR(fecha_pago) = $anio_actual AND disciplina = '$disciplina_actual'";
-        $result_pagos = $conn->query($sql_pagos);
-
-        $total_disciplina = 0;
-        $total_transferencia_disciplina = 0;
-        $total_efectivo_disciplina = 0;
-
-        if ($result_pagos->num_rows > 0) {
-          while ($row_pago = $result_pagos->fetch_assoc()) {
-            // Obtener los valores de cada columna
-            $id_cliente = $row_pago["id_cliente"];
-            $nombre = $row_pago["nombre"];
-            $apellido = $row_pago["apellido"];
-            $disciplina = $row_pago["disciplina"];
-            $fecha_pago = $row_pago["fecha_pago"];
-            $monto = $row_pago["monto"];
-            $tipo_pago = $row_pago["tipo_pago"];
-            $transferencia = ($tipo_pago === 'Transferencia') ? $monto : 0;
-            $efectivo = ($tipo_pago === 'Efectivo') ? $monto : 0;
-
-            // Update total_transferencia_disciplina and total_efectivo_disciplina
-            $total_transferencia_disciplina += $transferencia;
-            $total_efectivo_disciplina += $efectivo;
-
-            // Mostrar los datos en la tabla
-            echo "<tr>";
-            echo "<td>$id_cliente</td>";
-            echo "<td>$apellido</td>";
-            echo "<td>$nombre</td>";
-            echo "<td>$disciplina</td>";
-            echo "<td>$fecha_pago</td>";
-            echo "<td>$transferencia</td>";
-            echo "<td>$efectivo</td>";
-            echo "</tr>";
-
-            // Sumar el monto por disciplina
-            $total_disciplina += $monto;
-
-            // Sumar al total general
-            $total_general += $monto;
-          }
-        }
-
-        // Mostrar el total de la disciplina actual
-        echo "<tr>";
-        echo "<td><strong>Total Transferencia:</strong></td>";
-        echo "<td colspan='4'></td>";
-        echo "<td><strong>$total_transferencia_disciplina</strong></td>";
-        echo "</tr>";
-
-        echo "<tr>";
-        echo "<td><strong>Total Efectivo:</strong></td>";
-        echo "<td colspan='5'></td>";
-        echo "<td><strong>$total_efectivo_disciplina</strong></td>";
-        echo "</tr>";
-
-        echo "<tr>";
-        echo "<td><strong>Total por disciplina:</strong></td>";
-        echo "<td colspan='6'></td>";
-        echo "<td><strong>$total_disciplina</strong></td>";
-        echo "</tr>";
-
-        // Sumar el total_transferencia_disciplina y total_efectivo_disciplina al total general
-        $total_transferencia += $total_transferencia_disciplina;
-        $total_efectivo += $total_efectivo_disciplina;
-      }
-    }
-
-    // Mostrar el total general
-    echo "<tr>";
-    echo "<td><strong>Total Transferencia general:</strong></td>";
-    echo "<td colspan='4'></td>";
-    echo "<td><strong>$total_transferencia</strong></td>";
-    echo "</tr>";
-
-    echo "<tr>";
-    echo "<td><strong>Total Efectivo general:</strong></td>";
-    echo "<td colspan='5'></td>";
-    echo "<td><strong>$total_efectivo</strong></td>";
-    echo "</tr>";
-
-    echo "<tr>";
-    echo "<td><strong>Total general:</strong></td>";
-    echo "<td colspan='6'></td>";
-    echo "<td><strong>$total_general</strong></td>";
-    echo "</tr>";
-  ?>
-</tbody>
-
+              <tbody id="tablaCuerpo">
+                <!-- Se genera de forma dinamica la tabla -->
+              </tbody>
             </table>
             </div>
           </div>
@@ -245,31 +153,65 @@
 
     <script src="../javascript/cerrarSesion.js"></script>
 
+    <!-- FILTRO DE PAGOS POR MES Y DIA -->
     <script>
-            /* Exportar tabla a Excel */
-            const $btnExportar = document.querySelector("#exportarExcelBtn"),
-        $tabla = document.querySelector("#tabla");
+        const filtroForm = document.getElementById('filtroForm');
+        const btnBuscar = document.getElementById('btnBuscar');
+        const tablaCuerpo = document.getElementById('tablaCuerpo');
+        const tituloReporte = document.getElementById('tituloReporte'); // Agregado
+
+        btnBuscar.addEventListener('click', function () {
+            const formData = new FormData(filtroForm);
+            const filtroSeleccionado = formData.get('filtro');
+        
+            // Llamada AJAX para obtener los resultados filtrados
+            fetch('../php/filtrar_pagos.php', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Actualiza la tabla con los nuevos datos
+                tablaCuerpo.innerHTML = data;
+            
+                // Cambiar título del reporte según el filtro seleccionado
+                if (filtroSeleccionado === 'mes') {
+                    tituloReporte.textContent = 'Reporte de Pago por Mes';
+                } else if (filtroSeleccionado === 'dia') {
+                    tituloReporte.textContent = 'Reporte de Pago por Día';
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener los datos:', error);
+            });
+        });
+    </script>
+
+    <!-- EXPORTAR A EXCEL -->
+    <script>
+      /* Exportar tabla a Excel */
+      const $btnExportar = document.querySelector("#exportarExcelBtn"),
+      $tabla = document.querySelector("#tabla");
 
       $btnExportar.addEventListener("click", function() {
-          let tableExport = new TableExport($tabla, {
-              exportButtons: false, // Sin botones
-              filename: "JAF-Reporte-Pagos", //Nombre del archivo de Excel
-              sheetname: "Reporte", //Título de la hoja
-          });
-          let datos = tableExport.getExportData();
-          let preferenciasDocumento = datos.tabla.xlsx;
-          tableExport.export2file(
-            preferenciasDocumento.data, 
-            preferenciasDocumento.mimeType, 
-            preferenciasDocumento.filename, 
-            preferenciasDocumento.fileExtension, 
-            preferenciasDocumento.merges, 
-            preferenciasDocumento.RTL, 
-            preferenciasDocumento.sheetname);
+        let tableExport = new TableExport($tabla, {
+            exportButtons: false, // Sin botones
+            filename: "Reporte-PagosJAF", //Nombre del archivo de Excel
+            sheetname: "Reporte", //Título de la hoja
+        });
+        let datos = tableExport.getExportData();
+        let preferenciasDocumento = datos.tabla.xlsx;
+        tableExport.export2file(
+          preferenciasDocumento.data, 
+          preferenciasDocumento.mimeType, 
+          preferenciasDocumento.filename, 
+          preferenciasDocumento.fileExtension, 
+          preferenciasDocumento.merges, 
+          preferenciasDocumento.RTL, 
+          preferenciasDocumento.sheetname);
       });
     </script>
 
-    
     <!-- EL SIGUIENTE SCRIPT COLOCA EL AÑO DE FORMA AUTOMATICA EN EL COPY DEL FOOTER -->
     <script>
       var currentYear = new Date().getFullYear();
