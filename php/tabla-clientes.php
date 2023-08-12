@@ -2,36 +2,69 @@
 include "../php/conexion.php";
 
 if (isset($_POST['submit'])) {
+    // Capture the common data
     $id = $_POST['id'];
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
-    $monto = $_POST['monto'];
     $disciplina = $_POST['disciplina'];
+    $disciplinaD = $_POST['disciplina_dos'];
+    $clases = $_POST['clases'];
+    
+    // Main payment data
+    $monto = $_POST['monto'];
     $fecha_pago = $_POST['fecha_pago'];
     $fecha_vencimiento = $_POST['fecha_vencimiento'];
-    $clases = $_POST['clases'];
     $tipo_pago = $_POST['tipo_pago'];
 
-    // Insertar el nuevo pago en la base de datos
+    // Insert the main payment data into the database
     $query = mysqli_query($conn, "INSERT INTO pagos (id_cliente, nombre, apellido, monto, disciplina, fecha_pago, fecha_vencimiento, tipo_pago) 
     VALUES ('$id', '$nombre', '$apellido', '$monto', '$disciplina', '$fecha_pago', '$fecha_vencimiento', '$tipo_pago')");
 
     if ($query) {
-        // Mostrar alerta de pago guardado
+        // Display success message for main payment
         echo "El pago se ha guardado correctamente.";
     } else {
         echo "Error al registrar el pago: " . mysqli_error($conn);
     }
 
-    // Actualizar los datos del cliente en la base de datos
+    // Update client data in the database
     $sql = "UPDATE clientes SET clases=? WHERE id=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("si", $clases, $id);
     $stmt->execute();
     $stmt->close();
-    $conn->close();
+
+    // Check if second payment data is present
+if (isset($_POST['montoFam']) && isset($_POST['fecha_pagoFam']) && isset($_POST['fecha_vencimientoFam'])) {
+    // Second payment data
+    $montoFam = $_POST['montoFam'];
+    $fecha_pagoFam = $_POST['fecha_pagoFam'];
+    $fecha_vencimientoFam = $_POST['fecha_vencimientoFam'];
+
+    // Additional checks to make sure required fields are not empty
+    if (!empty($montoFam) && !empty($fecha_pagoFam) && !empty($fecha_vencimientoFam)) {
+        // Insert the second payment data into the database
+        $queryFam = mysqli_query($conn, "INSERT INTO pagos (id_cliente, nombre, apellido, monto, disciplina_dos, fecha_pago, fecha_vencimiento, tipo_pago) 
+        VALUES ('$id', '$nombre', '$apellido', '$montoFam', '$disciplinaD', '$fecha_pagoFam', '$fecha_vencimientoFam', '$tipo_pago')");
+
+        if ($queryFam) {
+            // Display success message for second payment
+            echo "El segundo pago se ha guardado correctamente.";
+        } else {
+            echo "Error al registrar el segundo pago: " . mysqli_error($conn);
+        }
+    } else {
+        // Display a message indicating missing fields for second payment
+        echo "Error: Datos incompletos para el segundo pago.";
     }
+}
+
+
+    $conn->close();
+}
 ?>
+
+
 
 <div class=" justify-content-center col-sm-12" id="tabla">
     <h2 class="text-center card-subtitle py-3">Listado de Clientes</h2>
@@ -70,7 +103,7 @@ if (isset($_POST['submit'])) {
         </div>
         <div class="mb-1 col-md-2">
             <label for="disciplina_dos" class="form-label">Segunda disciplina:</label>
-            <input type="text" class="form-control" name="disciplina_dos" id="disciplina_dos" placeholder="Disciplina..." readonly disabled>
+            <input type="text" class="form-control" name="disciplina_dos" id="disciplina_dos" placeholder="Disciplina..." readonly>
         </div>
         <div class="mb-1 col-md-2">
             <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento:</label>
@@ -133,7 +166,7 @@ if (isset($_POST['submit'])) {
         <!-- INICIO SECTOR DE PAGOS -->
         <div class="border-top border-2 pt-2 rounded-3">
             <h2 class="text-center card-subtitle py-2" id="textPrimerPago">Generar pago</h2>
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="m-1 col-md-2">
                     <label for="clases" class="form-label">Cantidad de clases:</label>
                     <input type="number" class="form-control" name="clases" id="clases" >
@@ -150,10 +183,6 @@ if (isset($_POST['submit'])) {
                     <label for="fecha_vencimiento" class="form-label">Vencimiento *</label>
                     <input type="date" class="form-control" name="fecha_vencimiento" id="fecha_vencimiento" >
                 </div>
-                <!-- <div class="m-1 col-md-2">
-                    <label for="tipo_pago" class="form-label">Forma de pago *</label>
-                    <input type="text" class="form-control" name="tipo_pago" id="tipo_pago" >
-                </div> -->
                 <div class="mb-1 col-md-3">
                     <label for="tipo_pago" class="form-label">Forma de pago:</label>
                     <select class="form-select" name="tipo_pago" id="tipo_pago" >
@@ -166,8 +195,8 @@ if (isset($_POST['submit'])) {
             
             <div id="boxDisciplinaDos" class="d-none">
             <h2 class="text-center card-subtitle py-2" id=textSegundoPago>Generar segundo pago</h2>
-            <div class="row">
-                <div class="m-1 col-md-2">
+            <div class="row justify-content-center">
+                <div class="m-1 col-md-2 d-none">
                     <label for="clasesFam" class="form-label">Cantidad de clases:</label>
                     <input type="number" class="form-control" name="clasesFam" id="clasesFam" >
                 </div>
@@ -183,7 +212,7 @@ if (isset($_POST['submit'])) {
                     <label for="fecha_vencimientoFam" class="form-label">Vencimiento *</label>
                     <input type="date" class="form-control" name="fecha_vencimientoFam" id="fecha_vencimientoFam" >
                 </div>
-                <div class="mb-1 col-md-3">
+                <div class="mb-1 col-md-3 d-none">
                     <label for="tipo_pagoFam" class="form-label">Forma de pago:</label>
                     <select class="form-select" name="tipo_pagoFam" id="tipo_pagoFam" >
                         <option selected disabled value="">Seleccione...</option>
@@ -205,7 +234,9 @@ if (isset($_POST['submit'])) {
         <div class="d-none">
             <img src="../asets/Img/logo.png" alt="Logo de la empresa" id="logoPreload">
         </div>
-        <div id="ultimoPago"></div>
+        <div id="ultimoPago">
+            <!-- ACA SE MUESTRAN LOS DATOS DEL ULTIMO PAGO REGISTRADO -->
+        </div>
         <div>
             <canvas id="pdfCanvas"></canvas>
             <div>
@@ -262,38 +293,63 @@ if (isset($_POST['submit'])) {
 <script>
     // Función para cargar el último pago del cliente seleccionado
     function cargarUltimoPago(clienteID) {
-        const container = document.getElementById('ultimoPago');
-        container.innerHTML = ''; // Limpiar el contenedor antes de cargar los datos
+    const container = document.getElementById('ultimoPago');
+    container.innerHTML = ''; // Limpiar el contenedor antes de cargar los datos
 
-        // Hacer una solicitud AJAX para obtener el último pago del cliente
-        const xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                const pago = JSON.parse(this.responseText);
+    // Hacer una solicitud AJAX para obtener el último pago del cliente
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            const pago = JSON.parse(this.responseText);
 
-                // Crear elementos HTML para mostrar los datos del último pago
-                const titulo = document.createElement('h2');
-                titulo.textContent = 'Último pago registrado';
+            // Crear elementos HTML para mostrar los datos del último pago
+            const titulo = document.createElement('h2');
+            titulo.textContent = 'Último pago registrado de ' + pago.disciplina;
 
-                const monto = document.createElement('p');
-                monto.textContent = 'Monto: $' + pago.monto;
+            const monto = document.createElement('p');
+            monto.textContent = 'Monto: $' + pago.monto;
 
-                const fecha = document.createElement('p');
-                fecha.textContent = 'Fecha de pago: ' + pago.fecha_pago;
-                
-                const fechaVencimiento = document.createElement('p');
-                fechaVencimiento.textContent = 'Fecha de vencimiento: ' + pago.fecha_vencimiento; 
+            const fecha = document.createElement('p');
+            fecha.textContent = 'Fecha de pago: ' + pago.fecha_pago;
+            
+            const fechaVencimiento = document.createElement('p');
+            fechaVencimiento.textContent = 'Fecha de vencimiento: ' + pago.fecha_vencimiento;
 
-                // Agregar los elementos al contenedor
-                container.appendChild(titulo);
-                container.appendChild(monto);
-                container.appendChild(fecha);
-                container.appendChild(fechaVencimiento);
+            // Agregar los elementos al contenedor
+            container.appendChild(titulo);
+            container.appendChild(monto);
+            container.appendChild(fecha);
+            container.appendChild(fechaVencimiento);
+
+            /* MOSTRAR SEGUNDO PAGO */
+            if (pago.disciplina_dos === null) {
+                console.log('Sin segundo pago');
+            } else {
+                const tituloDos = document.createElement('h2');
+            tituloDos.textContent = 'Último pago registrado de ' + pago.disciplina_dos;
+
+            const montoDos = document.createElement('p');
+            montoDos.textContent = 'Monto: $' + pago.monto_dos;
+
+            const fechaDos = document.createElement('p');
+            fechaDos.textContent = 'Fecha de pago: ' + pago.fecha_pago_dos;
+
+            const fechaVencimientoDos = document.createElement('p');
+            fechaVencimientoDos.textContent = 'Fecha de vencimiento: ' + pago.fecha_vencimiento_dos;
+
+            // Agregar los elementos al contenedor
+            container.appendChild(tituloDos);
+            container.appendChild(montoDos);
+            container.appendChild(fechaDos);
+            container.appendChild(fechaVencimientoDos);
             }
-        };
-        xhr.open('GET', 'obtenerUltimoPago.php?id=' + clienteID, true);
-        xhr.send();
+            
+        }
+    };
+    xhr.open('GET', 'obtenerUltimoPago.php?id=' + clienteID, true);
+    xhr.send();
     }
+
 
     // Evento para capturar la selección de un cliente en la tabla
     document.addEventListener('DOMContentLoaded', function () {

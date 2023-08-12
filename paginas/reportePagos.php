@@ -91,6 +91,7 @@
                   <th>Apellido</th>
                   <th>Nombre</th>
                   <th>Disciplina</th>
+                  <th>Disciplina Dos</th>
                   <th>Fecha de pago</th>
                   <th>Transferencia</th>
                   <th>Efectivo</th>

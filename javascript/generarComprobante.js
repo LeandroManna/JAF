@@ -17,26 +17,40 @@ document.getElementById("generarPDF").addEventListener("click", function() {
   apellidoCliente = document.getElementById("apellido").value;
   var clasesCliente = document.getElementById("clases").value;
   var disciplinaCliente = document.getElementById("disciplina").value; // Nueva variable para obtener la disciplina del cliente
-  //var disciplinaCliente2 = document.getElementById("disciplina_dos").value;
+  var disciplinaCliente2 = document.getElementById("disciplina_dos").value;
   //console.log('disciplina del comprobante: ', disciplinaCliente);
   //console.log('Segunda disciplina del comprobante: ', disciplinaCliente2);
 
   // Crear el contenido del comprobante
   contenidoComprobante = "Comprobante de Pago\n";
   contenidoComprobante += "N° de Socio: " + idCliente + "\n";
-  contenidoComprobante += "Nombre: " + nombreCliente + " " + apellidoCliente + "\n";
+  contenidoComprobante += "Nombre: " + nombreCliente + " " + apellidoCliente + "\n\n";
   contenidoComprobante += "Disciplina: " + disciplinaCliente + "\n"; // Agregar la disciplina al contenido del comprobante
   //contenidoComprobante += "Segunda Disciplina: " + disciplinaCliente2 + "\n";
   contenidoComprobante += montoPago + "\n";
   contenidoComprobante += fechaPago + "\n";
-  contenidoComprobante += vencimientoPago + "\n";
-  contenidoComprobante += "Cantidad de clases: " + clasesCliente + "\n\n\n\n";
+  contenidoComprobante += vencimientoPago + "\n\n";
+
+  // Verificar si hay datos del segundo pago y agregarlos si existen
+  if (disciplinaCliente2 !== "" && disciplinaCliente2 !== " ") {
+
+    var montoPagoDos = document.querySelector('#ultimoPago p:nth-child(6)').textContent;
+    var fechaPagoDos = document.querySelector('#ultimoPago p:nth-child(7)').textContent;
+    var vencimientoPagoDos = document.querySelector('#ultimoPago p:nth-child(8)').textContent;
+
+    contenidoComprobante += "Segunda disciplina: " + disciplinaCliente2 + "\n";
+    contenidoComprobante += montoPagoDos + "\n";
+    contenidoComprobante += fechaPagoDos + "\n";
+    contenidoComprobante += vencimientoPagoDos + "\n\n";
+  }
+
+  contenidoComprobante += "Cantidad de clases: " + clasesCliente + "\n\n\n";
   contenidoComprobante += "Las clases solo se recuperan hasta: " + "\n" + vencimientoPago + "\n" + "SIN EXCEPCIÓN" + "\n\n";
   contenidoComprobante += "Una vez realizado el pago, " + "\n" + "NO SE REALIZAN DEVOLUCIONES";
 
   // Crear una instancia de jsPDF y establecer el tamaño de hoja a 7x4 pulgadas o 17x10 cm
   const pdf = new jsPDF({
-    format: [4, 5], // Tamaño de la hoja en pulgadas (ancho x alto)
+    format: [4, 6], // Tamaño de la hoja en pulgadas (ancho x alto)
     unit: 'in' // Unidad de medida: pulgadas
   });
 
@@ -62,7 +76,7 @@ document.getElementById("generarPDF").addEventListener("click", function() {
     pdf.text(0.5, 1.5, contenidoComprobante); // Ajusta la posición del contenido debajo del logo y texto
 
     // Agregar el texto "Valido como Comprobante de Pago" en el pie de la hoja
-    pdf.text(1, 4.8, "Valido como Comprobante de Pago");
+    pdf.text(1, 5.8, "Valido como Comprobante de Pago");
 
         // Obtener el contenido del PDF como base64
     const pdfBase64 = pdf.output('datauristring');
@@ -110,7 +124,7 @@ document.getElementById("descargarPdf").addEventListener("click", function() {
   
   // Crear una instancia de jsPDF para descargar el comprobante
   const pdfForDownload = new jsPDF({
-    format: [4, 5],
+    format: [4, 6],
     unit: 'in'
   });
   
@@ -119,7 +133,7 @@ document.getElementById("descargarPdf").addEventListener("click", function() {
   pdfForDownload.addImage(logoImage, 'JPG', 0.5, 0.5, logoWidthInches, logoHeightInches);
   pdfForDownload.text(1.75, 0.75, "Juan Aguirre Fitness");
   pdfForDownload.text(0.5, 1.5, contenidoComprobante);
-  pdfForDownload.text(1, 4.8, "Valido como Comprobante de Pago");
+  pdfForDownload.text(1, 5.8, "Valido como Comprobante de Pago");
 
   // Obtener la fecha y hora actual para agregar al nombre del PDF
   const currentDate = new Date();
