@@ -1,7 +1,7 @@
 <?php
     include "conexion.php";
     // Agregar el código para insertar el nuevo cliente en la base de datos
-    if (isset($_POST['submit'])) {
+    if (isset($_POST['submit-clientes'])) {
         $disciplina = $_POST['disciplina'];
         $id = $_POST['id'];
         $nombre = $_POST['nombre'];
@@ -24,32 +24,27 @@
             // Ejecutar la consulta
             $resultado = mysqli_query($conn, $query);
             echo "<script>
-                window.location.href = 'admin-clientes.php';
-              </script>";
-            echo "<script>
                 Swal.fire({
                     icon: 'success',
                     title: 'Cliente agregado correctamente!!!',
                     showConfirmButton: false,
-                    timer: 2000
+                    timer: 1500,
+                    didClose: () => {
+                        window.location.href = 'admin-clientes.php';
+                    }
                 });
               </script>";
-            
-
-            // Mostrar un mensaje de éxito si la consulta fue exitosa
-            if ($resultado) {
-                echo "<script>
-                document.getElementById('form-clientes').reset();
-                document.getElementById('mensaje-exito').innerHTML = 'Cliente agregado correctamente';
-                </script>";
-            }
         } else {
             // Mostrar un mensaje de error si el cliente ya existe en la base de datos
             echo "<script>
-                    document.getElementById('mensaje-error').innerHTML = 'El cliente con el DNI $dni ya existe en la base de datos';
-                  </script>";
+    Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'El cliente con el DNI $dni ya existe en la base de datos.'
+    });
+</script>";
+
         }
-        
     }
 ?>
 
@@ -102,6 +97,7 @@
         <textarea class="form-control" name="detalle" id="detalle" rows="3"></textarea>
     </div>
     <div class="d-grid gap-2 my-3">
-        <button type="submit" class="btn btn-success" name="submit">Agregar cliente</button>
+        <button type="submit" class="btn btn-success" name="submit-clientes">Agregar cliente</button>
     </div>
 </form>
+

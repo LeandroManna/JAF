@@ -86,8 +86,15 @@ if (mysqli_num_rows($resultado) > 0) {
   // Cerrar la conexión a la base de datos
   mysqli_close($conn);
   echo "<script>
-          window.location.href = 'admin-clientes.php';
-          alert('No se encontraron clientes.');
+          Swal.fire({
+            icon: 'info',
+            title: 'No se encontraron clientes.',
+            showConfirmButton: false,
+            timer: 1500,
+            didClose: () => {
+                window.location.href = 'admin-clientes.php';
+            }
+          });
         </script>";
   exit();
 }

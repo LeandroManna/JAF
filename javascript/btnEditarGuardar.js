@@ -294,6 +294,9 @@ btnGuardarPago.addEventListener('click', () => {
 
 // Capture the "Guardar" button click event
 btnGuardar.addEventListener('click', () => {
+
+  event.preventDefault(); // Evita el comportamiento predeterminado del botón
+
   const id = clienteId.value;
   const nombre = inputNombre.value;
   const apellido = inputApellido.value;
@@ -314,11 +317,18 @@ btnGuardar.addEventListener('click', () => {
   xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   xhr.onload = function() {
     if (this.status === 200) {
-      // Ocultar el formulario y recargar la página
-      formularioCliente.classList.add('d-none');
-      divTabla.classList.remove('d-none');
-      //window.location.href = "admin-clientes.php";
-    }
+      // Mostrar SweetAlert de éxito
+      Swal.fire({
+          icon: 'success',
+          title: 'Datos modificados con éxito',
+          showConfirmButton: false,
+          timer: 3000, // Tiempo en milisegundos antes de que la ventana se cierre automáticamente
+          didClose: () => {
+            // Luego de cerrar el SweetAlert, redirige o actualiza la página si es necesario
+            window.location.href = 'admin-clientes.php';
+          }
+      });
+  }  
   }
 
   // Send the appropriate data based on the selected options

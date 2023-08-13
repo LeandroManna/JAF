@@ -22,7 +22,18 @@ if (isset($_POST['submit'])) {
 
     if ($query) {
         // Display success message for main payment
-        echo "El pago se ha guardado correctamente.";
+        echo "<script>
+            Swal.fire({
+                icon: 'success',
+                title: 'El pago se ha guardado correctamente.',
+                showConfirmButton: false,
+                timer: 3000, // Tiempo en milisegundos antes de que la ventana se cierre automáticamente
+                didClose: () => {
+                    // Redirige a la página deseada después de cerrar el SweetAlert
+                    window.location.href = 'admin-clientes.php';
+                }
+            });
+          </script>";
     } else {
         echo "Error al registrar el pago: " . mysqli_error($conn);
     }
@@ -49,17 +60,19 @@ if (isset($_POST['montoFam']) && isset($_POST['fecha_pagoFam']) && isset($_POST[
 
         if ($queryFam) {
             // Display success message for second payment
-            echo "El segundo pago se ha guardado correctamente.";
+            echo "<script>
+                console.log('El segundo pago se ha guardado correctamente.');
+            </script>";
         } else {
             echo "Error al registrar el segundo pago: " . mysqli_error($conn);
         }
     } else {
         // Display a message indicating missing fields for second payment
-        echo "Error: Datos incompletos para el segundo pago.";
+        echo "<script>
+                console.log('Error: Datos incompletos para el segundo pago.');
+            </script>";
     }
 }
-
-
     $conn->close();
 }
 ?>
