@@ -2,7 +2,7 @@
 include "conexion.php";
 
 // Definir cuántas filas se mostrarán por página
-$filasPorPagina = 5;
+$filasPorPagina = 10;
 
 // Obtener el número total de filas
 $sqlTotalFilas = "SELECT COUNT(*) as totalFilas FROM clientes";

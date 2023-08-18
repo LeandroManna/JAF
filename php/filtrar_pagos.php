@@ -10,101 +10,97 @@ $filtro = $_POST['filtro'];
 // Obtener la fecha actual
 $fecha_actual = date('Y-m-d');
 
-// Consulta para obtener las disciplinas existentes
-$sql_disciplinas = "SELECT DISTINCT disciplina, disciplina_dos FROM pagos ORDER BY disciplina, disciplina_dos ASC";
-$result_disciplinas = $conn->query($sql_disciplinas);
+// Consulta para obtener los pagos según el filtro seleccionado
+if ($filtro === 'mes') {
+    $sql_pagos = "SELECT id_cliente, nombre, apellido, disciplina, disciplina_dos, fecha_pago, monto, tipo_pago, CONCAT_WS(' / ', disciplina, disciplina_dos) AS disciplinas_combinadas FROM pagos WHERE MONTH(fecha_pago) = MONTH('$fecha_actual') AND YEAR(fecha_pago) = YEAR('$fecha_actual') ORDER BY disciplinas_combinadas";
+} elseif ($filtro === 'dia') {
+    $sql_pagos = "SELECT id_cliente, nombre, apellido, disciplina, disciplina_dos, fecha_pago, monto, tipo_pago, CONCAT_WS(' / ', disciplina, disciplina_dos) AS disciplinas_combinadas FROM pagos WHERE DATE(fecha_pago) = '$fecha_actual' ORDER BY disciplinas_combinadas";
+} else {
+    // Maneja un caso de filtro no válido si es necesario
+    echo "Filtro no válido";
+    exit;
+}
+
+$result_pagos = $conn->query($sql_pagos);
 
 $total_general = 0;
 $total_transferencia = 0;
 $total_efectivo = 0;
 
-if ($result_disciplinas->num_rows > 0) {
-    while ($row_disciplina = $result_disciplinas->fetch_assoc()) {
-        // Obtener la disciplina actual
-        $disciplina_actual = $row_disciplina["disciplina"];
-        $disciplina_actualDos = $row_disciplina["disciplina_dos"];
+$disciplinas = array();
 
-        // Consulta para obtener los pagos según el filtro seleccionado
-        if ($filtro === 'mes') {
-            $sql_pagos = "SELECT id_cliente, nombre, apellido, disciplina, disciplina_dos, fecha_pago, monto, tipo_pago FROM pagos WHERE MONTH(fecha_pago) = MONTH('$fecha_actual') AND YEAR(fecha_pago) = YEAR('$fecha_actual') AND disciplina = '$disciplina_actual' OR disciplina_dos = '$disciplina_actualDos'";
-        } elseif ($filtro === 'dia') {
-            $sql_pagos = "SELECT id_cliente, nombre, apellido, disciplina, disciplina_dos, fecha_pago, monto, tipo_pago FROM pagos WHERE DATE(fecha_pago) = '$fecha_actual' AND disciplina = '$disciplina_actual' OR disciplina_dos = '$disciplina_actualDos'";
-        } else {
-            // Maneja un caso de filtro no válido si es necesario
-            echo "Filtro no válido";
-            exit;
+if ($result_pagos->num_rows > 0) {
+    while ($row_pago = $result_pagos->fetch_assoc()) {
+        $disciplinas_combinadas = $row_pago["disciplinas_combinadas"];
+
+        // Update total_transferencia_disciplina and total_efectivo_disciplina
+        $transferencia = ($row_pago["tipo_pago"] === 'Transferencia') ? $row_pago["monto"] : 0;
+        $efectivo = ($row_pago["tipo_pago"] === 'Efectivo') ? $row_pago["monto"] : 0;
+
+        if (!isset($disciplinas[$disciplinas_combinadas])) {
+            $disciplinas[$disciplinas_combinadas] = array(
+                'total_transferencia' => 0,
+                'total_efectivo' => 0,
+                'total_disciplina' => 0,
+                'pagos' => array()
+            );
         }
 
-        $result_pagos = $conn->query($sql_pagos);
+        $disciplinas[$disciplinas_combinadas]['total_transferencia'] += $transferencia;
+        $disciplinas[$disciplinas_combinadas]['total_efectivo'] += $efectivo;
+        $disciplinas[$disciplinas_combinadas]['total_disciplina'] += $row_pago["monto"];
 
-        $total_disciplina = 0;
-        $total_transferencia_disciplina = 0;
-        $total_efectivo_disciplina = 0;
-
-        if ($result_pagos->num_rows > 0) {
-            while ($row_pago = $result_pagos->fetch_assoc()) {
-                // Obtener los valores de cada columna
-                $id_cliente = $row_pago["id_cliente"];
-                $nombre = $row_pago["nombre"];
-                $apellido = $row_pago["apellido"];
-                $disciplina = $row_pago["disciplina"];
-                $disciplina_dos = $row_pago["disciplina_dos"];
-                $fecha_pago = $row_pago["fecha_pago"];
-                $monto = $row_pago["monto"];
-                $tipo_pago = $row_pago["tipo_pago"];
-                $transferencia = ($tipo_pago === 'Transferencia') ? $monto : 0;
-                $efectivo = ($tipo_pago === 'Efectivo') ? $monto : 0;
-
-                // Update total_transferencia_disciplina and total_efectivo_disciplina
-                $total_transferencia_disciplina += $transferencia;
-                $total_efectivo_disciplina += $efectivo;
-
-                // Mostrar los datos en la tabla
-                echo "<tr>";
-                echo "<td>$id_cliente</td>";
-                echo "<td>$apellido</td>";
-                echo "<td>$nombre</td>";
-                echo "<td>$disciplina</td>";
-                echo "<td>$disciplina_dos</td>";
-                echo "<td>$fecha_pago</td>";
-                echo "<td>$transferencia</td>";
-                echo "<td>$efectivo</td>";
-                echo "</tr>";
-
-                // Sumar el monto por disciplina
-                $total_disciplina += $monto;
-
-                // Sumar al total general
-                $total_general += $monto;
-            }
-        }
-
-        // Mostrar el total de la disciplina actual
-        echo "<tr>";
-        echo "<td><strong>Total Transferencia:</strong></td>";
-        echo "<td colspan='5'></td>";
-        echo "<td><strong>$total_transferencia_disciplina</strong></td>";
-        echo "</tr>";
-
-        echo "<tr>";
-        echo "<td><strong>Total Efectivo:</strong></td>";
-        echo "<td colspan='6'></td>";
-        echo "<td><strong>$total_efectivo_disciplina</strong></td>";
-        echo "</tr>";
-
-        echo "<tr>";
-        echo "<td><strong>Total por disciplina:</strong></td>";
-        echo "<td colspan='7'></td>";
-        echo "<td><strong>$total_disciplina</strong></td>";
-        echo "</tr>";
-
-        // Sumar el total_transferencia_disciplina y total_efectivo_disciplina al total general
-        $total_transferencia += $total_transferencia_disciplina;
-        $total_efectivo += $total_efectivo_disciplina;
+        $disciplinas[$disciplinas_combinadas]['pagos'][] = $row_pago;
+        $total_general += $row_pago["monto"];
     }
 }
 
-// Mostrar el total general
+foreach ($disciplinas as $disciplina_combinada => $info) {
+    echo "<tr>";
+    echo "<td colspan='9' style='text-align: center;'><h5>Disciplina: $disciplina_combinada</h5></td>";
+    echo "</tr>";
+
+    foreach ($info['pagos'] as $pago) {
+        echo "<tr>";
+        echo "<td>{$pago['id_cliente']}</td>";
+        echo "<td>{$pago['apellido']}</td>";
+        echo "<td>{$pago['nombre']}</td>";
+        echo "<td>{$pago['disciplina']}</td>";
+        echo "<td>{$pago['disciplina_dos']}</td>";
+        echo "<td>{$pago['fecha_pago']}</td>";
+        
+        // Mostrar el monto por transferencia y efectivo
+        $transferencia = ($pago['tipo_pago'] === 'Transferencia') ? $pago['monto'] : '';
+        $efectivo = ($pago['tipo_pago'] === 'Efectivo') ? $pago['monto'] : '';
+        
+        echo "<td>$transferencia</td>";
+        echo "<td>$efectivo</td>";
+        echo "</tr>";
+    }
+    
+
+    echo "<tr>";
+    echo "<td><strong>Total Transferencia:</strong></td>";
+    echo "<td colspan='5'></td>";
+    echo "<td><strong>{$info['total_transferencia']}</strong></td>";
+    echo "</tr>";
+
+    echo "<tr>";
+    echo "<td><strong>Total Efectivo:</strong></td>";
+    echo "<td colspan='6'></td>";
+    echo "<td><strong>{$info['total_efectivo']}</strong></td>";
+    echo "</tr>";
+
+    echo "<tr>";
+    echo "<td><strong>Total por disciplina:</strong></td>";
+    echo "<td colspan='7'></td>";
+    echo "<td><strong>{$info['total_disciplina']}</strong></td>";
+    echo "</tr>";
+
+    $total_transferencia += $info['total_transferencia'];
+    $total_efectivo += $info['total_efectivo'];
+}
+
 echo "<tr>";
 echo "<td><strong>Total Transferencia general:</strong></td>";
 echo "<td colspan='5'></td>";
@@ -123,3 +119,4 @@ echo "<td colspan='7'></td>";
 echo "<td><strong>$total_general</strong></td>";
 echo "</tr>";
 ?>
+

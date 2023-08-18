@@ -77,7 +77,7 @@
 
           <!-- Tabla de reportes -->
           <div class="container-fluid d-flex justify-content-center">
-            <div class="col-md-9 " id="tabla">
+            <div class="col-md-12 " id="tabla">
             <table class="table table-striped">
               <thead>
               <tr>

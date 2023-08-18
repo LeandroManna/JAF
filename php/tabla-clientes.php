@@ -260,7 +260,29 @@ if (isset($_POST['montoFam']) && isset($_POST['fecha_pagoFam']) && isset($_POST[
     <div class="d-flex justify-content-center btn-group my-3" role="group">
         <button type="button" class="btn btn-success mx-1 rounded-3" id="generarPDF">Generar Comprobante</button>
     </div>
+
+    <!-- TABLA PARA ELIMINAR PAGOS -->
+<div id="eliminarPagos">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>N° de Socio</th>
+                <th>Cliente</th>
+                <th>Monto</th>
+                <th>Disciplina</th>
+                <th>Segunda disciplina</th>
+                <th>Fecha de Pago</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="paymentTableBody">
+            <!-- Payment rows will be added here dynamically -->
+        </tbody>
+    </table>
 </div>
+</div>
+
 <!-- INICIO GRUPO FAMILIAR -->
 <div class="d-none col-sm-12" id="gFamiliar">
     <h2 class="text-center card-subtitle py-3">Grupo familiar</h2>
@@ -376,6 +398,99 @@ if (isset($_POST['montoFam']) && isset($_POST['fecha_pagoFam']) && isset($_POST[
     });
 </script>
 
+<!-- Script para eliminar el pago y mostrar los últimos 4 pagos -->
+<script>
+    // Function to fetch payment data and populate the table
+    function fetchPayments(clientId) {
+        fetch('../php/fetchPayments.php')
+            .then(response => response.json())
+            .then(data => {
+                const paymentTableBody = document.getElementById('paymentTableBody');
+                paymentTableBody.innerHTML = ''; // Clear existing data
+
+                const filteredPayments = data.filter(payment => payment.id_cliente === clientId);
+                const lastFourPayments = filteredPayments.slice(-4); // Get the last 4 payments
+
+                lastFourPayments.forEach(payment => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${payment.id}</td>
+                        <td>${payment.id_cliente}</td>
+                        <td>${payment.nombre} ${payment.apellido}</td>
+                        <td>$${payment.monto}</td>
+                        <td>${payment.disciplina}</td>
+                        <td>${payment.disciplina_dos}</td>
+                        <td>${payment.fecha_pago}</td>
+                        <td>
+                            <button class="btn btn-danger delete-payment" data-id="${payment.id}">Eliminar</button>
+                        </td>
+                    `;
+
+                    paymentTableBody.appendChild(row);
+                });
+
+                // Add event listeners to delete payment buttons
+                const deleteButtons = document.querySelectorAll('.delete-payment');
+                deleteButtons.forEach(button => {
+                    button.addEventListener('click', function () {
+                        const paymentId = this.getAttribute('data-id');
+                        deletePayment(paymentId);
+                    });
+                });
+            })
+            .catch(error => console.error('Error fetching payment data:', error));
+    }
+
+    // Get the client ID from the input field
+    
+    // Evento para capturar la selección de un cliente en la tabla
+document.addEventListener('DOMContentLoaded', function () {
+        const editarBotones = document.querySelectorAll('.editar');
+        editarBotones.forEach(function (boton) {
+            boton.addEventListener('click', function () {
+                const clientId = this.getAttribute('data-id');
+                fetchPayments(clientId);
+            });
+        });
+    });
+
+    // Call fetchPayments initially to populate the table for the specific client
+    
+
+    // Function to delete a payment
+    function deletePayment(paymentId) {
+        Swal.fire({
+            title: '¿Estás seguro que deseas eliminar este pago?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`../php/deletePayment.php?id=${paymentId}`, { method: 'DELETE' })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Show success message
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Pago eliminado correctamente',
+                            showConfirmButton: false,
+                            timer: 1500 // Display the success message for 1.5 seconds
+                        });
+                        
+                        // Redirect to admin_cliente.php after a short delay
+                        setTimeout(() => {
+                            window.location.href = 'admin-clientes.php';
+                        }, 1500);
+                    })
+                    .catch(error => console.error('Error deleting payment:', error));
+            }
+        });
+    }
+</script>
+
+
 <!-- Script para mostrar el último pago de cada socio del grupo familiar-->
 <script>
     function cargarUltimosPagosGrupoFamiliar() {
@@ -439,14 +554,4 @@ if (isset($_POST['montoFam']) && isset($_POST['fecha_pagoFam']) && isset($_POST[
         generarPDFFamButton.addEventListener('click', cargarUltimosPagosGrupoFamiliar);
     });
 </script>
-
-
-
-
-
-
-
-
-
-
 
