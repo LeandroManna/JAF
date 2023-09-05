@@ -17,17 +17,31 @@ if (isset($_POST['submit'])) {
 
     if ($num_rows > 0) {
         $cliente = mysqli_fetch_assoc($clientes);
+        $id_cliente = $cliente['id'];
         $nombre_cliente = $cliente['nombre'];
+        $apellido_cliente = $cliente['apellido'];
         $detalle_cliente = $cliente['detalle'];
         $disciplina_cliente = $cliente['disciplina'];
         $disciplina2_cliente = $cliente['disciplina_dos'];
         $clase_cliente = $cliente['clases'];
         
+        $_SESSION['id'] = $id_cliente;
         $_SESSION['nombre'] = $nombre_cliente;
+        $_SESSION['apellido'] = $apellido_cliente;
         $_SESSION['detalle'] = $detalle_cliente;
         $_SESSION['clases'] = $clase_cliente;
         $_SESSION['disciplina'] = $disciplina_cliente;
         $_SESSION['disciplina_dos'] = $disciplina2_cliente;
+
+        // Consultar la tabla pagos para obtener la fecha de vencimiento
+        $stmt_pagos = mysqli_prepare($conn, "SELECT * FROM pagos WHERE id_cliente = ?");
+        mysqli_stmt_bind_param($stmt_pagos, "i", $id_cliente);
+        mysqli_stmt_execute($stmt_pagos);
+        $pagos = mysqli_stmt_get_result($stmt_pagos);
+        $pago = mysqli_fetch_assoc($pagos);
+        $fecha_vencimiento = $pago['fecha_vencimiento'];
+        
+        $_SESSION['fecha_vencimiento'] = $fecha_vencimiento;
         
         if ($cliente) {
             header("Location: confirmar-presencia.php");

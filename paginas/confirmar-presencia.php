@@ -61,8 +61,12 @@
       <div class="container my-3 d-flex justify-content-center">
         <div class="text-center rounded shadow-lg px-5 py-5">
 
+          <h3 class="text-center">
+            N° de Socio: <strong><?php echo "" . $_SESSION['id'] . "";?></strong>
+          </h3>
+          <hr>
           <h2 class="text-center">
-            <?php echo "" . $_SESSION['nombre'] . "";?>, te quedan: 
+            <strong><?php echo "" . $_SESSION['apellido'] . " " . $_SESSION['nombre'] . "";?></strong>, te quedan: 
           </h2>
 
           <div class="d-flex justify-content-center align-items-center">
@@ -80,7 +84,13 @@
             
             <?php endif; ?>
           </h3>
-          
+          <hr>
+          <h3 class="text-center">
+            Fecha de vencimiento:
+          </h3>
+          <h3 class="text-center">
+            <strong><?php echo "" . $_SESSION['fecha_vencimiento'] . "";?></strong>
+          </h3>
 
           <form onsubmit="restarClase(event)">
             <button type="submit" class="btn btn-primary mx-1">Presente</button>
@@ -135,10 +145,22 @@
     <script src="../javascript/cerrarSesion.js"></script>
     <script src="https://kit.fontawesome.com/85a9ee331b.js" crossorigin="anonymous"></script>
 
-
+    <!-- RESTAR CLASES -->
     <script>
+      var isSubmitting = false;
+
       function restarClase(event) {
         event.preventDefault(); // Evitar que el formulario se envíe
+
+        if (isSubmitting) {
+          return; // Si ya se está procesando una solicitud, salir
+        }
+
+        isSubmitting = true;
+
+        var buttonElement = document.querySelector("button[type='submit']");
+        buttonElement.style.display = "none"; // Ocultar el botón
+
         var h1Element = document.getElementById("clases-count");
         var valorActual = parseInt(h1Element.innerText);
 
@@ -157,13 +179,18 @@
             body: formData
           })
           .then(function(response) {
+            isSubmitting = false;
             // Verificar la respuesta del servidor
             if (response.ok) {
-              // Redireccionar al confirmar la presencia
-              window.location.href = "presente.php";
+              // Redireccionar a "presente.php" después de 3 segundos
+              setTimeout(function() {
+                window.location.href = "presente.php";
+              }, 5000);
             } else {
               // Manejar cualquier error en la respuesta del servidor
               console.log("Error al actualizar las clases");
+              // Mostrar el botón nuevamente en caso de error
+              buttonElement.style.display = "block";
             }
           })
           .catch(function(error) {
@@ -173,7 +200,7 @@
         } else {
           // Mostrar un mensaje cuando el valor llega a 0
           var clasesMessage = document.getElementById("clases-message");
-          clasesMessage.innerText = "Ya no le quedan clases";
+          clasesMessage.innerText = " Ya no le quedan clases";
 
           // Redireccionar a "presente.php" después de 3 segundos
           setTimeout(function() {

@@ -63,7 +63,8 @@
               <div class="form-group">
                   <label for="filtro" class="form-label">Filtrar por:</label>
                   <select class="form-control" name="filtro" id="filtro">
-                      <option value="mes">Mes</option>
+                      <option value="mes_actual">Mes Actual</option>
+                      <option value="mes_anterior">Mes Anterior</option>
                       <option value="dia">Dia</option>
                   </select>
               </div>
@@ -176,8 +177,10 @@
                 tablaCuerpo.innerHTML = data;
             
                 // Cambiar título del reporte según el filtro seleccionado
-                if (filtroSeleccionado === 'mes') {
-                    tituloReporte.textContent = 'Reporte de Pago por Mes';
+                if (filtroSeleccionado === 'mes_actual') {
+                    tituloReporte.textContent = 'Reporte de Pago del Mes Actual';
+                } else if (filtroSeleccionado === 'mes_anterior') {
+                    tituloReporte.textContent = 'Reporte de Pago del Mes Pasado';
                 } else if (filtroSeleccionado === 'dia') {
                     tituloReporte.textContent = 'Reporte de Pago por Día';
                 }

@@ -1,7 +1,7 @@
 <?php
 include "../php/conexion.php";
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['submit-pagos'])) {
     // Capture the common data
     $id = $_POST['id'];
     $nombre = $_POST['nombre'];
@@ -237,7 +237,7 @@ if (isset($_POST['montoFam']) && isset($_POST['fecha_pagoFam']) && isset($_POST[
             </div>
             
             <div class="d-flex justify-content-center btn-group my-3">
-                <button type="submit" class="btn btn-success mx-1 rounded-3" name="submit">Guardar Pago</button>
+                <button type="submit" class="btn btn-success mx-1 rounded-3" name="submit-pagos">Guardar Pago</button>
                 <a href="admin-clientes.php" class="btn btn-info mx-1 rounded-3">Volver</a>
             </div>
         </div>
@@ -410,6 +410,7 @@ if (isset($_POST['montoFam']) && isset($_POST['fecha_pagoFam']) && isset($_POST[
 
                 const filteredPayments = data.filter(payment => payment.id_cliente === clientId);
                 const lastFourPayments = filteredPayments.slice(-4); // Get the last 4 payments
+                lastFourPayments.reverse();
 
                 lastFourPayments.forEach(payment => {
                     const row = document.createElement('tr');
@@ -444,7 +445,7 @@ if (isset($_POST['montoFam']) && isset($_POST['fecha_pagoFam']) && isset($_POST[
     // Get the client ID from the input field
     
     // Evento para capturar la selección de un cliente en la tabla
-document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
         const editarBotones = document.querySelectorAll('.editar');
         editarBotones.forEach(function (boton) {
             boton.addEventListener('click', function () {
@@ -455,8 +456,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Call fetchPayments initially to populate the table for the specific client
-    
-
     // Function to delete a payment
     function deletePayment(paymentId) {
         Swal.fire({

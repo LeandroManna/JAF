@@ -10,9 +10,14 @@ $filtro = $_POST['filtro'];
 // Obtener la fecha actual
 $fecha_actual = date('Y-m-d');
 
+// Obtener la fecha del mes anterior
+$fecha_mes_anterior = date('Y-m-d', strtotime('-1 month'));
+
 // Consulta para obtener los pagos según el filtro seleccionado
-if ($filtro === 'mes') {
+if ($filtro === 'mes_actual') {
     $sql_pagos = "SELECT id_cliente, nombre, apellido, disciplina, disciplina_dos, fecha_pago, monto, tipo_pago, CONCAT_WS(' / ', disciplina, disciplina_dos) AS disciplinas_combinadas FROM pagos WHERE MONTH(fecha_pago) = MONTH('$fecha_actual') AND YEAR(fecha_pago) = YEAR('$fecha_actual') ORDER BY disciplinas_combinadas";
+} elseif ($filtro === 'mes_anterior') {
+    $sql_pagos = "SELECT id_cliente, nombre, apellido, disciplina, disciplina_dos, fecha_pago, monto, tipo_pago, CONCAT_WS(' / ', disciplina, disciplina_dos) AS disciplinas_combinadas FROM pagos WHERE MONTH(fecha_pago) = MONTH('$fecha_mes_anterior') AND YEAR(fecha_pago) = YEAR('$fecha_mes_anterior') ORDER BY disciplinas_combinadas"; // Consulta para el mes anterior
 } elseif ($filtro === 'dia') {
     $sql_pagos = "SELECT id_cliente, nombre, apellido, disciplina, disciplina_dos, fecha_pago, monto, tipo_pago, CONCAT_WS(' / ', disciplina, disciplina_dos) AS disciplinas_combinadas FROM pagos WHERE DATE(fecha_pago) = '$fecha_actual' ORDER BY disciplinas_combinadas";
 } else {
