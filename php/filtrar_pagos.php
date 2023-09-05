@@ -4,27 +4,15 @@ include("conexion.php");
 // Establecer la zona horaria a Argentina
 date_default_timezone_set('America/Argentina/Buenos_Aires');
 
-// Obtener el valor del filtro enviado por el formulario
-$filtro = $_POST['filtro'];
+// Obtener las fechas de inicio y fin desde el formulario
+$fecha_inicio = $_POST['fecha_inicio'];
+$fecha_fin = $_POST['fecha_fin'];
 
-// Obtener la fecha actual
-$fecha_actual = date('Y-m-d');
-
-// Obtener la fecha del mes anterior
-$fecha_mes_anterior = date('Y-m-d', strtotime('-1 month'));
-
-// Consulta para obtener los pagos según el filtro seleccionado
-if ($filtro === 'mes_actual') {
-    $sql_pagos = "SELECT id_cliente, nombre, apellido, disciplina, disciplina_dos, fecha_pago, monto, tipo_pago, CONCAT_WS(' / ', disciplina, disciplina_dos) AS disciplinas_combinadas FROM pagos WHERE MONTH(fecha_pago) = MONTH('$fecha_actual') AND YEAR(fecha_pago) = YEAR('$fecha_actual') ORDER BY disciplinas_combinadas";
-} elseif ($filtro === 'mes_anterior') {
-    $sql_pagos = "SELECT id_cliente, nombre, apellido, disciplina, disciplina_dos, fecha_pago, monto, tipo_pago, CONCAT_WS(' / ', disciplina, disciplina_dos) AS disciplinas_combinadas FROM pagos WHERE MONTH(fecha_pago) = MONTH('$fecha_mes_anterior') AND YEAR(fecha_pago) = YEAR('$fecha_mes_anterior') ORDER BY disciplinas_combinadas"; // Consulta para el mes anterior
-} elseif ($filtro === 'dia') {
-    $sql_pagos = "SELECT id_cliente, nombre, apellido, disciplina, disciplina_dos, fecha_pago, monto, tipo_pago, CONCAT_WS(' / ', disciplina, disciplina_dos) AS disciplinas_combinadas FROM pagos WHERE DATE(fecha_pago) = '$fecha_actual' ORDER BY disciplinas_combinadas";
-} else {
-    // Maneja un caso de filtro no válido si es necesario
-    echo "Filtro no válido";
-    exit;
-}
+// Consulta para obtener los pagos según el rango de fechas seleccionado
+$sql_pagos = "SELECT id_cliente, nombre, apellido, disciplina, disciplina_dos, fecha_pago, monto, tipo_pago, CONCAT_WS(' / ', disciplina, disciplina_dos) AS disciplinas_combinadas 
+              FROM pagos 
+              WHERE fecha_pago BETWEEN '$fecha_inicio' AND '$fecha_fin'
+              ORDER BY disciplinas_combinadas";
 
 $result_pagos = $conn->query($sql_pagos);
 

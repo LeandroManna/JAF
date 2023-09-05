@@ -58,19 +58,28 @@
         <div class="container my-3">
           <h2 class="text-center card-subtitle text-dark py-3">Reporte de pagos</h2>
           <div class="row my-3 justify-content-center">
-            <div class="row col-md-6">
-            <form class="row" id="filtroForm">
-              <div class="form-group">
-                  <label for="filtro" class="form-label">Filtrar por:</label>
-                  <select class="form-control" name="filtro" id="filtro">
-                      <option value="mes_actual">Mes Actual</option>
-                      <option value="mes_anterior">Mes Anterior</option>
-                      <option value="dia">Dia</option>
-                  </select>
-              </div>
-                <div class="d-flex justify-content-center my-3">
-                  <button type="button" class="btn btn-primary col-md-4 mx-2" id="btnBuscar">Buscar</button>
-                  <button type="button" class="btn btn-success col-md-4 mx-2" id="exportarExcelBtn">Exportar a Excel</button>
+            <div class="row col-12">
+              <form class="row" id="filtroForm">
+                <div class="form-group">
+                  <h4 for="filtro" class="form-label">Elegí entre que fechas buscar el reporte <h6>(ambos campos son obligatorios)</h6></h4>
+                  <div class="row my-3">
+                    <div class="form-group col-4">
+                      <label for="fecha_inicio" class="form-label">Fecha de inicio:</label>
+                      <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control">
+                    </div>
+                    <div class="form-group col-4">
+                      <label for="fecha_fin" class="form-label">Fecha de fin:</label>
+                      <input type="date" id="fecha_fin" name="fecha_fin" class="form-control">
+                    </div>
+                    <div class="form-group col-2">
+                      <label class="form-label invisible">Precionar para buscar</label>
+                      <button type="button" class="form-control btn btn-primary col-md-4 mx-2" id="btnBuscar">Buscar</button>
+                    </div>
+                    <div class="form-group col-2">
+                      <label class="form-label invisible">Precionar para exportar</label>
+                      <button type="button" class="form-control btn btn-success col-md-4 mx-2" id="exportarExcelBtn">Exportar a Excel</button>
+                    </div>
+                  </div>
                 </div>
               </form>
             </div>
@@ -157,38 +166,51 @@
 
     <!-- FILTRO DE PAGOS POR MES Y DIA -->
     <script>
-        const filtroForm = document.getElementById('filtroForm');
-        const btnBuscar = document.getElementById('btnBuscar');
-        const tablaCuerpo = document.getElementById('tablaCuerpo');
-        const tituloReporte = document.getElementById('tituloReporte'); // Agregado
+const filtroForm = document.getElementById('filtroForm');
+const btnBuscar = document.getElementById('btnBuscar');
+const tablaCuerpo = document.getElementById('tablaCuerpo');
+const tituloReporte = document.getElementById('tituloReporte'); // Agregado
 
-        btnBuscar.addEventListener('click', function () {
-            const formData = new FormData(filtroForm);
-            const filtroSeleccionado = formData.get('filtro');
-        
-            // Llamada AJAX para obtener los resultados filtrados
-            fetch('../php/filtrar_pagos.php', {
-                method: 'POST',
-                body: formData,
-            })
-            .then(response => response.text())
-            .then(data => {
-                // Actualiza la tabla con los nuevos datos
-                tablaCuerpo.innerHTML = data;
-            
-                // Cambiar título del reporte según el filtro seleccionado
-                if (filtroSeleccionado === 'mes_actual') {
-                    tituloReporte.textContent = 'Reporte de Pago del Mes Actual';
-                } else if (filtroSeleccionado === 'mes_anterior') {
-                    tituloReporte.textContent = 'Reporte de Pago del Mes Pasado';
-                } else if (filtroSeleccionado === 'dia') {
-                    tituloReporte.textContent = 'Reporte de Pago por Día';
-                }
-            })
-            .catch(error => {
-                console.error('Error al obtener los datos:', error);
-            });
-        });
+btnBuscar.addEventListener('click', function () {
+    const formData = new FormData(filtroForm);
+    const fechaInicio = formData.get('fecha_inicio');
+    const fechaFin = formData.get('fecha_fin');
+
+    // Llamada AJAX para obtener los resultados filtrados por fechas
+    fetch('../php/filtrar_pagos.php', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.text())
+    .then(data => {
+        // Actualiza la tabla con los nuevos datos
+        tablaCuerpo.innerHTML = data;
+    
+        // Cambiar título del reporte según las fechas seleccionadas
+        tituloReporte.textContent = `Reporte de Pagos desde ${fechaInicio} hasta ${fechaFin}`;
+    })
+    .catch(error => {
+        console.error('Error al obtener los datos:', error);
+    });
+});
+
+    </script>
+
+    <!-- Maneja los valores de los input tipo date como valor minimo y valor maximo -->
+    <script>
+      // Obtén referencias a los elementos de fecha de inicio y fecha de fin
+      const fechaInicioInput = document.getElementById("fecha_inicio");
+      const fechaFinInput = document.getElementById("fecha_fin");
+
+      // Establece la fecha mínima en el campo de fecha de inicio
+      fechaInicioInput.addEventListener("input", function() {
+        fechaFinInput.min = fechaInicioInput.value;
+      });
+    
+      // Establece la fecha máxima en el campo de fecha de fin
+      fechaFinInput.addEventListener("input", function() {
+        fechaInicioInput.max = fechaFinInput.value;
+      });
     </script>
 
     <!-- EXPORTAR A EXCEL -->
