@@ -56,7 +56,7 @@ document.getElementById("generarPDF").addEventListener("click", function() {
 
   // Precargar la imagen del logo
   logoImage = new Image();
-  logoImage.src = "../asets/Img/logo2.jpg";
+  logoImage.src = "../asets/Img/logo2.svg";
 
   // Esperar a que la imagen se cargue completamente
   logoImage.onload = function() {
@@ -67,7 +67,7 @@ document.getElementById("generarPDF").addEventListener("click", function() {
     logoWidthInches = 0.75; // Ahora es la mitad del tamaño original (1.5 pulgadas / 2)
     const logoAspectRatio = logoImage.width / logoImage.height; // Relación de aspecto del logo
     logoHeightInches = logoWidthInches / logoAspectRatio;
-    pdf.addImage(logoImage, 'JPG', 0.5, 0.5, logoWidthInches, logoHeightInches);
+    pdf.addImage(logoImage, 'SVG', 0.5, 0.5, logoWidthInches, logoHeightInches);
 
     // Agregar el texto "Juan Aguirre Fitness" al costado del logo
     pdf.text(1.75, 0.75, "Juan Aguirre Fitness"); // Ajusta la posición del texto al costado del logo
@@ -112,7 +112,7 @@ document.getElementById("generarPDF").addEventListener("click", function() {
   
   // Precargar la imagen del logo antes de generar el comprobante
   const logoPreload = new Image();
-  logoPreload.src = "../asets/Img/logo2.jpg";
+  logoPreload.src = "../asets/Img/logo2.svg";
 });
 
 document.getElementById("descargarPdf").addEventListener("click", function() {
@@ -130,7 +130,7 @@ document.getElementById("descargarPdf").addEventListener("click", function() {
   
   // Agregar el contenido del comprobante al PDF
   pdfForDownload.setFontSize(10);
-  pdfForDownload.addImage(logoImage, 'JPG', 0.5, 0.5, logoWidthInches, logoHeightInches);
+  pdfForDownload.addImage(logoImage, 'SVG', 0.5, 0.5, logoWidthInches, logoHeightInches);
   pdfForDownload.text(1.75, 0.75, "Juan Aguirre Fitness");
   pdfForDownload.text(0.5, 1.5, contenidoComprobante);
   pdfForDownload.text(1, 5.8, "Valido como Comprobante de Pago");

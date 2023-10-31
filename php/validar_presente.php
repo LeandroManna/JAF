@@ -34,12 +34,12 @@ if (isset($_POST['submit'])) {
         $_SESSION['disciplina_dos'] = $disciplina2_cliente;
 
         // Consultar la tabla pagos para obtener la fecha de vencimiento
-        $stmt_pagos = mysqli_prepare($conn, "SELECT * FROM pagos WHERE id_cliente = ?");
+        $stmt_pagos = mysqli_prepare($conn, "SELECT MAX(fecha_vencimiento) as fecha_vencimiento FROM pagos WHERE id_cliente = ?");
         mysqli_stmt_bind_param($stmt_pagos, "i", $id_cliente);
         mysqli_stmt_execute($stmt_pagos);
-        $pagos = mysqli_stmt_get_result($stmt_pagos);
-        $pago = mysqli_fetch_assoc($pagos);
-        $fecha_vencimiento = $pago['fecha_vencimiento'];
+        $resultado = mysqli_stmt_get_result($stmt_pagos);
+        $fila = mysqli_fetch_assoc($resultado);
+        $fecha_vencimiento = $fila['fecha_vencimiento'];
         
         $_SESSION['fecha_vencimiento'] = $fecha_vencimiento;
         

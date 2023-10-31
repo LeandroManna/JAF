@@ -61,7 +61,7 @@ function generarComprobanteGrupoFamiliar() {
 
             // Precargar la imagen del logo
             logoImage2 = new Image();
-            logoImage2.src = "../asets/Img/logo2.jpg";
+            logoImage2.src = "../asets/Img/logo2.svg";
 
             // Esperar a que la imagen se cargue completamente
             logoImage2.onload = function() {
@@ -72,7 +72,7 @@ function generarComprobanteGrupoFamiliar() {
                 logoAnchoPulgadas = 0.75; // Ahora es la mitad del tamaño original (1.5 pulgadas / 2)
                 const logoAspectRatio = logoImage2.width / logoImage2.height; // Relación de aspecto del logo
                 logoAlturaPulgadas = logoAnchoPulgadas / logoAspectRatio;
-                pdfForDownload.addImage(logoImage2, 'JPG', 0.5, 0.5, logoAnchoPulgadas, logoAlturaPulgadas);
+                pdfForDownload.addImage(logoImage2, 'SVG', 0.5, 0.5, logoAnchoPulgadas, logoAlturaPulgadas);
 
                 // Agregar el texto "Juan Aguirre Fitness" al costado del logo
                 pdfForDownload.text(1.75, 0.75, "Juan Aguirre Fitness"); // Ajusta la posición del texto al costado del logo
@@ -114,7 +114,7 @@ function generarComprobanteGrupoFamiliar() {
 
             // Precargar la imagen del logo antes de generar el comprobante
             const logoPreload = new Image();
-            logoPreload.src = "../asets/Img/logo2.jpg";
+            logoPreload.src = "../asets/Img/logo2.svg";
         }
     };
 
@@ -137,7 +137,7 @@ document.getElementById("descargarPdfFam").addEventListener("click", function() 
 
     // Agregar el contenido del comprobante al PDF
     pdfForDownload.setFontSize(7);
-    pdfForDownload.addImage(logoImage2, 'JPG', 0.5, 0.5, logoAnchoPulgadas, logoAlturaPulgadas);
+    pdfForDownload.addImage(logoImage2, 'SVG', 0.5, 0.5, logoAnchoPulgadas, logoAlturaPulgadas);
     pdfForDownload.text(1.75, 0.75, "Juan Aguirre Fitness");
     pdfForDownload.text(0.5, 1.5, contenidoComprobante2);
     pdfForDownload.text(0.5, 7.5, "Valido como Comprobante de Pago para Grupo Familiar");

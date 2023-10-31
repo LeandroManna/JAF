@@ -1,13 +1,4 @@
-<?php
-    // Inicio de la sesión
-    session_start();
-    // Verificación de que el cliente haya iniciado sesión y su nombre esté almacenado en la variable de sesión
-    if (!isset($_SESSION['nombre'])) {
-      // Si el nombre del cliente no está almacenado en la variable de sesión, redirige al cliente a la página1.php para iniciar sesión
-      header('Location: login.php');
-      exit();
-    }
-?>
+
 
 
 <!DOCTYPE html>

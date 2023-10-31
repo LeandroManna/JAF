@@ -318,7 +318,7 @@ if (isset($_POST['montoFam']) && isset($_POST['fecha_pagoFam']) && isset($_POST[
 <script src="../javascript/eliminarCliente.js"></script>
 <script src="../javascript/btnEditarGuardar.js"></script>
 <!-- Incluir pdf.js desde los servidores de Mozilla -->
-<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+<script src="../javascript/pdf.js"></script>
 <!-- jsPDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
 <script src="../javascript/generarComprobante.js"></script>

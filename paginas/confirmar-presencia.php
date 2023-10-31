@@ -59,7 +59,7 @@
     
     <main class="d-flex align-items-center">
       <div class="container my-3 d-flex justify-content-center">
-        <div class="text-center rounded shadow-lg px-5 py-5">
+        <div class="text-center rounded shadow-lg px-5 py-5" id="bg-clases">
 
           <h3 class="text-center">
             N° de Socio: <strong><?php echo "" . $_SESSION['id'] . "";?></strong>
@@ -164,8 +164,38 @@
         var h1Element = document.getElementById("clases-count");
         var valorActual = parseInt(h1Element.innerText);
 
+        // Obtener la fecha de vencimiento almacenada en la sesión (formato yyyy-mm-dd)
+        var fechaVencimientoStr = "<?php echo $_SESSION['fecha_vencimiento']; ?>";
+
+        // Dividir la cadena en partes usando el carácter "-" como separador
+        var partesFechaVencimiento = fechaVencimientoStr.split("-");
+        var añoVencimiento = parseInt(partesFechaVencimiento[0]);
+        var mesVencimiento = parseInt(partesFechaVencimiento[1]);
+        var diaVencimiento = parseInt(partesFechaVencimiento[2]);
+
+        // Crear un objeto Date con el año, mes y día de la fecha de vencimiento
+        var fechaVencimiento = new Date(añoVencimiento, mesVencimiento - 1, diaVencimiento); // Restamos 1 al mes porque JavaScript cuenta los meses desde 0
+
+        // Obtener la fecha y hora actual en la zona horaria de Buenos Aires
+        var fechaActual = new Date();
+        fechaActual.setTime(fechaActual.getTime() + (3 * 60 * 60 * 1000)); // Ajustar a la zona horaria de Buenos Aires (3 horas de diferencia)
+
+        // Obtener solo el año, mes y día de la fecha actual
+        var añoActual = fechaActual.getFullYear();
+        var mesActual = fechaActual.getMonth() + 1;
+        var diaActual = fechaActual.getDate();
+
+        //console.log ("Fecha Actual: " + añoActual + "-" + mesActual + "-" + diaActual);
+        //console.log ("Fecha Vencimiento: " + añoVencimiento + "-" + mesVencimiento + "-" + diaVencimiento);
+
+        var fechaVencimientoCorta = añoVencimiento + "-" + mesVencimiento + "-" + diaVencimiento;
+        var fechaActualCorta = añoActual + "-" + mesActual + "-" + diaActual;
+
+        //console.log ("Fecha Actual Corta: " + fechaActualCorta);
+        //console.log ("Fecha Vencimiento Corta: " + fechaVencimientoCorta);
+
         // Verificar si el valor actual es mayor que 0 antes de restar
-        if (valorActual > 0) {
+        if (valorActual > 0 && fechaActualCorta <= fechaVencimientoCorta) {
           var nuevoValor = valorActual - 1;
           h1Element.innerText = nuevoValor;
 
@@ -182,10 +212,13 @@
             isSubmitting = false;
             // Verificar la respuesta del servidor
             if (response.ok) {
+              // Cambiar el fondo a rojo cuando no quedan clases
+              var bgClasesElement = document.getElementById("bg-clases");
+              bgClasesElement.classList.add("bg-success");
               // Redireccionar a "presente.php" después de 3 segundos
               setTimeout(function() {
                 window.location.href = "presente.php";
-              }, 5000);
+              }, 1500);
             } else {
               // Manejar cualquier error en la respuesta del servidor
               console.log("Error al actualizar las clases");
@@ -198,14 +231,17 @@
             console.log("Error de conexión");
           });
         } else {
+          // Cambiar el fondo a rojo cuando no quedan clases
+          var bgClasesElement = document.getElementById("bg-clases");
+          bgClasesElement.classList.add("bg-danger");
           // Mostrar un mensaje cuando el valor llega a 0
           var clasesMessage = document.getElementById("clases-message");
-          clasesMessage.innerText = " Ya no le quedan clases";
+          clasesMessage.innerText = " Ya no le quedan clases o Ya paso su fecha de Vencimiento";
 
           // Redireccionar a "presente.php" después de 3 segundos
           setTimeout(function() {
             window.location.href = "presente.php";
-          }, 5000);
+          }, 1500);
         }
       }
    

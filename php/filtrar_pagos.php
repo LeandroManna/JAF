@@ -16,11 +16,14 @@ $sql_pagos = "SELECT id_cliente, nombre, apellido, disciplina, disciplina_dos, f
 
 $result_pagos = $conn->query($sql_pagos);
 
+
 $total_general = 0;
 $total_transferencia = 0;
 $total_efectivo = 0;
+$total_general_socios = 0; // Inicializar la variable para el total de socios
 
 $disciplinas = array();
+$contador_socios = array();
 
 if ($result_pagos->num_rows > 0) {
     while ($row_pago = $result_pagos->fetch_assoc()) {
@@ -37,6 +40,8 @@ if ($result_pagos->num_rows > 0) {
                 'total_disciplina' => 0,
                 'pagos' => array()
             );
+            // Inicializar el contador de socios para esta disciplina
+            $contador_socios[$disciplinas_combinadas] = 0;
         }
 
         $disciplinas[$disciplinas_combinadas]['total_transferencia'] += $transferencia;
@@ -45,6 +50,9 @@ if ($result_pagos->num_rows > 0) {
 
         $disciplinas[$disciplinas_combinadas]['pagos'][] = $row_pago;
         $total_general += $row_pago["monto"];
+
+        // Incrementar el contador de socios para esta disciplina
+        $contador_socios[$disciplinas_combinadas]++;
     }
 }
 
@@ -73,7 +81,7 @@ foreach ($disciplinas as $disciplina_combinada => $info) {
     
 
     echo "<tr>";
-    echo "<td><strong>Total Transferencia:</strong></td>";
+    echo "<td><strong>Total Transferencia de $disciplina_combinada:</strong></td>";
     echo "<td colspan='5'></td>";
     echo "<td><strong>{$info['total_transferencia']}</strong></td>";
     echo "</tr>";
@@ -90,8 +98,18 @@ foreach ($disciplinas as $disciplina_combinada => $info) {
     echo "<td><strong>{$info['total_disciplina']}</strong></td>";
     echo "</tr>";
 
+    echo "<tr>";
+    echo "<td><strong>Total de Socios que abonaron $disciplina_combinada:</strong></td>";
+    echo "<td colspan='1'></td>";
+    echo "<td><strong>{$contador_socios[$disciplina_combinada]}</strong></td>";
+    echo "</tr>";
+
     $total_transferencia += $info['total_transferencia'];
     $total_efectivo += $info['total_efectivo'];
+}
+
+foreach ($contador_socios as $cantidad_socios) {
+    $total_general_socios += $cantidad_socios; // Sumar la cantidad de socios por disciplina
 }
 
 echo "<tr>";
@@ -110,6 +128,12 @@ echo "<tr>";
 echo "<td><strong>Total general:</strong></td>";
 echo "<td colspan='7'></td>";
 echo "<td><strong>$total_general</strong></td>";
+echo "</tr>";
+
+echo "<tr>";
+echo "<td><strong>Total general de Socios que Abonaron:</strong></td>";
+echo "<td colspan='1'></td>";
+echo "<td><strong>$total_general_socios</strong></td>";
 echo "</tr>";
 ?>
 
