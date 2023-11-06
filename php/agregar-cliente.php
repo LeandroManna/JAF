@@ -65,6 +65,8 @@
             <option value="Mini_Voley">Mini Voley</option>
             <option value="Taekwondo">Taekwondo</option>
             <option value="Futbol_Infantil">Futbol Infantil</option>
+            <option value="Kimax/Figth_do">Kimax | Figth do</option>
+            <option value="Personalizado">Personalizado</option>
         </select>
     </div>
 
