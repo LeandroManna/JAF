@@ -147,109 +147,125 @@
 
     <!-- RESTAR CLASES -->
     <script>
-      var isSubmitting = false;
+  var isSubmitting = false;
 
-      function restarClase(event) {
-        event.preventDefault(); // Evitar que el formulario se envíe
+  // Función para manejar la respuesta de la solicitud AJAX
+  function handleResponse(response) {
+    isSubmitting = false;
+    if (response.ok) {
+      // Cambiar el fondo a verde cuando quedan clases
+      var bgClasesElement = document.getElementById("bg-clases");
+      bgClasesElement.classList.add("bg-success");
+      // Redireccionar a "presente.php" después de 1.5 segundos
+      setTimeout(function () {
+        window.location.href = "presente.php";
+      }, 1500);
+    } else {
+      // Mostrar mensaje de error en la interfaz de usuario
+      var clasesMessage = document.getElementById("clases-message");
+      clasesMessage.innerText = "Error al actualizar las clases. Por favor, inténtelo nuevamente.";
+      bgClasesElement.classList.add("bg-danger");
+      var buttonElement = document.querySelector("button[type='submit']");
+      buttonElement.style.display = "block"; // Mostrar el botón nuevamente en caso de error
+    }
+  }
 
-        if (isSubmitting) {
-          return; // Si ya se está procesando una solicitud, salir
-        }
+  // Función para manejar errores de la solicitud AJAX
+  function handleError(error) {
+    console.log("Error de conexión: " + error);
+    isSubmitting = false;
+    var buttonElement = document.querySelector("button[type='submit']");
+    buttonElement.style.display = "block"; // Mostrar el botón nuevamente en caso de error
+    // Mostrar un mensaje de error en la interfaz de usuario
+    var clasesMessage = document.getElementById("clases-message");
+    clasesMessage.innerText = "Error de conexión. Por favor, inténtelo nuevamente.";
+    var bgClasesElement = document.getElementById("bg-clases");
+    bgClasesElement.classList.add("bg-danger");
+  }
 
-        isSubmitting = true;
+  // Función para restar una clase
+  function restarClase(event) {
+    event.preventDefault(); // Evitar que el formulario se envíe nuevamente
 
-        var buttonElement = document.querySelector("button[type='submit']");
-        buttonElement.style.display = "none"; // Ocultar el botón
+    if (isSubmitting) {
+      return; // Si ya se está procesando una solicitud, salir
+    }
 
-        var h1Element = document.getElementById("clases-count");
-        var valorActual = parseInt(h1Element.innerText);
+    isSubmitting = true;
 
-        // Obtener la fecha de vencimiento almacenada en la sesión (formato yyyy-mm-dd)
-        var fechaVencimientoStr = "<?php echo $_SESSION['fecha_vencimiento']; ?>";
+    var buttonElement = document.querySelector("button[type='submit']");
+    buttonElement.style.display = "none"; // Ocultar el botón
 
-        // Dividir la cadena en partes usando el carácter "-" como separador
-        var partesFechaVencimiento = fechaVencimientoStr.split("-");
-        var añoVencimiento = parseInt(partesFechaVencimiento[0]);
-        var mesVencimiento = parseInt(partesFechaVencimiento[1]);
-        var diaVencimiento = parseInt(partesFechaVencimiento[2]);
+    var h1Element = document.getElementById("clases-count");
+    var valorActual = parseInt(h1Element.innerText);
 
-        // Crear un objeto Date con el año, mes y día de la fecha de vencimiento
-        var fechaVencimiento = new Date(añoVencimiento, mesVencimiento - 1, diaVencimiento); // Restamos 1 al mes porque JavaScript cuenta los meses desde 0
+    // Obtener la fecha de vencimiento almacenada en la sesión (formato yyyy-mm-dd)
+    var fechaVencimientoStr = "<?php echo $_SESSION['fecha_vencimiento']; ?>";
+    var fechaVencimiento = new Date(fechaVencimientoStr);
 
-        // Obtener la fecha y hora actual en la zona horaria de Buenos Aires
-        var fechaActual = new Date();
-        fechaActual.setTime(fechaActual.getTime() + (3 * 60 * 60 * 1000)); // Ajustar a la zona horaria de Buenos Aires (3 horas de diferencia)
+    // Obtener la fecha y hora actual en la zona horaria de Buenos Aires
+    var fechaActual = new Date();
+    fechaActual.setHours(fechaActual.getHours() - 3); // Ajustar a la zona horaria de Buenos Aires (3 horas de diferencia)
 
-        // Obtener solo el año, mes y día de la fecha actual
-        var añoActual = fechaActual.getFullYear();
-        var mesActual = fechaActual.getMonth() + 1;
-        var diaActual = fechaActual.getDate();
+    var fechaVencimientoCorta = fechaVencimiento.toISOString().slice(0, 10);
+    var fechaActualCorta = fechaActual.toISOString().slice(0, 10);
 
-        //console.log ("Fecha Actual: " + añoActual + "-" + mesActual + "-" + diaActual);
-        //console.log ("Fecha Vencimiento: " + añoVencimiento + "-" + mesVencimiento + "-" + diaVencimiento);
+    // Verificar si el valor actual es mayor que 0 antes de restar
+    if (valorActual > 0 && fechaActualCorta <= fechaVencimientoCorta) {
+      try {
+        var nuevoValor = valorActual - 1;
+        h1Element.innerText = nuevoValor;
 
-        var fechaVencimientoCorta = añoVencimiento + "-" + mesVencimiento + "-" + diaVencimiento;
-        var fechaActualCorta = añoActual + "-" + mesActual + "-" + diaActual;
+        var formData = new FormData();
+        formData.append("clases", nuevoValor);
 
-        //console.log ("Fecha Actual Corta: " + fechaActualCorta);
-        //console.log ("Fecha Vencimiento Corta: " + fechaVencimientoCorta);
-
-        // Verificar si el valor actual es mayor que 0 antes de restar
-        if (valorActual > 0 && fechaActualCorta <= fechaVencimientoCorta) {
-          var nuevoValor = valorActual - 1;
-          h1Element.innerText = nuevoValor;
-
-          // Crear un objeto FormData y agregar el nuevo valor de las clases
-          var formData = new FormData();
-          formData.append("clases", nuevoValor);
-
-          // Realizar una solicitud AJAX utilizando Fetch API
-          fetch("../php/validar_presente.php", {
-            method: "POST",
-            body: formData
-          })
-          .then(function(response) {
-            isSubmitting = false;
-            // Verificar la respuesta del servidor
-            if (response.ok) {
-              // Cambiar el fondo a rojo cuando no quedan clases
-              var bgClasesElement = document.getElementById("bg-clases");
-              bgClasesElement.classList.add("bg-success");
-              // Redireccionar a "presente.php" después de 3 segundos
-              setTimeout(function() {
-                window.location.href = "presente.php";
-              }, 1500);
-            } else {
-              // Manejar cualquier error en la respuesta del servidor
-              console.log("Error al actualizar las clases");
-              // Mostrar el botón nuevamente en caso de error
-              buttonElement.style.display = "block";
-            }
-          })
-          .catch(function(error) {
-            // Manejar cualquier error de conexión
-            console.log("Error de conexión");
-          });
-        } else {
-          // Cambiar el fondo a rojo cuando no quedan clases
-          var bgClasesElement = document.getElementById("bg-clases");
-          bgClasesElement.classList.add("bg-danger");
-          // Mostrar un mensaje cuando el valor llega a 0
-          var clasesMessage = document.getElementById("clases-message");
-          clasesMessage.innerText = " Ya no le quedan clases o Ya paso su fecha de Vencimiento";
-
-          // Redireccionar a "presente.php" después de 3 segundos
-          setTimeout(function() {
-            window.location.href = "presente.php";
-          }, 1500);
-        }
+        // Realizar una solicitud AJAX utilizando Fetch API
+        fetch("../php/validar_presente.php", {
+          method: "POST",
+          body: formData,
+        })
+          .then(handleResponse)
+          .catch(handleError);
+      } catch (error) {
+        // Manejar errores en el código
+        console.log("Error en el código: " + error);
+        isSubmitting = false;
+        buttonElement.style.display = "block"; // Mostrar el botón nuevamente en caso de error
+        // Mostrar un mensaje de error en la interfaz de usuario
+        var clasesMessage = document.getElementById("clases-message");
+        clasesMessage.innerText = "Error en el código. Por favor, inténtelo nuevamente.";
+        var bgClasesElement = document.getElementById("bg-clases");
+        bgClasesElement.classList.add("bg-danger");
       }
-   
-      window.addEventListener("DOMContentLoaded", function() {
-        var buttonElement = document.querySelector("button[type='submit']");
-        buttonElement.focus();
-      });
-    </script>
+    } else {
+      // Cambiar el fondo a rojo cuando no quedan clases
+      var bgClasesElement = document.getElementById("bg-clases");
+      bgClasesElement.classList.add("bg-danger");
+      // Mostrar un mensaje cuando el valor llega a 0 o ha pasado la fecha de vencimiento
+      var clasesMessage = document.getElementById("clases-message");
+      clasesMessage.innerText = "Ya no le quedan clases o ya ha pasado su fecha de vencimiento.";
+
+      // Redireccionar a "presente.php" después de 10 segundos
+      setTimeout(function () {
+        window.location.href = "presente.php";
+      }, 1500);
+    }
+  }
+
+  // Manejar el evento 'submit' del formulario
+  document.querySelector("form").addEventListener("submit", function (event) {
+    event.preventDefault(); // Evitar el envío del formulario
+    restarClase(event);
+  });
+
+  // Manejar el evento 'keydown' para detectar la tecla "Enter" presionada
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      restarClase(event);
+    }
+  });
+</script>
+
     <!-- EL SIGUIENTE SCRIPT COLOCA EL AÑO DE FORMA AUTOMATICA EN EL COPY DEL FOOTER -->
     <script>
       var currentYear = new Date().getFullYear();
