@@ -67,6 +67,7 @@
             <option value="Futbol_Infantil">Futbol Infantil</option>
             <option value="Kimax/Figth_do">Kimax | Figth do</option>
             <option value="Personalizado">Personalizado</option>
+            <option value="Pilates">Pilates</option>
         </select>
     </div>
 

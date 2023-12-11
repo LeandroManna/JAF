@@ -139,6 +139,7 @@ if (isset($_POST['montoFam']) && isset($_POST['fecha_pagoFam']) && isset($_POST[
                 <option value="Futbol_Infantil">Futbol Infantil</option>
                 <option value="Kimax/Figth_do">Kimax | Figth do</option>
                 <option value="Personalizado">Personalizado</option>
+                <option value="Pilates">Pilates</option>
             </select>
         </div>
         <div class="mb-1 col-md-3">
@@ -158,6 +159,7 @@ if (isset($_POST['montoFam']) && isset($_POST['fecha_pagoFam']) && isset($_POST[
                 <option value="Futbol_Infantil">Futbol Infantil</option>
                 <option value="Kimax/Figth_do">Kimax | Figth do</option>
                 <option value="Personalizado">Personalizado</option>
+                <option value="Pilates">Pilates</option>
                 <option value=" ">Eliminar</option>
             </select>
         </div>
