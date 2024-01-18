@@ -58,7 +58,7 @@
             <option value="Body_Pump">Body Pump</option>
             <option value="body_Combat">Body Combat</option>
             <option value="Funcional">Funcional</option>
-            <option value="URKU">URKU</option>
+            <option value="RUNNING">RUNNING</option>
             <option value="Especifico">Especifico</option>
             <option value="Everlast_Boxing">Everlast Boxing</option>
             <option value="Ritmos_Flow">Ritmos Flow</option>
